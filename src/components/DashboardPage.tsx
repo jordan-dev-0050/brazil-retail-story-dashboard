@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { buildKpiCards, filterOptions } from '../data/dashboardData';
 import type { DateRangeId, FilterId } from '../data/dashboardTypes';
-import type { MapMetric } from '../data/dashboardMock';
+import type { MapMetric, TimeGranularity } from '../data/dashboardMock';
 import { BrazilMapPanel } from './BrazilMapPanel';
 import { CategorySharePanel } from './CategorySharePanel';
 import { DelayReviewPanel } from './DelayReviewPanel';
@@ -19,6 +19,7 @@ const initialFilterValues = Object.fromEntries(
 export function DashboardPage() {
   const [filters, setFilters] = useState<Record<FilterId, string>>(initialFilterValues);
   const [mapMetric, setMapMetric] = useState<MapMetric>('orders');
+  const [timeGranularity, setTimeGranularity] = useState<TimeGranularity>('weekly');
 
   const selectedRangeId = filters.dateRange as DateRangeId;
   const kpiCards = buildKpiCards(selectedRangeId);
@@ -32,7 +33,7 @@ export function DashboardPage() {
       <div className="mx-auto flex max-w-[1440px] flex-col gap-6">
         <FilterBar values={filters} onChange={updateFilter} />
 
-        <section className="grid gap-4 sm:grid-cols-2">
+        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
           {kpiCards.map((card) => (
             <KpiCard key={card.title} {...card} />
           ))}
@@ -40,7 +41,11 @@ export function DashboardPage() {
 
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)]">
           <BrazilMapPanel metric={mapMetric} onMetricChange={setMapMetric} />
-          <TimeTrendPanel rangeId={selectedRangeId} />
+          <TimeTrendPanel
+            granularity={timeGranularity}
+            onGranularityChange={setTimeGranularity}
+            rangeId={selectedRangeId}
+          />
         </section>
 
         <section className="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
