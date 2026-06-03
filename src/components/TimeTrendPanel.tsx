@@ -14,8 +14,8 @@ import {
   formatOrderCountCompact,
   getMonthlySeries,
   getTimeTrendSummary,
-} from '../data/phase2DashboardData';
-import type { DateRangeId } from '../data/phase2DashboardTypes';
+} from '../data/dashboardData';
+import type { DateRangeId } from '../data/dashboardTypes';
 import { ChartCard } from './ChartCard';
 
 type TimeTrendPanelProps = {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { buildKpiCards, filterOptions } from '../data/phase2DashboardData';
-import type { DateRangeId, FilterId } from '../data/phase2DashboardTypes';
+import { buildKpiCards, filterOptions } from '../data/dashboardData';
+import type { DateRangeId, FilterId } from '../data/dashboardTypes';
 import type { MapMetric } from '../data/dashboardMock';
 import { BrazilMapPanel } from './BrazilMapPanel';
 import { CategorySharePanel } from './CategorySharePanel';

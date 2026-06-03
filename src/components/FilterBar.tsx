@@ -1,6 +1,6 @@
 import type { ChangeEvent } from 'react';
-import { filterOptions } from '../data/phase2DashboardData';
-import type { FilterId } from '../data/phase2DashboardTypes';
+import { filterOptions } from '../data/dashboardData';
+import type { FilterId } from '../data/dashboardTypes';
 import { BoxIcon, CalendarIcon, CardIcon, ChevronDownIcon, MapPinIcon } from './Icons';
 
 type FilterBarProps = {

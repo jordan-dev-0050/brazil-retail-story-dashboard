@@ -70,17 +70,17 @@ export const filterOptions: Record<FilterId, FilterConfig> = {
   },
   customerState: {
     label: 'Customer State',
-    options: [{ label: 'All States (Phase 3)', value: 'all-states' }],
+    options: [{ label: 'All States', value: 'all-states' }],
     disabled: true,
   },
   productCategory: {
     label: 'Product Category',
-    options: [{ label: 'All Categories (Phase 3)', value: 'all-categories' }],
+    options: [{ label: 'All Categories', value: 'all-categories' }],
     disabled: true,
   },
   paymentType: {
     label: 'Payment Type',
-    options: [{ label: 'All Payment Types (Phase 3)', value: 'all-payments' }],
+    options: [{ label: 'All Payment Types', value: 'all-payments' }],
     disabled: true,
   },
 };
