@@ -1,5 +1,6 @@
 import type { ChangeEvent } from 'react';
-import { filterOptions, type FilterId } from '../data/dashboardMock';
+import { filterOptions } from '../data/phase2DashboardData';
+import type { FilterId } from '../data/phase2DashboardTypes';
 import { BoxIcon, CalendarIcon, CardIcon, ChevronDownIcon, MapPinIcon } from './Icons';
 
 type FilterBarProps = {
@@ -34,7 +35,9 @@ export function FilterBar({ values, onChange }: FilterBarProps) {
         return (
           <label
             key={id}
-            className="relative flex items-center gap-3 rounded-[24px] border border-white/80 bg-white/95 px-4 py-4 shadow-panel backdrop-blur"
+            className={`relative flex items-center gap-3 rounded-[24px] border border-white/80 bg-white/95 px-4 py-4 shadow-panel backdrop-blur ${
+              config.disabled ? 'opacity-70' : ''
+            }`}
           >
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-50 text-slate">
               <Icon className="h-5 w-5" />
@@ -42,9 +45,12 @@ export function FilterBar({ values, onChange }: FilterBarProps) {
             <div className="min-w-0 flex-1">
               <span className="block text-sm font-medium text-slate">{config.label}</span>
               <select
+                disabled={config.disabled}
                 value={values[id]}
                 onChange={handleChange(id)}
-                className="mt-1 w-full appearance-none bg-transparent pr-8 text-base font-medium text-ink outline-none"
+                className={`mt-1 w-full appearance-none bg-transparent pr-8 text-base font-medium outline-none ${
+                  config.disabled ? 'cursor-not-allowed text-slate' : 'text-ink'
+                }`}
               >
                 {config.options.map((option) => (
                   <option key={option.value} value={option.value}>

@@ -1,0 +1,295 @@
+{
+  "metadata": {
+    "source": "olist",
+    "version": "0.1.0",
+    "generatedAt": "2026-06-03T13:57:58.989Z",
+    "currency": "BRL",
+    "timeAxis": "order_purchase_timestamp",
+    "grain": "month",
+    "orderPopulation": "delivered_orders_only",
+    "coverageStart": "2017-01-01",
+    "coverageEnd": "2018-08-31"
+  },
+  "dateRanges": [
+    {
+      "id": "all",
+      "label": "All Period (2017-01 to 2018-08)",
+      "start": "2017-01-01",
+      "end": "2018-08-31"
+    },
+    {
+      "id": "2017",
+      "label": "2017 Full Year",
+      "start": "2017-01-01",
+      "end": "2017-12-31"
+    },
+    {
+      "id": "2018_ytd",
+      "label": "2018 YTD (Jan-Aug)",
+      "start": "2018-01-01",
+      "end": "2018-08-31"
+    }
+  ],
+  "kpisByRange": {
+    "2017": {
+      "totalOrders": 43428,
+      "totalGmv": 5962902.01
+    },
+    "all": {
+      "totalOrders": 96211,
+      "totalGmv": 13181027.13
+    },
+    "2018_ytd": {
+      "totalOrders": 52783,
+      "totalGmv": 7218125.12
+    }
+  },
+  "monthlySeriesByRange": {
+    "2017": [
+      {
+        "month": "2017-01",
+        "label": "Jan '17",
+        "orders": 750,
+        "gmv": 111798.36
+      },
+      {
+        "month": "2017-02",
+        "label": "Feb '17",
+        "orders": 1653,
+        "gmv": 234223.4
+      },
+      {
+        "month": "2017-03",
+        "label": "Mar '17",
+        "orders": 2546,
+        "gmv": 359198.85
+      },
+      {
+        "month": "2017-04",
+        "label": "Apr '17",
+        "orders": 2303,
+        "gmv": 340669.68
+      },
+      {
+        "month": "2017-05",
+        "label": "May '17",
+        "orders": 3546,
+        "gmv": 489338.25
+      },
+      {
+        "month": "2017-06",
+        "label": "Jun '17",
+        "orders": 3135,
+        "gmv": 421923.37
+      },
+      {
+        "month": "2017-07",
+        "label": "Jul '17",
+        "orders": 3872,
+        "gmv": 481604.52
+      },
+      {
+        "month": "2017-08",
+        "label": "Aug '17",
+        "orders": 4193,
+        "gmv": 554699.7
+      },
+      {
+        "month": "2017-09",
+        "label": "Sep '17",
+        "orders": 4150,
+        "gmv": 607399.67
+      },
+      {
+        "month": "2017-10",
+        "label": "Oct '17",
+        "orders": 4478,
+        "gmv": 648247.65
+      },
+      {
+        "month": "2017-11",
+        "label": "Nov '17",
+        "orders": 7289,
+        "gmv": 987765.37
+      },
+      {
+        "month": "2017-12",
+        "label": "Dec '17",
+        "orders": 5513,
+        "gmv": 726033.19
+      }
+    ],
+    "all": [
+      {
+        "month": "2017-01",
+        "label": "Jan '17",
+        "orders": 750,
+        "gmv": 111798.36
+      },
+      {
+        "month": "2017-02",
+        "label": "Feb '17",
+        "orders": 1653,
+        "gmv": 234223.4
+      },
+      {
+        "month": "2017-03",
+        "label": "Mar '17",
+        "orders": 2546,
+        "gmv": 359198.85
+      },
+      {
+        "month": "2017-04",
+        "label": "Apr '17",
+        "orders": 2303,
+        "gmv": 340669.68
+      },
+      {
+        "month": "2017-05",
+        "label": "May '17",
+        "orders": 3546,
+        "gmv": 489338.25
+      },
+      {
+        "month": "2017-06",
+        "label": "Jun '17",
+        "orders": 3135,
+        "gmv": 421923.37
+      },
+      {
+        "month": "2017-07",
+        "label": "Jul '17",
+        "orders": 3872,
+        "gmv": 481604.52
+      },
+      {
+        "month": "2017-08",
+        "label": "Aug '17",
+        "orders": 4193,
+        "gmv": 554699.7
+      },
+      {
+        "month": "2017-09",
+        "label": "Sep '17",
+        "orders": 4150,
+        "gmv": 607399.67
+      },
+      {
+        "month": "2017-10",
+        "label": "Oct '17",
+        "orders": 4478,
+        "gmv": 648247.65
+      },
+      {
+        "month": "2017-11",
+        "label": "Nov '17",
+        "orders": 7289,
+        "gmv": 987765.37
+      },
+      {
+        "month": "2017-12",
+        "label": "Dec '17",
+        "orders": 5513,
+        "gmv": 726033.19
+      },
+      {
+        "month": "2018-01",
+        "label": "Jan '18",
+        "orders": 7069,
+        "gmv": 924645
+      },
+      {
+        "month": "2018-02",
+        "label": "Feb '18",
+        "orders": 6555,
+        "gmv": 826437.13
+      },
+      {
+        "month": "2018-03",
+        "label": "Mar '18",
+        "orders": 7003,
+        "gmv": 953356.25
+      },
+      {
+        "month": "2018-04",
+        "label": "Apr '18",
+        "orders": 6798,
+        "gmv": 973534.09
+      },
+      {
+        "month": "2018-05",
+        "label": "May '18",
+        "orders": 6749,
+        "gmv": 977544.69
+      },
+      {
+        "month": "2018-06",
+        "label": "Jun '18",
+        "orders": 6099,
+        "gmv": 856077.86
+      },
+      {
+        "month": "2018-07",
+        "label": "Jul '18",
+        "orders": 6159,
+        "gmv": 867953.46
+      },
+      {
+        "month": "2018-08",
+        "label": "Aug '18",
+        "orders": 6351,
+        "gmv": 838576.64
+      }
+    ],
+    "2018_ytd": [
+      {
+        "month": "2018-01",
+        "label": "Jan '18",
+        "orders": 7069,
+        "gmv": 924645
+      },
+      {
+        "month": "2018-02",
+        "label": "Feb '18",
+        "orders": 6555,
+        "gmv": 826437.13
+      },
+      {
+        "month": "2018-03",
+        "label": "Mar '18",
+        "orders": 7003,
+        "gmv": 953356.25
+      },
+      {
+        "month": "2018-04",
+        "label": "Apr '18",
+        "orders": 6798,
+        "gmv": 973534.09
+      },
+      {
+        "month": "2018-05",
+        "label": "May '18",
+        "orders": 6749,
+        "gmv": 977544.69
+      },
+      {
+        "month": "2018-06",
+        "label": "Jun '18",
+        "orders": 6099,
+        "gmv": 856077.86
+      },
+      {
+        "month": "2018-07",
+        "label": "Jul '18",
+        "orders": 6159,
+        "gmv": 867953.46
+      },
+      {
+        "month": "2018-08",
+        "label": "Aug '18",
+        "orders": 6351,
+        "gmv": 838576.64
+      }
+    ]
+  }
+}

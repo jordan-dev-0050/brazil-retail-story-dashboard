@@ -1,11 +1,7 @@
 import { useState } from 'react';
-import {
-  filterOptions,
-  kpiCards,
-  type FilterId,
-  type MapMetric,
-  type TimeGranularity,
-} from '../data/dashboardMock';
+import { buildKpiCards, filterOptions } from '../data/phase2DashboardData';
+import type { DateRangeId, FilterId } from '../data/phase2DashboardTypes';
+import type { MapMetric } from '../data/dashboardMock';
 import { BrazilMapPanel } from './BrazilMapPanel';
 import { CategorySharePanel } from './CategorySharePanel';
 import { DelayReviewPanel } from './DelayReviewPanel';
@@ -23,7 +19,9 @@ const initialFilterValues = Object.fromEntries(
 export function DashboardPage() {
   const [filters, setFilters] = useState<Record<FilterId, string>>(initialFilterValues);
   const [mapMetric, setMapMetric] = useState<MapMetric>('orders');
-  const [timeGranularity, setTimeGranularity] = useState<TimeGranularity>('weekly');
+
+  const selectedRangeId = filters.dateRange as DateRangeId;
+  const kpiCards = buildKpiCards(selectedRangeId);
 
   const updateFilter = (id: FilterId, value: string) => {
     setFilters((current) => ({ ...current, [id]: value }));
@@ -34,7 +32,7 @@ export function DashboardPage() {
       <div className="mx-auto flex max-w-[1440px] flex-col gap-6">
         <FilterBar values={filters} onChange={updateFilter} />
 
-        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+        <section className="grid gap-4 sm:grid-cols-2">
           {kpiCards.map((card) => (
             <KpiCard key={card.title} {...card} />
           ))}
@@ -42,10 +40,7 @@ export function DashboardPage() {
 
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)]">
           <BrazilMapPanel metric={mapMetric} onMetricChange={setMapMetric} />
-          <TimeTrendPanel
-            granularity={timeGranularity}
-            onGranularityChange={setTimeGranularity}
-          />
+          <TimeTrendPanel rangeId={selectedRangeId} />
         </section>
 
         <section className="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">

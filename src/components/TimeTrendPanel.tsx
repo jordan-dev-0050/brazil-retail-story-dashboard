@@ -8,55 +8,63 @@ import {
   YAxis,
 } from 'recharts';
 import {
-  timeTrendHighlights,
-  timeTrendSeries,
-  type TimeGranularity,
-} from '../data/dashboardMock';
+  formatCurrency,
+  formatCurrencyCompact,
+  formatOrderCount,
+  formatOrderCountCompact,
+  getMonthlySeries,
+  getTimeTrendSummary,
+} from '../data/phase2DashboardData';
+import type { DateRangeId } from '../data/phase2DashboardTypes';
 import { ChartCard } from './ChartCard';
-import { ToggleTabs } from './ToggleTabs';
 
 type TimeTrendPanelProps = {
-  granularity: TimeGranularity;
-  onGranularityChange: (value: TimeGranularity) => void;
+  rangeId: DateRangeId;
 };
-
-const timeTabs = [
-  { label: 'Daily', value: 'daily' },
-  { label: 'Weekly', value: 'weekly' },
-  { label: 'Monthly', value: 'monthly' },
-] satisfies Array<{ label: string; value: TimeGranularity }>;
 
 const numberFormatter = new Intl.NumberFormat('en-US');
 
-export function TimeTrendPanel({ granularity, onGranularityChange }: TimeTrendPanelProps) {
-  const data = timeTrendSeries[granularity];
+export function TimeTrendPanel({ rangeId }: TimeTrendPanelProps) {
+  const data = getMonthlySeries(rangeId);
+  const summary = getTimeTrendSummary(rangeId);
 
   return (
     <ChartCard
       title="Time Trend"
-      subtitle="Orders / GMV / Late Delivery Over Time"
-      actions={<ToggleTabs options={timeTabs} value={granularity} onChange={onGranularityChange} />}
+      subtitle="Delivered orders and GMV by order purchase month"
       footer={
         <div className="grid gap-3 md:grid-cols-3">
-          {timeTrendHighlights.map((item) => (
-            <div
-              key={item.label}
-              className="rounded-[20px] border border-slate-200 bg-slate-50/70 px-4 py-3"
-            >
-              <p className="text-xs uppercase tracking-[0.08em] text-slate">{item.label}</p>
-              <div className="mt-1 flex items-end justify-between gap-3">
-                <p className="text-2xl font-semibold tracking-[-0.03em] text-ink">{item.value}</p>
-                <p className="text-sm font-medium text-emerald-600">{item.delta}</p>
-              </div>
-            </div>
-          ))}
+          <div className="rounded-[20px] border border-slate-200 bg-slate-50/70 px-4 py-3">
+            <p className="text-xs uppercase tracking-[0.08em] text-slate">Selected Window</p>
+            <p className="mt-1 text-lg font-semibold tracking-[-0.03em] text-ink">
+              {summary.rangeLabel}
+            </p>
+            <p className="mt-1 text-sm text-slate">
+              {summary.rangeStart} to {summary.rangeEnd}
+            </p>
+          </div>
+          <div className="rounded-[20px] border border-slate-200 bg-slate-50/70 px-4 py-3">
+            <p className="text-xs uppercase tracking-[0.08em] text-slate">Avg Orders / Month</p>
+            <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">
+              {formatOrderCountCompact(summary.averageOrders)}
+            </p>
+            <p className="mt-1 text-sm text-slate">{summary.monthsCovered} months covered</p>
+          </div>
+          <div className="rounded-[20px] border border-slate-200 bg-slate-50/70 px-4 py-3">
+            <p className="text-xs uppercase tracking-[0.08em] text-slate">Avg GMV / Month</p>
+            <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">
+              {formatCurrencyCompact(summary.averageGmv)}
+            </p>
+            <p className="mt-1 text-sm text-slate">
+              Total {formatCurrency(summary.averageGmv * summary.monthsCovered)}
+            </p>
+          </div>
         </div>
       }
     >
       <div className="mb-4 flex flex-wrap items-center gap-5 text-sm text-slate">
         <span className="font-medium text-accent-blue">Orders</span>
         <span className="font-medium text-accent-teal">GMV (R$)</span>
-        <span className="font-medium text-accent-orange">Late Delivery Rate (%)</span>
       </div>
 
       <div className="h-[320px]">
@@ -74,7 +82,7 @@ export function TimeTrendPanel({ granularity, onGranularityChange }: TimeTrendPa
               tickLine={false}
               axisLine={false}
               tick={{ fill: '#6B7891', fontSize: 12 }}
-              tickFormatter={(value) => `${value / 1000}K`}
+              tickFormatter={(value) => `${Math.round(value / 1000)}K`}
             />
             <YAxis
               yAxisId="gmv"
@@ -84,7 +92,6 @@ export function TimeTrendPanel({ granularity, onGranularityChange }: TimeTrendPa
               tick={{ fill: '#4DB98A', fontSize: 12 }}
               tickFormatter={(value) => `${value / 1000000}M`}
             />
-            <YAxis yAxisId="delay" hide domain={[0, 25]} />
             <Tooltip
               cursor={{ stroke: '#C7D5EA', strokeDasharray: '4 4' }}
               contentStyle={{
@@ -93,15 +100,11 @@ export function TimeTrendPanel({ granularity, onGranularityChange }: TimeTrendPa
                 boxShadow: '0 20px 40px -30px rgba(45, 70, 116, 0.4)',
               }}
               formatter={(value: number, name: string) => {
-                if (name === 'delayRate') {
-                  return [`${value}%`, 'Late Delivery Rate'];
-                }
-
                 if (name === 'gmv') {
                   return [`R$${numberFormatter.format(value)}`, 'GMV'];
                 }
 
-                return [numberFormatter.format(value), 'Orders'];
+                return [formatOrderCount(value), 'Orders'];
               }}
             />
             <Line
@@ -118,15 +121,6 @@ export function TimeTrendPanel({ granularity, onGranularityChange }: TimeTrendPa
               dataKey="gmv"
               yAxisId="gmv"
               stroke="#4DB98A"
-              strokeWidth={3}
-              dot={false}
-              activeDot={{ r: 5 }}
-            />
-            <Line
-              type="monotone"
-              dataKey="delayRate"
-              yAxisId="delay"
-              stroke="#FF9D3F"
               strokeWidth={3}
               dot={false}
               activeDot={{ r: 5 }}

@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "generate:phase2-artifact": "node scripts/generate-phase2-dashboard-artifact.mjs",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:phase2-artifact": "node scripts/verify-phase2-dashboard-artifact.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
