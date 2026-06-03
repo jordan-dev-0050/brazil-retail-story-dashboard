@@ -220,6 +220,7 @@ type DashboardDataSource = {
 
 #### 產出物
 
+- [documents/implements/F02-real-data-phase2-artifact-generation.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F02-real-data-phase2-artifact-generation.md)
 - 一份真資料 artifact 檔案。
 - 一份簡短的人眼核對說明，記錄 KPI 與月序列的對帳方式。
 
