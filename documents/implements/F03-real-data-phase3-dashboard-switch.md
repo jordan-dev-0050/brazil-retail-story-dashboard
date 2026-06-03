@@ -75,3 +75,32 @@ version: 0.1
 3. 更新 imports 與 placeholder labels。
 4. 執行 build 驗證。
 5. 將仍然使用 mock-backed 的區塊明確記錄為後續 phase 工作，而不是隱性技術債。
+
+## 執行紀錄
+
+### 狀態
+- 於 2026-06-03 完成執行。
+- 本次檢查時，既有程式碼已符合 F03 範圍，因此不需要額外修改原始碼。
+
+### 已確認的真實資料範圍
+- `src/data/dashboardData.ts` 已作為 app-facing dashboard facade，底層資料來源為 `src/data/phase2DashboardArtifact.json`。
+- `src/data/dashboardTypes.ts` 已對 UI 層重新匯出 phase2-backed 的 dashboard 型別契約。
+- `src/components/DashboardPage.tsx` 已使用 facade 驅動的日期範圍與 KPI 卡片。
+- `src/components/FilterBar.tsx` 已渲染 artifact-backed 的日期範圍選單，並將 state/category/payment filters 維持為 disabled placeholder。
+- `src/components/TimeTrendPanel.tsx` 已使用所選範圍對應的 artifact-backed 月度 orders 與 GMV 趨勢資料。
+
+### 刻意保留為 Mock-backed 的範圍
+- `src/components/BrazilMapPanel.tsx`
+- `src/components/OnTimeDelayPanel.tsx`
+- `src/components/FreightDistributionPanel.tsx`
+- `src/components/DelayReviewPanel.tsx`
+- `src/components/CategorySharePanel.tsx`
+- `src/components/PaymentMixPanel.tsx`
+
+### 驗證指令
+- `npm run build`
+- `npm run test:phase2-artifact`
+
+### 驗證結果
+- `npm run build`：通過。Vite 對主 bundle 提示非阻塞的 chunk size warning，minify 後約 `593 kB`。
+- `npm run test:phase2-artifact`：通過。
