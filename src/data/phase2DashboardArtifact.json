@@ -1,8 +1,8 @@
 {
   "metadata": {
     "source": "olist",
-    "version": "0.1.0",
-    "generatedAt": "2026-06-03T13:57:58.989Z",
+    "version": "0.2.0",
+    "generatedAt": "2026-06-04T03:18:43.724Z",
     "currency": "BRL",
     "timeAxis": "order_purchase_timestamp",
     "grain": "month",
@@ -291,5 +291,1174 @@
         "gmv": 838576.64
       }
     ]
+  },
+  "paymentPanelsByRange": {
+    "2017": {
+      "paymentTypeOptions": [
+        {
+          "value": "all",
+          "label": "All Payment Types",
+          "orderCount": 43428
+        },
+        {
+          "value": "credit_card",
+          "label": "Credit Card",
+          "orderCount": 33157
+        },
+        {
+          "value": "boleto",
+          "label": "Boleto",
+          "orderCount": 9142
+        },
+        {
+          "value": "voucher",
+          "label": "Voucher",
+          "orderCount": 1850
+        },
+        {
+          "value": "debit_card",
+          "label": "Debit Card",
+          "orderCount": 406
+        }
+      ],
+      "slicesByPaymentType": {
+        "all": {
+          "paymentType": "all",
+          "orderCount": 43428,
+          "paymentRowCount": 45725,
+          "freightDistribution": {
+            "totalOrders": 43428,
+            "totalFreightValue": 958633.23,
+            "avgFreightValue": 22.07,
+            "medianFreightValue": 16.6,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 3685
+              },
+              {
+                "band": "10-20",
+                "orderCount": 25823
+              },
+              {
+                "band": "20-30",
+                "orderCount": 6760
+              },
+              {
+                "band": "30-40",
+                "orderCount": 3451
+              },
+              {
+                "band": "40-50",
+                "orderCount": 1407
+              },
+              {
+                "band": "50-75",
+                "orderCount": 1435
+              },
+              {
+                "band": "75-100",
+                "orderCount": 472
+              },
+              {
+                "band": "100+",
+                "orderCount": 395
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 45725,
+            "totalPaymentValue": 6922900.24,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 33305,
+                "paymentValue": 5386253.99
+              },
+              {
+                "paymentType": "boleto",
+                "label": "Boleto",
+                "paymentRowCount": 9142,
+                "paymentValue": 1330026.39
+              },
+              {
+                "paymentType": "voucher",
+                "label": "Voucher",
+                "paymentRowCount": 2872,
+                "paymentValue": 164661.87
+              },
+              {
+                "paymentType": "debit_card",
+                "label": "Debit Card",
+                "paymentRowCount": 406,
+                "paymentValue": 41957.99
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 43428,
+            "onTimeOrderCount": 40973,
+            "delayedOrderCount": 2455,
+            "onTimeRate": 94.35,
+            "delayedRate": 5.65
+          }
+        },
+        "credit_card": {
+          "paymentType": "credit_card",
+          "orderCount": 33157,
+          "paymentRowCount": 34949,
+          "freightDistribution": {
+            "totalOrders": 33157,
+            "totalFreightValue": 734471.37,
+            "avgFreightValue": 22.15,
+            "medianFreightValue": 16.78,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 2705
+              },
+              {
+                "band": "10-20",
+                "orderCount": 19618
+              },
+              {
+                "band": "20-30",
+                "orderCount": 5284
+              },
+              {
+                "band": "30-40",
+                "orderCount": 2706
+              },
+              {
+                "band": "40-50",
+                "orderCount": 1086
+              },
+              {
+                "band": "50-75",
+                "orderCount": 1102
+              },
+              {
+                "band": "75-100",
+                "orderCount": 359
+              },
+              {
+                "band": "100+",
+                "orderCount": 297
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 34949,
+            "totalPaymentValue": 5481414.54,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 33305,
+                "paymentValue": 5386253.99
+              },
+              {
+                "paymentType": "voucher",
+                "label": "Voucher",
+                "paymentRowCount": 1644,
+                "paymentValue": 95160.55
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 33157,
+            "onTimeOrderCount": 31316,
+            "delayedOrderCount": 1841,
+            "onTimeRate": 94.45,
+            "delayedRate": 5.55
+          }
+        },
+        "boleto": {
+          "paymentType": "boleto",
+          "orderCount": 9142,
+          "paymentRowCount": 9142,
+          "freightDistribution": {
+            "totalOrders": 9142,
+            "totalFreightValue": 203863.03,
+            "avgFreightValue": 22.3,
+            "medianFreightValue": 16.22,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 817
+              },
+              {
+                "band": "10-20",
+                "orderCount": 5479
+              },
+              {
+                "band": "20-30",
+                "orderCount": 1331
+              },
+              {
+                "band": "30-40",
+                "orderCount": 698
+              },
+              {
+                "band": "40-50",
+                "orderCount": 305
+              },
+              {
+                "band": "50-75",
+                "orderCount": 312
+              },
+              {
+                "band": "75-100",
+                "orderCount": 104
+              },
+              {
+                "band": "100+",
+                "orderCount": 96
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 9142,
+            "totalPaymentValue": 1330026.39,
+            "entries": [
+              {
+                "paymentType": "boleto",
+                "label": "Boleto",
+                "paymentRowCount": 9142,
+                "paymentValue": 1330026.39
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 9142,
+            "onTimeOrderCount": 8592,
+            "delayedOrderCount": 550,
+            "onTimeRate": 93.98,
+            "delayedRate": 6.02
+          }
+        },
+        "voucher": {
+          "paymentType": "voucher",
+          "orderCount": 1850,
+          "paymentRowCount": 4001,
+          "freightDistribution": {
+            "totalOrders": 1850,
+            "totalFreightValue": 37067.06,
+            "avgFreightValue": 20.04,
+            "medianFreightValue": 16.11,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 187
+              },
+              {
+                "band": "10-20",
+                "orderCount": 1147
+              },
+              {
+                "band": "20-30",
+                "orderCount": 286
+              },
+              {
+                "band": "30-40",
+                "orderCount": 107
+              },
+              {
+                "band": "40-50",
+                "orderCount": 46
+              },
+              {
+                "band": "50-75",
+                "orderCount": 52
+              },
+              {
+                "band": "75-100",
+                "orderCount": 19
+              },
+              {
+                "band": "100+",
+                "orderCount": 6
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 4001,
+            "totalPaymentValue": 237189.02,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 1129,
+                "paymentValue": 72527.15
+              },
+              {
+                "paymentType": "voucher",
+                "label": "Voucher",
+                "paymentRowCount": 2872,
+                "paymentValue": 164661.87
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 1850,
+            "onTimeOrderCount": 1750,
+            "delayedOrderCount": 100,
+            "onTimeRate": 94.59,
+            "delayedRate": 5.41
+          }
+        },
+        "debit_card": {
+          "paymentType": "debit_card",
+          "orderCount": 406,
+          "paymentRowCount": 406,
+          "freightDistribution": {
+            "totalOrders": 406,
+            "totalFreightValue": 7229.17,
+            "avgFreightValue": 17.81,
+            "medianFreightValue": 15.1,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 66
+              },
+              {
+                "band": "10-20",
+                "orderCount": 256
+              },
+              {
+                "band": "20-30",
+                "orderCount": 51
+              },
+              {
+                "band": "30-40",
+                "orderCount": 16
+              },
+              {
+                "band": "40-50",
+                "orderCount": 6
+              },
+              {
+                "band": "50-75",
+                "orderCount": 7
+              },
+              {
+                "band": "75-100",
+                "orderCount": 4
+              },
+              {
+                "band": "100+",
+                "orderCount": 0
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 406,
+            "totalPaymentValue": 41957.99,
+            "entries": [
+              {
+                "paymentType": "debit_card",
+                "label": "Debit Card",
+                "paymentRowCount": 406,
+                "paymentValue": 41957.99
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 406,
+            "onTimeOrderCount": 381,
+            "delayedOrderCount": 25,
+            "onTimeRate": 93.84,
+            "delayedRate": 6.16
+          }
+        }
+      }
+    },
+    "all": {
+      "paymentTypeOptions": [
+        {
+          "value": "all",
+          "label": "All Payment Types",
+          "orderCount": 96211
+        },
+        {
+          "value": "credit_card",
+          "label": "Credit Card",
+          "orderCount": 74095
+        },
+        {
+          "value": "boleto",
+          "label": "Boleto",
+          "orderCount": 19140
+        },
+        {
+          "value": "voucher",
+          "label": "Voucher",
+          "orderCount": 3670
+        },
+        {
+          "value": "debit_card",
+          "label": "Debit Card",
+          "orderCount": 1483
+        }
+      ],
+      "slicesByPaymentType": {
+        "all": {
+          "paymentType": "all",
+          "orderCount": 96211,
+          "paymentRowCount": 100473,
+          "freightDistribution": {
+            "totalOrders": 96211,
+            "totalFreightValue": 2192092.88,
+            "avgFreightValue": 22.78,
+            "medianFreightValue": 17.17,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 11054
+              },
+              {
+                "band": "10-20",
+                "orderCount": 52204
+              },
+              {
+                "band": "20-30",
+                "orderCount": 16282
+              },
+              {
+                "band": "30-40",
+                "orderCount": 7280
+              },
+              {
+                "band": "40-50",
+                "orderCount": 3302
+              },
+              {
+                "band": "50-75",
+                "orderCount": 3861
+              },
+              {
+                "band": "75-100",
+                "orderCount": 1170
+              },
+              {
+                "band": "100+",
+                "orderCount": 1058
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 100473,
+            "totalPaymentValue": 15375875.44,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 74376,
+                "paymentValue": 12063100.59
+              },
+              {
+                "paymentType": "boleto",
+                "label": "Boleto",
+                "paymentRowCount": 19140,
+                "paymentValue": 2762300.8
+              },
+              {
+                "paymentType": "voucher",
+                "label": "Voucher",
+                "paymentRowCount": 5473,
+                "paymentValue": 342294.66
+              },
+              {
+                "paymentType": "debit_card",
+                "label": "Debit Card",
+                "paymentRowCount": 1484,
+                "paymentValue": 208179.39
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 96211,
+            "onTimeOrderCount": 89672,
+            "delayedOrderCount": 6539,
+            "onTimeRate": 93.2,
+            "delayedRate": 6.8
+          }
+        },
+        "credit_card": {
+          "paymentType": "credit_card",
+          "orderCount": 74095,
+          "paymentRowCount": 77416,
+          "freightDistribution": {
+            "totalOrders": 74095,
+            "totalFreightValue": 1693920.36,
+            "avgFreightValue": 22.86,
+            "medianFreightValue": 17.37,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 8348
+              },
+              {
+                "band": "10-20",
+                "orderCount": 39951
+              },
+              {
+                "band": "20-30",
+                "orderCount": 12763
+              },
+              {
+                "band": "30-40",
+                "orderCount": 5708
+              },
+              {
+                "band": "40-50",
+                "orderCount": 2594
+              },
+              {
+                "band": "50-75",
+                "orderCount": 3026
+              },
+              {
+                "band": "75-100",
+                "orderCount": 893
+              },
+              {
+                "band": "100+",
+                "orderCount": 812
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 77416,
+            "totalPaymentValue": 12248153.72,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 74376,
+                "paymentValue": 12063100.59
+              },
+              {
+                "paymentType": "voucher",
+                "label": "Voucher",
+                "paymentRowCount": 3039,
+                "paymentValue": 185003.13
+              },
+              {
+                "paymentType": "debit_card",
+                "label": "Debit Card",
+                "paymentRowCount": 1,
+                "paymentValue": 50
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 74095,
+            "onTimeOrderCount": 69127,
+            "delayedOrderCount": 4968,
+            "onTimeRate": 93.3,
+            "delayedRate": 6.7
+          }
+        },
+        "boleto": {
+          "paymentType": "boleto",
+          "orderCount": 19140,
+          "paymentRowCount": 19140,
+          "freightDistribution": {
+            "totalOrders": 19140,
+            "totalFreightValue": 438913.03,
+            "avgFreightValue": 22.93,
+            "medianFreightValue": 16.86,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 2213
+              },
+              {
+                "band": "10-20",
+                "orderCount": 10578
+              },
+              {
+                "band": "20-30",
+                "orderCount": 3077
+              },
+              {
+                "band": "30-40",
+                "orderCount": 1410
+              },
+              {
+                "band": "40-50",
+                "orderCount": 639
+              },
+              {
+                "band": "50-75",
+                "orderCount": 745
+              },
+              {
+                "band": "75-100",
+                "orderCount": 249
+              },
+              {
+                "band": "100+",
+                "orderCount": 229
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 19140,
+            "totalPaymentValue": 2762300.8,
+            "entries": [
+              {
+                "paymentType": "boleto",
+                "label": "Boleto",
+                "paymentRowCount": 19140,
+                "paymentValue": 2762300.8
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 19140,
+            "onTimeOrderCount": 17736,
+            "delayedOrderCount": 1404,
+            "onTimeRate": 92.66,
+            "delayedRate": 7.34
+          }
+        },
+        "voucher": {
+          "paymentType": "voucher",
+          "orderCount": 3670,
+          "paymentRowCount": 7652,
+          "freightDistribution": {
+            "totalOrders": 3670,
+            "totalFreightValue": 77740.42,
+            "avgFreightValue": 21.18,
+            "medianFreightValue": 16.79,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 432
+              },
+              {
+                "band": "10-20",
+                "orderCount": 2098
+              },
+              {
+                "band": "20-30",
+                "orderCount": 612
+              },
+              {
+                "band": "30-40",
+                "orderCount": 242
+              },
+              {
+                "band": "40-50",
+                "orderCount": 102
+              },
+              {
+                "band": "50-75",
+                "orderCount": 114
+              },
+              {
+                "band": "75-100",
+                "orderCount": 41
+              },
+              {
+                "band": "100+",
+                "orderCount": 29
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 7652,
+            "totalPaymentValue": 480900.1,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 2179,
+                "paymentValue": 138605.44
+              },
+              {
+                "paymentType": "voucher",
+                "label": "Voucher",
+                "paymentRowCount": 5473,
+                "paymentValue": 342294.66
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 3670,
+            "onTimeOrderCount": 3450,
+            "delayedOrderCount": 220,
+            "onTimeRate": 94.01,
+            "delayedRate": 5.99
+          }
+        },
+        "debit_card": {
+          "paymentType": "debit_card",
+          "orderCount": 1483,
+          "paymentRowCount": 1485,
+          "freightDistribution": {
+            "totalOrders": 1483,
+            "totalFreightValue": 30575.64,
+            "avgFreightValue": 20.62,
+            "medianFreightValue": 16.11,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 268
+              },
+              {
+                "band": "10-20",
+                "orderCount": 777
+              },
+              {
+                "band": "20-30",
+                "orderCount": 233
+              },
+              {
+                "band": "30-40",
+                "orderCount": 82
+              },
+              {
+                "band": "40-50",
+                "orderCount": 42
+              },
+              {
+                "band": "50-75",
+                "orderCount": 56
+              },
+              {
+                "band": "75-100",
+                "orderCount": 16
+              },
+              {
+                "band": "100+",
+                "orderCount": 9
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 1485,
+            "totalPaymentValue": 208282.21,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 1,
+                "paymentValue": 102.82
+              },
+              {
+                "paymentType": "debit_card",
+                "label": "Debit Card",
+                "paymentRowCount": 1484,
+                "paymentValue": 208179.39
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 1483,
+            "onTimeOrderCount": 1403,
+            "delayedOrderCount": 80,
+            "onTimeRate": 94.61,
+            "delayedRate": 5.39
+          }
+        }
+      }
+    },
+    "2018_ytd": {
+      "paymentTypeOptions": [
+        {
+          "value": "all",
+          "label": "All Payment Types",
+          "orderCount": 52783
+        },
+        {
+          "value": "credit_card",
+          "label": "Credit Card",
+          "orderCount": 40938
+        },
+        {
+          "value": "boleto",
+          "label": "Boleto",
+          "orderCount": 9998
+        },
+        {
+          "value": "voucher",
+          "label": "Voucher",
+          "orderCount": 1820
+        },
+        {
+          "value": "debit_card",
+          "label": "Debit Card",
+          "orderCount": 1077
+        }
+      ],
+      "slicesByPaymentType": {
+        "all": {
+          "paymentType": "all",
+          "orderCount": 52783,
+          "paymentRowCount": 54748,
+          "freightDistribution": {
+            "totalOrders": 52783,
+            "totalFreightValue": 1233459.65,
+            "avgFreightValue": 23.37,
+            "medianFreightValue": 18.12,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 7369
+              },
+              {
+                "band": "10-20",
+                "orderCount": 26381
+              },
+              {
+                "band": "20-30",
+                "orderCount": 9522
+              },
+              {
+                "band": "30-40",
+                "orderCount": 3829
+              },
+              {
+                "band": "40-50",
+                "orderCount": 1895
+              },
+              {
+                "band": "50-75",
+                "orderCount": 2426
+              },
+              {
+                "band": "75-100",
+                "orderCount": 698
+              },
+              {
+                "band": "100+",
+                "orderCount": 663
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 54748,
+            "totalPaymentValue": 8452975.2,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 41071,
+                "paymentValue": 6676846.6
+              },
+              {
+                "paymentType": "boleto",
+                "label": "Boleto",
+                "paymentRowCount": 9998,
+                "paymentValue": 1432274.41
+              },
+              {
+                "paymentType": "voucher",
+                "label": "Voucher",
+                "paymentRowCount": 2601,
+                "paymentValue": 177632.79
+              },
+              {
+                "paymentType": "debit_card",
+                "label": "Debit Card",
+                "paymentRowCount": 1078,
+                "paymentValue": 166221.4
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 52783,
+            "onTimeOrderCount": 48699,
+            "delayedOrderCount": 4084,
+            "onTimeRate": 92.26,
+            "delayedRate": 7.74
+          }
+        },
+        "credit_card": {
+          "paymentType": "credit_card",
+          "orderCount": 40938,
+          "paymentRowCount": 42467,
+          "freightDistribution": {
+            "totalOrders": 40938,
+            "totalFreightValue": 959448.99,
+            "avgFreightValue": 23.44,
+            "medianFreightValue": 18.22,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 5643
+              },
+              {
+                "band": "10-20",
+                "orderCount": 20333
+              },
+              {
+                "band": "20-30",
+                "orderCount": 7479
+              },
+              {
+                "band": "30-40",
+                "orderCount": 3002
+              },
+              {
+                "band": "40-50",
+                "orderCount": 1508
+              },
+              {
+                "band": "50-75",
+                "orderCount": 1924
+              },
+              {
+                "band": "75-100",
+                "orderCount": 534
+              },
+              {
+                "band": "100+",
+                "orderCount": 515
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 42467,
+            "totalPaymentValue": 6766739.18,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 41071,
+                "paymentValue": 6676846.6
+              },
+              {
+                "paymentType": "voucher",
+                "label": "Voucher",
+                "paymentRowCount": 1395,
+                "paymentValue": 89842.58
+              },
+              {
+                "paymentType": "debit_card",
+                "label": "Debit Card",
+                "paymentRowCount": 1,
+                "paymentValue": 50
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 40938,
+            "onTimeOrderCount": 37811,
+            "delayedOrderCount": 3127,
+            "onTimeRate": 92.36,
+            "delayedRate": 7.64
+          }
+        },
+        "boleto": {
+          "paymentType": "boleto",
+          "orderCount": 9998,
+          "paymentRowCount": 9998,
+          "freightDistribution": {
+            "totalOrders": 9998,
+            "totalFreightValue": 235050,
+            "avgFreightValue": 23.51,
+            "medianFreightValue": 17.95,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 1396
+              },
+              {
+                "band": "10-20",
+                "orderCount": 5099
+              },
+              {
+                "band": "20-30",
+                "orderCount": 1746
+              },
+              {
+                "band": "30-40",
+                "orderCount": 712
+              },
+              {
+                "band": "40-50",
+                "orderCount": 334
+              },
+              {
+                "band": "50-75",
+                "orderCount": 433
+              },
+              {
+                "band": "75-100",
+                "orderCount": 145
+              },
+              {
+                "band": "100+",
+                "orderCount": 133
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 9998,
+            "totalPaymentValue": 1432274.41,
+            "entries": [
+              {
+                "paymentType": "boleto",
+                "label": "Boleto",
+                "paymentRowCount": 9998,
+                "paymentValue": 1432274.41
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 9998,
+            "onTimeOrderCount": 9144,
+            "delayedOrderCount": 854,
+            "onTimeRate": 91.46,
+            "delayedRate": 8.54
+          }
+        },
+        "voucher": {
+          "paymentType": "voucher",
+          "orderCount": 1820,
+          "paymentRowCount": 3651,
+          "freightDistribution": {
+            "totalOrders": 1820,
+            "totalFreightValue": 40673.36,
+            "avgFreightValue": 22.35,
+            "medianFreightValue": 17.95,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 245
+              },
+              {
+                "band": "10-20",
+                "orderCount": 951
+              },
+              {
+                "band": "20-30",
+                "orderCount": 326
+              },
+              {
+                "band": "30-40",
+                "orderCount": 135
+              },
+              {
+                "band": "40-50",
+                "orderCount": 56
+              },
+              {
+                "band": "50-75",
+                "orderCount": 62
+              },
+              {
+                "band": "75-100",
+                "orderCount": 22
+              },
+              {
+                "band": "100+",
+                "orderCount": 23
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 3651,
+            "totalPaymentValue": 243711.08,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 1050,
+                "paymentValue": 66078.29
+              },
+              {
+                "paymentType": "voucher",
+                "label": "Voucher",
+                "paymentRowCount": 2601,
+                "paymentValue": 177632.79
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 1820,
+            "onTimeOrderCount": 1700,
+            "delayedOrderCount": 120,
+            "onTimeRate": 93.41,
+            "delayedRate": 6.59
+          }
+        },
+        "debit_card": {
+          "paymentType": "debit_card",
+          "orderCount": 1077,
+          "paymentRowCount": 1079,
+          "freightDistribution": {
+            "totalOrders": 1077,
+            "totalFreightValue": 23346.47,
+            "avgFreightValue": 21.68,
+            "medianFreightValue": 17.41,
+            "bands": [
+              {
+                "band": "0-10",
+                "orderCount": 202
+              },
+              {
+                "band": "10-20",
+                "orderCount": 521
+              },
+              {
+                "band": "20-30",
+                "orderCount": 182
+              },
+              {
+                "band": "30-40",
+                "orderCount": 66
+              },
+              {
+                "band": "40-50",
+                "orderCount": 36
+              },
+              {
+                "band": "50-75",
+                "orderCount": 49
+              },
+              {
+                "band": "75-100",
+                "orderCount": 12
+              },
+              {
+                "band": "100+",
+                "orderCount": 9
+              }
+            ]
+          },
+          "paymentMix": {
+            "totalPaymentRowCount": 1079,
+            "totalPaymentValue": 166324.22,
+            "entries": [
+              {
+                "paymentType": "credit_card",
+                "label": "Credit Card",
+                "paymentRowCount": 1,
+                "paymentValue": 102.82
+              },
+              {
+                "paymentType": "debit_card",
+                "label": "Debit Card",
+                "paymentRowCount": 1078,
+                "paymentValue": 166221.4
+              }
+            ]
+          },
+          "onTimeVsDelayed": {
+            "totalOrders": 1077,
+            "onTimeOrderCount": 1022,
+            "delayedOrderCount": 55,
+            "onTimeRate": 94.89,
+            "delayedRate": 5.11
+          }
+        }
+      }
+    }
   }
 }

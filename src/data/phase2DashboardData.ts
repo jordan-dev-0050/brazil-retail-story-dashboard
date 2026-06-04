@@ -4,6 +4,10 @@ import type {
   FilterId,
   Phase2DashboardArtifact,
   Phase2DateRange,
+  Phase2PaymentPanelSlice,
+  Phase2PaymentRangePanels,
+  Phase2PaymentTypeOption,
+  PaymentTypeId,
 } from './phase2DashboardTypes';
 
 type FilterOption = {
@@ -80,7 +84,10 @@ export const filterOptions: Record<FilterId, FilterConfig> = {
   },
   paymentType: {
     label: 'Payment Type',
-    options: [{ label: 'All Payment Types', value: 'all-payments' }],
+    options: phase2DashboardArtifact.paymentPanelsByRange.all.paymentTypeOptions.map((option) => ({
+      label: option.label,
+      value: option.value,
+    })),
     disabled: true,
   },
 };
@@ -113,6 +120,21 @@ export function buildKpiCards(rangeId: DateRangeId): KpiCardViewModel[] {
 
 export function getMonthlySeries(rangeId: DateRangeId) {
   return phase2DashboardArtifact.monthlySeriesByRange[rangeId];
+}
+
+export function getPaymentPanelsByRange(rangeId: DateRangeId): Phase2PaymentRangePanels {
+  return phase2DashboardArtifact.paymentPanelsByRange[rangeId];
+}
+
+export function getPaymentTypeOptions(rangeId: DateRangeId): Phase2PaymentTypeOption[] {
+  return getPaymentPanelsByRange(rangeId).paymentTypeOptions;
+}
+
+export function getPaymentPanelSlice(
+  rangeId: DateRangeId,
+  paymentType: PaymentTypeId,
+): Phase2PaymentPanelSlice {
+  return getPaymentPanelsByRange(rangeId).slicesByPaymentType[paymentType];
 }
 
 export function getTimeTrendSummary(rangeId: DateRangeId): TimeTrendSummary {
