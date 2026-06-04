@@ -1,8 +1,8 @@
 {
   "metadata": {
     "source": "olist",
-    "version": "0.2.0",
-    "generatedAt": "2026-06-04T03:18:43.724Z",
+    "version": "0.3.0",
+    "generatedAt": "2026-06-04T05:52:01.497Z",
     "currency": "BRL",
     "timeAxis": "order_purchase_timestamp",
     "grain": "month",
@@ -289,6 +289,1557 @@
         "label": "Aug '18",
         "orders": 6351,
         "gmv": 838576.64
+      }
+    ]
+  },
+  "customerStateOptionsByRange": {
+    "2017": [
+      {
+        "value": "all-states",
+        "label": "All States",
+        "orderCount": 43428
+      },
+      {
+        "value": "SP",
+        "label": "SP",
+        "orderCount": 17071
+      },
+      {
+        "value": "RJ",
+        "label": "RJ",
+        "orderCount": 5968
+      },
+      {
+        "value": "MG",
+        "label": "MG",
+        "orderCount": 5240
+      },
+      {
+        "value": "RS",
+        "label": "RS",
+        "orderCount": 2591
+      },
+      {
+        "value": "PR",
+        "label": "PR",
+        "orderCount": 2192
+      },
+      {
+        "value": "SC",
+        "label": "SC",
+        "orderCount": 1653
+      },
+      {
+        "value": "BA",
+        "label": "BA",
+        "orderCount": 1527
+      },
+      {
+        "value": "ES",
+        "label": "ES",
+        "orderCount": 945
+      },
+      {
+        "value": "GO",
+        "label": "GO",
+        "orderCount": 917
+      },
+      {
+        "value": "DF",
+        "label": "DF",
+        "orderCount": 881
+      },
+      {
+        "value": "PE",
+        "label": "PE",
+        "orderCount": 735
+      },
+      {
+        "value": "CE",
+        "label": "CE",
+        "orderCount": 640
+      },
+      {
+        "value": "PA",
+        "label": "PA",
+        "orderCount": 489
+      },
+      {
+        "value": "MT",
+        "label": "MT",
+        "orderCount": 409
+      },
+      {
+        "value": "MA",
+        "label": "MA",
+        "orderCount": 367
+      },
+      {
+        "value": "MS",
+        "label": "MS",
+        "orderCount": 290
+      },
+      {
+        "value": "PB",
+        "label": "PB",
+        "orderCount": 247
+      },
+      {
+        "value": "RN",
+        "label": "RN",
+        "orderCount": 229
+      },
+      {
+        "value": "PI",
+        "label": "PI",
+        "orderCount": 217
+      },
+      {
+        "value": "AL",
+        "label": "AL",
+        "orderCount": 198
+      },
+      {
+        "value": "SE",
+        "label": "SE",
+        "orderCount": 186
+      },
+      {
+        "value": "RO",
+        "label": "RO",
+        "orderCount": 134
+      },
+      {
+        "value": "TO",
+        "label": "TO",
+        "orderCount": 130
+      },
+      {
+        "value": "AM",
+        "label": "AM",
+        "orderCount": 73
+      },
+      {
+        "value": "AC",
+        "label": "AC",
+        "orderCount": 53
+      },
+      {
+        "value": "AP",
+        "label": "AP",
+        "orderCount": 28
+      },
+      {
+        "value": "RR",
+        "label": "RR",
+        "orderCount": 18
+      }
+    ],
+    "all": [
+      {
+        "value": "all-states",
+        "label": "All States",
+        "orderCount": 96211
+      },
+      {
+        "value": "SP",
+        "label": "SP",
+        "orderCount": 40406
+      },
+      {
+        "value": "RJ",
+        "label": "RJ",
+        "orderCount": 12310
+      },
+      {
+        "value": "MG",
+        "label": "MG",
+        "orderCount": 11319
+      },
+      {
+        "value": "RS",
+        "label": "RS",
+        "orderCount": 5328
+      },
+      {
+        "value": "PR",
+        "label": "PR",
+        "orderCount": 4903
+      },
+      {
+        "value": "SC",
+        "label": "SC",
+        "orderCount": 3537
+      },
+      {
+        "value": "BA",
+        "label": "BA",
+        "orderCount": 3253
+      },
+      {
+        "value": "DF",
+        "label": "DF",
+        "orderCount": 2074
+      },
+      {
+        "value": "ES",
+        "label": "ES",
+        "orderCount": 1992
+      },
+      {
+        "value": "GO",
+        "label": "GO",
+        "orderCount": 1950
+      },
+      {
+        "value": "PE",
+        "label": "PE",
+        "orderCount": 1587
+      },
+      {
+        "value": "CE",
+        "label": "CE",
+        "orderCount": 1273
+      },
+      {
+        "value": "PA",
+        "label": "PA",
+        "orderCount": 942
+      },
+      {
+        "value": "MT",
+        "label": "MT",
+        "orderCount": 885
+      },
+      {
+        "value": "MA",
+        "label": "MA",
+        "orderCount": 713
+      },
+      {
+        "value": "MS",
+        "label": "MS",
+        "orderCount": 701
+      },
+      {
+        "value": "PB",
+        "label": "PB",
+        "orderCount": 516
+      },
+      {
+        "value": "PI",
+        "label": "PI",
+        "orderCount": 475
+      },
+      {
+        "value": "RN",
+        "label": "RN",
+        "orderCount": 470
+      },
+      {
+        "value": "AL",
+        "label": "AL",
+        "orderCount": 396
+      },
+      {
+        "value": "SE",
+        "label": "SE",
+        "orderCount": 332
+      },
+      {
+        "value": "TO",
+        "label": "TO",
+        "orderCount": 274
+      },
+      {
+        "value": "RO",
+        "label": "RO",
+        "orderCount": 243
+      },
+      {
+        "value": "AM",
+        "label": "AM",
+        "orderCount": 145
+      },
+      {
+        "value": "AC",
+        "label": "AC",
+        "orderCount": 80
+      },
+      {
+        "value": "AP",
+        "label": "AP",
+        "orderCount": 67
+      },
+      {
+        "value": "RR",
+        "label": "RR",
+        "orderCount": 40
+      }
+    ],
+    "2018_ytd": [
+      {
+        "value": "all-states",
+        "label": "All States",
+        "orderCount": 52783
+      },
+      {
+        "value": "SP",
+        "label": "SP",
+        "orderCount": 23335
+      },
+      {
+        "value": "RJ",
+        "label": "RJ",
+        "orderCount": 6342
+      },
+      {
+        "value": "MG",
+        "label": "MG",
+        "orderCount": 6079
+      },
+      {
+        "value": "RS",
+        "label": "RS",
+        "orderCount": 2737
+      },
+      {
+        "value": "PR",
+        "label": "PR",
+        "orderCount": 2711
+      },
+      {
+        "value": "SC",
+        "label": "SC",
+        "orderCount": 1884
+      },
+      {
+        "value": "BA",
+        "label": "BA",
+        "orderCount": 1726
+      },
+      {
+        "value": "DF",
+        "label": "DF",
+        "orderCount": 1193
+      },
+      {
+        "value": "ES",
+        "label": "ES",
+        "orderCount": 1047
+      },
+      {
+        "value": "GO",
+        "label": "GO",
+        "orderCount": 1033
+      },
+      {
+        "value": "PE",
+        "label": "PE",
+        "orderCount": 852
+      },
+      {
+        "value": "CE",
+        "label": "CE",
+        "orderCount": 633
+      },
+      {
+        "value": "MT",
+        "label": "MT",
+        "orderCount": 476
+      },
+      {
+        "value": "PA",
+        "label": "PA",
+        "orderCount": 453
+      },
+      {
+        "value": "MS",
+        "label": "MS",
+        "orderCount": 411
+      },
+      {
+        "value": "MA",
+        "label": "MA",
+        "orderCount": 346
+      },
+      {
+        "value": "PB",
+        "label": "PB",
+        "orderCount": 269
+      },
+      {
+        "value": "PI",
+        "label": "PI",
+        "orderCount": 258
+      },
+      {
+        "value": "RN",
+        "label": "RN",
+        "orderCount": 241
+      },
+      {
+        "value": "AL",
+        "label": "AL",
+        "orderCount": 198
+      },
+      {
+        "value": "SE",
+        "label": "SE",
+        "orderCount": 146
+      },
+      {
+        "value": "TO",
+        "label": "TO",
+        "orderCount": 144
+      },
+      {
+        "value": "RO",
+        "label": "RO",
+        "orderCount": 109
+      },
+      {
+        "value": "AM",
+        "label": "AM",
+        "orderCount": 72
+      },
+      {
+        "value": "AP",
+        "label": "AP",
+        "orderCount": 39
+      },
+      {
+        "value": "AC",
+        "label": "AC",
+        "orderCount": 27
+      },
+      {
+        "value": "RR",
+        "label": "RR",
+        "orderCount": 22
+      }
+    ]
+  },
+  "productCategoryOptionsByRange": {
+    "2017": [
+      {
+        "value": "all-categories",
+        "label": "All Categories",
+        "orderCount": 43428
+      },
+      {
+        "value": "bed_bath_table",
+        "label": "Bed Bath Table",
+        "orderCount": 4423
+      },
+      {
+        "value": "furniture_decor",
+        "label": "Furniture Decor",
+        "orderCount": 3111
+      },
+      {
+        "value": "sports_leisure",
+        "label": "Sports Leisure",
+        "orderCount": 3540
+      },
+      {
+        "value": "health_beauty",
+        "label": "Health Beauty",
+        "orderCount": 3305
+      },
+      {
+        "value": "computers_accessories",
+        "label": "Computers Accessories",
+        "orderCount": 2546
+      },
+      {
+        "value": "housewares",
+        "label": "Housewares",
+        "orderCount": 2383
+      },
+      {
+        "value": "toys",
+        "label": "Toys",
+        "orderCount": 2404
+      },
+      {
+        "value": "garden_tools",
+        "label": "Garden Tools",
+        "orderCount": 1934
+      },
+      {
+        "value": "cool_stuff",
+        "label": "Cool Stuff",
+        "orderCount": 2161
+      },
+      {
+        "value": "watches_gifts",
+        "label": "Watches Gifts",
+        "orderCount": 2073
+      },
+      {
+        "value": "telephony",
+        "label": "Telephony",
+        "orderCount": 1969
+      },
+      {
+        "value": "perfumery",
+        "label": "Perfumery",
+        "orderCount": 1602
+      },
+      {
+        "value": "auto",
+        "label": "Auto",
+        "orderCount": 1383
+      },
+      {
+        "value": "baby",
+        "label": "Baby",
+        "orderCount": 1173
+      },
+      {
+        "value": "fashion_bags_accessories",
+        "label": "Fashion Bags Accessories",
+        "orderCount": 992
+      },
+      {
+        "value": "stationery",
+        "label": "Stationery",
+        "orderCount": 897
+      },
+      {
+        "value": "electronics",
+        "label": "Electronics",
+        "orderCount": 810
+      },
+      {
+        "value": "unknown_category",
+        "label": "Unknown Category",
+        "orderCount": 785
+      },
+      {
+        "value": "office_furniture",
+        "label": "Office Furniture",
+        "orderCount": 612
+      },
+      {
+        "value": "pet_shop",
+        "label": "Pet Shop",
+        "orderCount": 682
+      },
+      {
+        "value": "consoles_games",
+        "label": "Consoles Games",
+        "orderCount": 640
+      },
+      {
+        "value": "luggage_accessories",
+        "label": "Luggage Accessories",
+        "orderCount": 556
+      },
+      {
+        "value": "small_appliances",
+        "label": "Small Appliances",
+        "orderCount": 295
+      },
+      {
+        "value": "home_confort",
+        "label": "Home Confort",
+        "orderCount": 246
+      },
+      {
+        "value": "musical_instruments",
+        "label": "Musical Instruments",
+        "orderCount": 241
+      },
+      {
+        "value": "furniture_living_room",
+        "label": "Furniture Living Room",
+        "orderCount": 203
+      },
+      {
+        "value": "home_appliances",
+        "label": "Home Appliances",
+        "orderCount": 232
+      },
+      {
+        "value": "books_general_interest",
+        "label": "Books General Interest",
+        "orderCount": 214
+      },
+      {
+        "value": "market_place",
+        "label": "Market Place",
+        "orderCount": 174
+      },
+      {
+        "value": "fashion_shoes",
+        "label": "Fashion Shoes",
+        "orderCount": 167
+      },
+      {
+        "value": "audio",
+        "label": "Audio",
+        "orderCount": 159
+      },
+      {
+        "value": "fixed_telephony",
+        "label": "Fixed Telephony",
+        "orderCount": 122
+      },
+      {
+        "value": "home_construction",
+        "label": "Home Construction",
+        "orderCount": 110
+      },
+      {
+        "value": "construction_tools_construction",
+        "label": "Construction Tools Construction",
+        "orderCount": 100
+      },
+      {
+        "value": "computers",
+        "label": "Computers",
+        "orderCount": 121
+      },
+      {
+        "value": "air_conditioning",
+        "label": "Air Conditioning",
+        "orderCount": 110
+      },
+      {
+        "value": "food_drink",
+        "label": "Food Drink",
+        "orderCount": 104
+      },
+      {
+        "value": "kitchen_dining_laundry_garden_furniture",
+        "label": "Kitchen Dining Laundry Garden Furniture",
+        "orderCount": 105
+      },
+      {
+        "value": "food",
+        "label": "Food",
+        "orderCount": 102
+      },
+      {
+        "value": "fashion_male_clothing",
+        "label": "Fashion Male Clothing",
+        "orderCount": 81
+      },
+      {
+        "value": "fashion_underwear_beach",
+        "label": "Fashion Underwear Beach",
+        "orderCount": 80
+      },
+      {
+        "value": "home_appliances_2",
+        "label": "Home Appliances 2",
+        "orderCount": 82
+      },
+      {
+        "value": "drinks",
+        "label": "Drinks",
+        "orderCount": 70
+      },
+      {
+        "value": "costruction_tools_garden",
+        "label": "Costruction Tools Garden",
+        "orderCount": 62
+      },
+      {
+        "value": "agro_industry_and_commerce",
+        "label": "Agro Industry And Commerce",
+        "orderCount": 48
+      },
+      {
+        "value": "tablets_printing_image",
+        "label": "Tablets Printing Image",
+        "orderCount": 59
+      },
+      {
+        "value": "christmas_supplies",
+        "label": "Christmas Supplies",
+        "orderCount": 48
+      },
+      {
+        "value": "books_technical",
+        "label": "Books Technical",
+        "orderCount": 43
+      },
+      {
+        "value": "signaling_and_security",
+        "label": "Signaling And Security",
+        "orderCount": 33
+      },
+      {
+        "value": "furniture_bedroom",
+        "label": "Furniture Bedroom",
+        "orderCount": 37
+      },
+      {
+        "value": "construction_tools_safety",
+        "label": "Construction Tools Safety",
+        "orderCount": 34
+      },
+      {
+        "value": "dvds_blu_ray",
+        "label": "Dvds Blu Ray",
+        "orderCount": 34
+      },
+      {
+        "value": "industry_commerce_and_business",
+        "label": "Industry Commerce And Business",
+        "orderCount": 34
+      },
+      {
+        "value": "art",
+        "label": "Art",
+        "orderCount": 32
+      },
+      {
+        "value": "fashio_female_clothing",
+        "label": "Fashio Female Clothing",
+        "orderCount": 27
+      },
+      {
+        "value": "fashion_sport",
+        "label": "Fashion Sport",
+        "orderCount": 21
+      },
+      {
+        "value": "costruction_tools_tools",
+        "label": "Costruction Tools Tools",
+        "orderCount": 21
+      },
+      {
+        "value": "home_comfort_2",
+        "label": "Home Comfort 2",
+        "orderCount": 17
+      },
+      {
+        "value": "construction_tools_lights",
+        "label": "Construction Tools Lights",
+        "orderCount": 17
+      },
+      {
+        "value": "furniture_mattress_and_upholstery",
+        "label": "Furniture Mattress And Upholstery",
+        "orderCount": 18
+      },
+      {
+        "value": "books_imported",
+        "label": "Books Imported",
+        "orderCount": 11
+      },
+      {
+        "value": "cds_dvds_musicals",
+        "label": "Cds Dvds Musicals",
+        "orderCount": 11
+      },
+      {
+        "value": "music",
+        "label": "Music",
+        "orderCount": 11
+      },
+      {
+        "value": "party_supplies",
+        "label": "Party Supplies",
+        "orderCount": 9
+      },
+      {
+        "value": "la_cuisine",
+        "label": "La Cuisine",
+        "orderCount": 10
+      },
+      {
+        "value": "cine_photo",
+        "label": "Cine Photo",
+        "orderCount": 8
+      },
+      {
+        "value": "flowers",
+        "label": "Flowers",
+        "orderCount": 8
+      },
+      {
+        "value": "pc_gamer",
+        "label": "Pc Gamer",
+        "orderCount": 4
+      },
+      {
+        "value": "fashion_childrens_clothes",
+        "label": "Fashion Childrens Clothes",
+        "orderCount": 4
+      },
+      {
+        "value": "small_appliances_home_oven_and_coffee",
+        "label": "Small Appliances Home Oven And Coffee",
+        "orderCount": 3
+      },
+      {
+        "value": "security_and_services",
+        "label": "Security And Services",
+        "orderCount": 2
+      },
+      {
+        "value": "arts_and_craftmanship",
+        "label": "Arts And Craftmanship",
+        "orderCount": 2
+      },
+      {
+        "value": "diapers_and_hygiene",
+        "label": "Diapers And Hygiene",
+        "orderCount": 1
+      }
+    ],
+    "all": [
+      {
+        "value": "all-categories",
+        "label": "All Categories",
+        "orderCount": 96211
+      },
+      {
+        "value": "bed_bath_table",
+        "label": "Bed Bath Table",
+        "orderCount": 9267
+      },
+      {
+        "value": "health_beauty",
+        "label": "Health Beauty",
+        "orderCount": 8610
+      },
+      {
+        "value": "sports_leisure",
+        "label": "Sports Leisure",
+        "orderCount": 7513
+      },
+      {
+        "value": "furniture_decor",
+        "label": "Furniture Decor",
+        "orderCount": 6258
+      },
+      {
+        "value": "computers_accessories",
+        "label": "Computers Accessories",
+        "orderCount": 6518
+      },
+      {
+        "value": "housewares",
+        "label": "Housewares",
+        "orderCount": 5734
+      },
+      {
+        "value": "watches_gifts",
+        "label": "Watches Gifts",
+        "orderCount": 5491
+      },
+      {
+        "value": "telephony",
+        "label": "Telephony",
+        "orderCount": 4086
+      },
+      {
+        "value": "garden_tools",
+        "label": "Garden Tools",
+        "orderCount": 3443
+      },
+      {
+        "value": "auto",
+        "label": "Auto",
+        "orderCount": 3802
+      },
+      {
+        "value": "toys",
+        "label": "Toys",
+        "orderCount": 3782
+      },
+      {
+        "value": "cool_stuff",
+        "label": "Cool Stuff",
+        "orderCount": 3552
+      },
+      {
+        "value": "perfumery",
+        "label": "Perfumery",
+        "orderCount": 3060
+      },
+      {
+        "value": "baby",
+        "label": "Baby",
+        "orderCount": 2800
+      },
+      {
+        "value": "electronics",
+        "label": "Electronics",
+        "orderCount": 2516
+      },
+      {
+        "value": "stationery",
+        "label": "Stationery",
+        "orderCount": 2264
+      },
+      {
+        "value": "fashion_bags_accessories",
+        "label": "Fashion Bags Accessories",
+        "orderCount": 1812
+      },
+      {
+        "value": "pet_shop",
+        "label": "Pet Shop",
+        "orderCount": 1684
+      },
+      {
+        "value": "office_furniture",
+        "label": "Office Furniture",
+        "orderCount": 1248
+      },
+      {
+        "value": "unknown_category",
+        "label": "Unknown Category",
+        "orderCount": 1390
+      },
+      {
+        "value": "consoles_games",
+        "label": "Consoles Games",
+        "orderCount": 1011
+      },
+      {
+        "value": "luggage_accessories",
+        "label": "Luggage Accessories",
+        "orderCount": 1019
+      },
+      {
+        "value": "construction_tools_construction",
+        "label": "Construction Tools Construction",
+        "orderCount": 736
+      },
+      {
+        "value": "home_appliances",
+        "label": "Home Appliances",
+        "orderCount": 747
+      },
+      {
+        "value": "small_appliances",
+        "label": "Small Appliances",
+        "orderCount": 609
+      },
+      {
+        "value": "musical_instruments",
+        "label": "Musical Instruments",
+        "orderCount": 611
+      },
+      {
+        "value": "home_construction",
+        "label": "Home Construction",
+        "orderCount": 483
+      },
+      {
+        "value": "books_general_interest",
+        "label": "Books General Interest",
+        "orderCount": 496
+      },
+      {
+        "value": "food",
+        "label": "Food",
+        "orderCount": 440
+      },
+      {
+        "value": "furniture_living_room",
+        "label": "Furniture Living Room",
+        "orderCount": 414
+      },
+      {
+        "value": "home_confort",
+        "label": "Home Confort",
+        "orderCount": 392
+      },
+      {
+        "value": "drinks",
+        "label": "Drinks",
+        "orderCount": 287
+      },
+      {
+        "value": "audio",
+        "label": "Audio",
+        "orderCount": 346
+      },
+      {
+        "value": "construction_tools_lights",
+        "label": "Construction Tools Lights",
+        "orderCount": 242
+      },
+      {
+        "value": "market_place",
+        "label": "Market Place",
+        "orderCount": 269
+      },
+      {
+        "value": "air_conditioning",
+        "label": "Air Conditioning",
+        "orderCount": 242
+      },
+      {
+        "value": "kitchen_dining_laundry_garden_furniture",
+        "label": "Kitchen Dining Laundry Garden Furniture",
+        "orderCount": 241
+      },
+      {
+        "value": "food_drink",
+        "label": "Food Drink",
+        "orderCount": 221
+      },
+      {
+        "value": "books_technical",
+        "label": "Books Technical",
+        "orderCount": 256
+      },
+      {
+        "value": "industry_commerce_and_business",
+        "label": "Industry Commerce And Business",
+        "orderCount": 229
+      },
+      {
+        "value": "fashion_shoes",
+        "label": "Fashion Shoes",
+        "orderCount": 234
+      },
+      {
+        "value": "fixed_telephony",
+        "label": "Fixed Telephony",
+        "orderCount": 207
+      },
+      {
+        "value": "costruction_tools_garden",
+        "label": "Costruction Tools Garden",
+        "orderCount": 190
+      },
+      {
+        "value": "home_appliances_2",
+        "label": "Home Appliances 2",
+        "orderCount": 227
+      },
+      {
+        "value": "agro_industry_and_commerce",
+        "label": "Agro Industry And Commerce",
+        "orderCount": 177
+      },
+      {
+        "value": "computers",
+        "label": "Computers",
+        "orderCount": 177
+      },
+      {
+        "value": "art",
+        "label": "Art",
+        "orderCount": 195
+      },
+      {
+        "value": "signaling_and_security",
+        "label": "Signaling And Security",
+        "orderCount": 138
+      },
+      {
+        "value": "construction_tools_safety",
+        "label": "Construction Tools Safety",
+        "orderCount": 159
+      },
+      {
+        "value": "christmas_supplies",
+        "label": "Christmas Supplies",
+        "orderCount": 125
+      },
+      {
+        "value": "fashion_underwear_beach",
+        "label": "Fashion Underwear Beach",
+        "orderCount": 117
+      },
+      {
+        "value": "fashion_male_clothing",
+        "label": "Fashion Male Clothing",
+        "orderCount": 105
+      },
+      {
+        "value": "furniture_bedroom",
+        "label": "Furniture Bedroom",
+        "orderCount": 90
+      },
+      {
+        "value": "costruction_tools_tools",
+        "label": "Costruction Tools Tools",
+        "orderCount": 97
+      },
+      {
+        "value": "tablets_printing_image",
+        "label": "Tablets Printing Image",
+        "orderCount": 79
+      },
+      {
+        "value": "small_appliances_home_oven_and_coffee",
+        "label": "Small Appliances Home Oven And Coffee",
+        "orderCount": 72
+      },
+      {
+        "value": "cine_photo",
+        "label": "Cine Photo",
+        "orderCount": 63
+      },
+      {
+        "value": "dvds_blu_ray",
+        "label": "Dvds Blu Ray",
+        "orderCount": 56
+      },
+      {
+        "value": "books_imported",
+        "label": "Books Imported",
+        "orderCount": 50
+      },
+      {
+        "value": "fashio_female_clothing",
+        "label": "Fashio Female Clothing",
+        "orderCount": 35
+      },
+      {
+        "value": "party_supplies",
+        "label": "Party Supplies",
+        "orderCount": 38
+      },
+      {
+        "value": "music",
+        "label": "Music",
+        "orderCount": 38
+      },
+      {
+        "value": "furniture_mattress_and_upholstery",
+        "label": "Furniture Mattress And Upholstery",
+        "orderCount": 37
+      },
+      {
+        "value": "diapers_and_hygiene",
+        "label": "Diapers And Hygiene",
+        "orderCount": 24
+      },
+      {
+        "value": "flowers",
+        "label": "Flowers",
+        "orderCount": 29
+      },
+      {
+        "value": "home_comfort_2",
+        "label": "Home Comfort 2",
+        "orderCount": 24
+      },
+      {
+        "value": "fashion_sport",
+        "label": "Fashion Sport",
+        "orderCount": 26
+      },
+      {
+        "value": "arts_and_craftmanship",
+        "label": "Arts And Craftmanship",
+        "orderCount": 23
+      },
+      {
+        "value": "portateis_cozinha_e_preparadores_de_alimentos",
+        "label": "Portateis Cozinha E Preparadores De Alimentos",
+        "orderCount": 13
+      },
+      {
+        "value": "la_cuisine",
+        "label": "La Cuisine",
+        "orderCount": 13
+      },
+      {
+        "value": "cds_dvds_musicals",
+        "label": "Cds Dvds Musicals",
+        "orderCount": 12
+      },
+      {
+        "value": "pc_gamer",
+        "label": "Pc Gamer",
+        "orderCount": 7
+      },
+      {
+        "value": "fashion_childrens_clothes",
+        "label": "Fashion Childrens Clothes",
+        "orderCount": 7
+      },
+      {
+        "value": "security_and_services",
+        "label": "Security And Services",
+        "orderCount": 2
+      }
+    ],
+    "2018_ytd": [
+      {
+        "value": "all-categories",
+        "label": "All Categories",
+        "orderCount": 52783
+      },
+      {
+        "value": "health_beauty",
+        "label": "Health Beauty",
+        "orderCount": 5305
+      },
+      {
+        "value": "bed_bath_table",
+        "label": "Bed Bath Table",
+        "orderCount": 4844
+      },
+      {
+        "value": "computers_accessories",
+        "label": "Computers Accessories",
+        "orderCount": 3972
+      },
+      {
+        "value": "sports_leisure",
+        "label": "Sports Leisure",
+        "orderCount": 3973
+      },
+      {
+        "value": "furniture_decor",
+        "label": "Furniture Decor",
+        "orderCount": 3147
+      },
+      {
+        "value": "housewares",
+        "label": "Housewares",
+        "orderCount": 3351
+      },
+      {
+        "value": "watches_gifts",
+        "label": "Watches Gifts",
+        "orderCount": 3418
+      },
+      {
+        "value": "auto",
+        "label": "Auto",
+        "orderCount": 2419
+      },
+      {
+        "value": "telephony",
+        "label": "Telephony",
+        "orderCount": 2117
+      },
+      {
+        "value": "garden_tools",
+        "label": "Garden Tools",
+        "orderCount": 1509
+      },
+      {
+        "value": "electronics",
+        "label": "Electronics",
+        "orderCount": 1706
+      },
+      {
+        "value": "baby",
+        "label": "Baby",
+        "orderCount": 1627
+      },
+      {
+        "value": "perfumery",
+        "label": "Perfumery",
+        "orderCount": 1458
+      },
+      {
+        "value": "stationery",
+        "label": "Stationery",
+        "orderCount": 1367
+      },
+      {
+        "value": "toys",
+        "label": "Toys",
+        "orderCount": 1378
+      },
+      {
+        "value": "cool_stuff",
+        "label": "Cool Stuff",
+        "orderCount": 1391
+      },
+      {
+        "value": "pet_shop",
+        "label": "Pet Shop",
+        "orderCount": 1002
+      },
+      {
+        "value": "office_furniture",
+        "label": "Office Furniture",
+        "orderCount": 636
+      },
+      {
+        "value": "fashion_bags_accessories",
+        "label": "Fashion Bags Accessories",
+        "orderCount": 820
+      },
+      {
+        "value": "construction_tools_construction",
+        "label": "Construction Tools Construction",
+        "orderCount": 636
+      },
+      {
+        "value": "unknown_category",
+        "label": "Unknown Category",
+        "orderCount": 605
+      },
+      {
+        "value": "home_appliances",
+        "label": "Home Appliances",
+        "orderCount": 515
+      },
+      {
+        "value": "luggage_accessories",
+        "label": "Luggage Accessories",
+        "orderCount": 463
+      },
+      {
+        "value": "home_construction",
+        "label": "Home Construction",
+        "orderCount": 373
+      },
+      {
+        "value": "consoles_games",
+        "label": "Consoles Games",
+        "orderCount": 371
+      },
+      {
+        "value": "musical_instruments",
+        "label": "Musical Instruments",
+        "orderCount": 370
+      },
+      {
+        "value": "food",
+        "label": "Food",
+        "orderCount": 338
+      },
+      {
+        "value": "small_appliances",
+        "label": "Small Appliances",
+        "orderCount": 314
+      },
+      {
+        "value": "books_general_interest",
+        "label": "Books General Interest",
+        "orderCount": 282
+      },
+      {
+        "value": "construction_tools_lights",
+        "label": "Construction Tools Lights",
+        "orderCount": 225
+      },
+      {
+        "value": "drinks",
+        "label": "Drinks",
+        "orderCount": 217
+      },
+      {
+        "value": "furniture_living_room",
+        "label": "Furniture Living Room",
+        "orderCount": 211
+      },
+      {
+        "value": "industry_commerce_and_business",
+        "label": "Industry Commerce And Business",
+        "orderCount": 195
+      },
+      {
+        "value": "books_technical",
+        "label": "Books Technical",
+        "orderCount": 213
+      },
+      {
+        "value": "audio",
+        "label": "Audio",
+        "orderCount": 187
+      },
+      {
+        "value": "art",
+        "label": "Art",
+        "orderCount": 163
+      },
+      {
+        "value": "costruction_tools_garden",
+        "label": "Costruction Tools Garden",
+        "orderCount": 128
+      },
+      {
+        "value": "kitchen_dining_laundry_garden_furniture",
+        "label": "Kitchen Dining Laundry Garden Furniture",
+        "orderCount": 136
+      },
+      {
+        "value": "air_conditioning",
+        "label": "Air Conditioning",
+        "orderCount": 132
+      },
+      {
+        "value": "home_confort",
+        "label": "Home Confort",
+        "orderCount": 146
+      },
+      {
+        "value": "signaling_and_security",
+        "label": "Signaling And Security",
+        "orderCount": 105
+      },
+      {
+        "value": "home_appliances_2",
+        "label": "Home Appliances 2",
+        "orderCount": 145
+      },
+      {
+        "value": "agro_industry_and_commerce",
+        "label": "Agro Industry And Commerce",
+        "orderCount": 129
+      },
+      {
+        "value": "food_drink",
+        "label": "Food Drink",
+        "orderCount": 117
+      },
+      {
+        "value": "construction_tools_safety",
+        "label": "Construction Tools Safety",
+        "orderCount": 125
+      },
+      {
+        "value": "market_place",
+        "label": "Market Place",
+        "orderCount": 95
+      },
+      {
+        "value": "fixed_telephony",
+        "label": "Fixed Telephony",
+        "orderCount": 85
+      },
+      {
+        "value": "christmas_supplies",
+        "label": "Christmas Supplies",
+        "orderCount": 77
+      },
+      {
+        "value": "costruction_tools_tools",
+        "label": "Costruction Tools Tools",
+        "orderCount": 76
+      },
+      {
+        "value": "computers",
+        "label": "Computers",
+        "orderCount": 56
+      },
+      {
+        "value": "small_appliances_home_oven_and_coffee",
+        "label": "Small Appliances Home Oven And Coffee",
+        "orderCount": 69
+      },
+      {
+        "value": "fashion_shoes",
+        "label": "Fashion Shoes",
+        "orderCount": 67
+      },
+      {
+        "value": "furniture_bedroom",
+        "label": "Furniture Bedroom",
+        "orderCount": 53
+      },
+      {
+        "value": "cine_photo",
+        "label": "Cine Photo",
+        "orderCount": 55
+      },
+      {
+        "value": "books_imported",
+        "label": "Books Imported",
+        "orderCount": 39
+      },
+      {
+        "value": "fashion_underwear_beach",
+        "label": "Fashion Underwear Beach",
+        "orderCount": 37
+      },
+      {
+        "value": "diapers_and_hygiene",
+        "label": "Diapers And Hygiene",
+        "orderCount": 23
+      },
+      {
+        "value": "party_supplies",
+        "label": "Party Supplies",
+        "orderCount": 29
+      },
+      {
+        "value": "music",
+        "label": "Music",
+        "orderCount": 27
+      },
+      {
+        "value": "fashion_male_clothing",
+        "label": "Fashion Male Clothing",
+        "orderCount": 24
+      },
+      {
+        "value": "dvds_blu_ray",
+        "label": "Dvds Blu Ray",
+        "orderCount": 22
+      },
+      {
+        "value": "flowers",
+        "label": "Flowers",
+        "orderCount": 21
+      },
+      {
+        "value": "arts_and_craftmanship",
+        "label": "Arts And Craftmanship",
+        "orderCount": 21
+      },
+      {
+        "value": "tablets_printing_image",
+        "label": "Tablets Printing Image",
+        "orderCount": 20
+      },
+      {
+        "value": "furniture_mattress_and_upholstery",
+        "label": "Furniture Mattress And Upholstery",
+        "orderCount": 19
+      },
+      {
+        "value": "fashio_female_clothing",
+        "label": "Fashio Female Clothing",
+        "orderCount": 8
+      },
+      {
+        "value": "portateis_cozinha_e_preparadores_de_alimentos",
+        "label": "Portateis Cozinha E Preparadores De Alimentos",
+        "orderCount": 13
+      },
+      {
+        "value": "home_comfort_2",
+        "label": "Home Comfort 2",
+        "orderCount": 7
+      },
+      {
+        "value": "fashion_sport",
+        "label": "Fashion Sport",
+        "orderCount": 5
+      },
+      {
+        "value": "pc_gamer",
+        "label": "Pc Gamer",
+        "orderCount": 3
+      },
+      {
+        "value": "la_cuisine",
+        "label": "La Cuisine",
+        "orderCount": 3
+      },
+      {
+        "value": "fashion_childrens_clothes",
+        "label": "Fashion Childrens Clothes",
+        "orderCount": 3
+      },
+      {
+        "value": "cds_dvds_musicals",
+        "label": "Cds Dvds Musicals",
+        "orderCount": 1
       }
     ]
   },
@@ -1459,6 +3010,3581 @@
           }
         }
       }
+    }
+  },
+  "geographyPanelsByRange": {
+    "2017": {
+      "totalOrders": 43428,
+      "totalStates": 27,
+      "stateMetrics": [
+        {
+          "state": "SP",
+          "label": "SP",
+          "orderCount": 17071,
+          "totalGmv": 2136258.96,
+          "lateDeliveryRate": 3.81
+        },
+        {
+          "state": "RJ",
+          "label": "RJ",
+          "orderCount": 5968,
+          "totalGmv": 876499.71,
+          "lateDeliveryRate": 10.46
+        },
+        {
+          "state": "MG",
+          "label": "MG",
+          "orderCount": 5240,
+          "totalGmv": 708034.68,
+          "lateDeliveryRate": 2.73
+        },
+        {
+          "state": "RS",
+          "label": "RS",
+          "orderCount": 2591,
+          "totalGmv": 350792.78,
+          "lateDeliveryRate": 5.02
+        },
+        {
+          "state": "PR",
+          "label": "PR",
+          "orderCount": 2192,
+          "totalGmv": 287424.81,
+          "lateDeliveryRate": 3.19
+        },
+        {
+          "state": "SC",
+          "label": "SC",
+          "orderCount": 1653,
+          "totalGmv": 223249.33,
+          "lateDeliveryRate": 7.5
+        },
+        {
+          "state": "BA",
+          "label": "BA",
+          "orderCount": 1527,
+          "totalGmv": 227453.44,
+          "lateDeliveryRate": 10.02
+        },
+        {
+          "state": "ES",
+          "label": "ES",
+          "orderCount": 945,
+          "totalGmv": 115752.57,
+          "lateDeliveryRate": 7.41
+        },
+        {
+          "state": "GO",
+          "label": "GO",
+          "orderCount": 917,
+          "totalGmv": 133801.01,
+          "lateDeliveryRate": 5.23
+        },
+        {
+          "state": "DF",
+          "label": "DF",
+          "orderCount": 881,
+          "totalGmv": 131169.7,
+          "lateDeliveryRate": 4.31
+        },
+        {
+          "state": "PE",
+          "label": "PE",
+          "orderCount": 735,
+          "totalGmv": 116445.99,
+          "lateDeliveryRate": 9.25
+        },
+        {
+          "state": "CE",
+          "label": "CE",
+          "orderCount": 640,
+          "totalGmv": 110478.99,
+          "lateDeliveryRate": 8.59
+        },
+        {
+          "state": "PA",
+          "label": "PA",
+          "orderCount": 489,
+          "totalGmv": 88441.65,
+          "lateDeliveryRate": 6.34
+        },
+        {
+          "state": "MT",
+          "label": "MT",
+          "orderCount": 409,
+          "totalGmv": 76051.18,
+          "lateDeliveryRate": 6.11
+        },
+        {
+          "state": "MA",
+          "label": "MA",
+          "orderCount": 367,
+          "totalGmv": 58843.84,
+          "lateDeliveryRate": 15.26
+        },
+        {
+          "state": "MS",
+          "label": "MS",
+          "orderCount": 290,
+          "totalGmv": 52677.62,
+          "lateDeliveryRate": 3.1
+        },
+        {
+          "state": "PB",
+          "label": "PB",
+          "orderCount": 247,
+          "totalGmv": 49971,
+          "lateDeliveryRate": 12.15
+        },
+        {
+          "state": "RN",
+          "label": "RN",
+          "orderCount": 229,
+          "totalGmv": 35080.3,
+          "lateDeliveryRate": 10.04
+        },
+        {
+          "state": "PI",
+          "label": "PI",
+          "orderCount": 217,
+          "totalGmv": 35275.57,
+          "lateDeliveryRate": 10.6
+        },
+        {
+          "state": "AL",
+          "label": "AL",
+          "orderCount": 198,
+          "totalGmv": 43342.9,
+          "lateDeliveryRate": 20.71
+        },
+        {
+          "state": "SE",
+          "label": "SE",
+          "orderCount": 186,
+          "totalGmv": 29878.9,
+          "lateDeliveryRate": 14.52
+        },
+        {
+          "state": "RO",
+          "label": "RO",
+          "orderCount": 134,
+          "totalGmv": 24119.57,
+          "lateDeliveryRate": 2.24
+        },
+        {
+          "state": "TO",
+          "label": "TO",
+          "orderCount": 130,
+          "totalGmv": 23451.14,
+          "lateDeliveryRate": 3.85
+        },
+        {
+          "state": "AM",
+          "label": "AM",
+          "orderCount": 73,
+          "totalGmv": 10438.49,
+          "lateDeliveryRate": 1.37
+        },
+        {
+          "state": "AC",
+          "label": "AC",
+          "orderCount": 53,
+          "totalGmv": 10615.97,
+          "lateDeliveryRate": 3.77
+        },
+        {
+          "state": "AP",
+          "label": "AP",
+          "orderCount": 28,
+          "totalGmv": 5947.15,
+          "lateDeliveryRate": 7.14
+        },
+        {
+          "state": "RR",
+          "label": "RR",
+          "orderCount": 18,
+          "totalGmv": 1404.76,
+          "lateDeliveryRate": 16.67
+        }
+      ]
+    },
+    "all": {
+      "totalOrders": 96211,
+      "totalStates": 27,
+      "stateMetrics": [
+        {
+          "state": "SP",
+          "label": "SP",
+          "orderCount": 40406,
+          "totalGmv": 5055587.13,
+          "lateDeliveryRate": 4.51
+        },
+        {
+          "state": "RJ",
+          "label": "RJ",
+          "orderCount": 12310,
+          "totalGmv": 1751433.85,
+          "lateDeliveryRate": 12.14
+        },
+        {
+          "state": "MG",
+          "label": "MG",
+          "orderCount": 11319,
+          "totalGmv": 1548206.88,
+          "lateDeliveryRate": 4.59
+        },
+        {
+          "state": "RS",
+          "label": "RS",
+          "orderCount": 5328,
+          "totalGmv": 726373.92,
+          "lateDeliveryRate": 6.12
+        },
+        {
+          "state": "PR",
+          "label": "PR",
+          "orderCount": 4903,
+          "totalGmv": 664048,
+          "lateDeliveryRate": 4.06
+        },
+        {
+          "state": "SC",
+          "label": "SC",
+          "orderCount": 3537,
+          "totalGmv": 504774.07,
+          "lateDeliveryRate": 8.23
+        },
+        {
+          "state": "BA",
+          "label": "BA",
+          "orderCount": 3253,
+          "totalGmv": 493339.26,
+          "lateDeliveryRate": 12.17
+        },
+        {
+          "state": "DF",
+          "label": "DF",
+          "orderCount": 2074,
+          "totalGmv": 295454.64,
+          "lateDeliveryRate": 5.69
+        },
+        {
+          "state": "ES",
+          "label": "ES",
+          "orderCount": 1992,
+          "totalGmv": 267783.66,
+          "lateDeliveryRate": 10.74
+        },
+        {
+          "state": "GO",
+          "label": "GO",
+          "orderCount": 1950,
+          "totalGmv": 281932.21,
+          "lateDeliveryRate": 6.56
+        },
+        {
+          "state": "PE",
+          "label": "PE",
+          "orderCount": 1587,
+          "totalGmv": 250639.89,
+          "lateDeliveryRate": 9.64
+        },
+        {
+          "state": "CE",
+          "label": "CE",
+          "orderCount": 1273,
+          "totalGmv": 218107.7,
+          "lateDeliveryRate": 13.83
+        },
+        {
+          "state": "PA",
+          "label": "PA",
+          "orderCount": 942,
+          "totalGmv": 173382.99,
+          "lateDeliveryRate": 11.25
+        },
+        {
+          "state": "MT",
+          "label": "MT",
+          "orderCount": 885,
+          "totalGmv": 152143.82,
+          "lateDeliveryRate": 5.99
+        },
+        {
+          "state": "MA",
+          "label": "MA",
+          "orderCount": 713,
+          "totalGmv": 116305.12,
+          "lateDeliveryRate": 17.53
+        },
+        {
+          "state": "MS",
+          "label": "MS",
+          "orderCount": 701,
+          "totalGmv": 115429.97,
+          "lateDeliveryRate": 9.7
+        },
+        {
+          "state": "PB",
+          "label": "PB",
+          "orderCount": 516,
+          "totalGmv": 112536.92,
+          "lateDeliveryRate": 10.47
+        },
+        {
+          "state": "PI",
+          "label": "PI",
+          "orderCount": 475,
+          "totalGmv": 84511,
+          "lateDeliveryRate": 13.89
+        },
+        {
+          "state": "RN",
+          "label": "RN",
+          "orderCount": 470,
+          "totalGmv": 81376.97,
+          "lateDeliveryRate": 9.36
+        },
+        {
+          "state": "AL",
+          "label": "AL",
+          "orderCount": 396,
+          "totalGmv": 78805.73,
+          "lateDeliveryRate": 21.46
+        },
+        {
+          "state": "SE",
+          "label": "SE",
+          "orderCount": 332,
+          "totalGmv": 56288.74,
+          "lateDeliveryRate": 15.36
+        },
+        {
+          "state": "TO",
+          "label": "TO",
+          "orderCount": 274,
+          "totalGmv": 48402.51,
+          "lateDeliveryRate": 9.85
+        },
+        {
+          "state": "RO",
+          "label": "RO",
+          "orderCount": 243,
+          "totalGmv": 45682.76,
+          "lateDeliveryRate": 2.88
+        },
+        {
+          "state": "AM",
+          "label": "AM",
+          "orderCount": 145,
+          "totalGmv": 22155.84,
+          "lateDeliveryRate": 2.76
+        },
+        {
+          "state": "AC",
+          "label": "AC",
+          "orderCount": 80,
+          "totalGmv": 15930.97,
+          "lateDeliveryRate": 3.75
+        },
+        {
+          "state": "AP",
+          "label": "AP",
+          "orderCount": 67,
+          "totalGmv": 13374.81,
+          "lateDeliveryRate": 2.99
+        },
+        {
+          "state": "RR",
+          "label": "RR",
+          "orderCount": 40,
+          "totalGmv": 7017.77,
+          "lateDeliveryRate": 12.5
+        }
+      ]
+    },
+    "2018_ytd": {
+      "totalOrders": 52783,
+      "totalStates": 27,
+      "stateMetrics": [
+        {
+          "state": "SP",
+          "label": "SP",
+          "orderCount": 23335,
+          "totalGmv": 2919328.17,
+          "lateDeliveryRate": 5.03
+        },
+        {
+          "state": "RJ",
+          "label": "RJ",
+          "orderCount": 6342,
+          "totalGmv": 874934.14,
+          "lateDeliveryRate": 13.73
+        },
+        {
+          "state": "MG",
+          "label": "MG",
+          "orderCount": 6079,
+          "totalGmv": 840172.2,
+          "lateDeliveryRate": 6.19
+        },
+        {
+          "state": "RS",
+          "label": "RS",
+          "orderCount": 2737,
+          "totalGmv": 375581.14,
+          "lateDeliveryRate": 7.16
+        },
+        {
+          "state": "PR",
+          "label": "PR",
+          "orderCount": 2711,
+          "totalGmv": 376623.19,
+          "lateDeliveryRate": 4.76
+        },
+        {
+          "state": "SC",
+          "label": "SC",
+          "orderCount": 1884,
+          "totalGmv": 281524.74,
+          "lateDeliveryRate": 8.86
+        },
+        {
+          "state": "BA",
+          "label": "BA",
+          "orderCount": 1726,
+          "totalGmv": 265885.82,
+          "lateDeliveryRate": 14.08
+        },
+        {
+          "state": "DF",
+          "label": "DF",
+          "orderCount": 1193,
+          "totalGmv": 164284.94,
+          "lateDeliveryRate": 6.71
+        },
+        {
+          "state": "ES",
+          "label": "ES",
+          "orderCount": 1047,
+          "totalGmv": 152031.09,
+          "lateDeliveryRate": 13.75
+        },
+        {
+          "state": "GO",
+          "label": "GO",
+          "orderCount": 1033,
+          "totalGmv": 148131.2,
+          "lateDeliveryRate": 7.74
+        },
+        {
+          "state": "PE",
+          "label": "PE",
+          "orderCount": 852,
+          "totalGmv": 134193.9,
+          "lateDeliveryRate": 9.98
+        },
+        {
+          "state": "CE",
+          "label": "CE",
+          "orderCount": 633,
+          "totalGmv": 107628.71,
+          "lateDeliveryRate": 19.12
+        },
+        {
+          "state": "MT",
+          "label": "MT",
+          "orderCount": 476,
+          "totalGmv": 76092.64,
+          "lateDeliveryRate": 5.88
+        },
+        {
+          "state": "PA",
+          "label": "PA",
+          "orderCount": 453,
+          "totalGmv": 84941.34,
+          "lateDeliveryRate": 16.56
+        },
+        {
+          "state": "MS",
+          "label": "MS",
+          "orderCount": 411,
+          "totalGmv": 62752.35,
+          "lateDeliveryRate": 14.36
+        },
+        {
+          "state": "MA",
+          "label": "MA",
+          "orderCount": 346,
+          "totalGmv": 57461.28,
+          "lateDeliveryRate": 19.94
+        },
+        {
+          "state": "PB",
+          "label": "PB",
+          "orderCount": 269,
+          "totalGmv": 62565.92,
+          "lateDeliveryRate": 8.92
+        },
+        {
+          "state": "PI",
+          "label": "PI",
+          "orderCount": 258,
+          "totalGmv": 49235.43,
+          "lateDeliveryRate": 16.67
+        },
+        {
+          "state": "RN",
+          "label": "RN",
+          "orderCount": 241,
+          "totalGmv": 46296.67,
+          "lateDeliveryRate": 8.71
+        },
+        {
+          "state": "AL",
+          "label": "AL",
+          "orderCount": 198,
+          "totalGmv": 35462.83,
+          "lateDeliveryRate": 22.22
+        },
+        {
+          "state": "SE",
+          "label": "SE",
+          "orderCount": 146,
+          "totalGmv": 26409.84,
+          "lateDeliveryRate": 16.44
+        },
+        {
+          "state": "TO",
+          "label": "TO",
+          "orderCount": 144,
+          "totalGmv": 24951.37,
+          "lateDeliveryRate": 15.28
+        },
+        {
+          "state": "RO",
+          "label": "RO",
+          "orderCount": 109,
+          "totalGmv": 21563.19,
+          "lateDeliveryRate": 3.67
+        },
+        {
+          "state": "AM",
+          "label": "AM",
+          "orderCount": 72,
+          "totalGmv": 11717.35,
+          "lateDeliveryRate": 4.17
+        },
+        {
+          "state": "AP",
+          "label": "AP",
+          "orderCount": 39,
+          "totalGmv": 7427.66,
+          "lateDeliveryRate": 0
+        },
+        {
+          "state": "AC",
+          "label": "AC",
+          "orderCount": 27,
+          "totalGmv": 5315,
+          "lateDeliveryRate": 3.7
+        },
+        {
+          "state": "RR",
+          "label": "RR",
+          "orderCount": 22,
+          "totalGmv": 5613.01,
+          "lateDeliveryRate": 9.09
+        }
+      ]
+    }
+  },
+  "categoryPanelsByRange": {
+    "2017": {
+      "shareBasis": "item_count",
+      "totals": {
+        "totalOrders": 43428,
+        "totalItems": 49556,
+        "totalGmv": 5962902.01
+      },
+      "categories": [
+        {
+          "categoryKey": "bed_bath_table",
+          "categoryLabel": "Bed Bath Table",
+          "orderCount": 4423,
+          "itemCount": 5135,
+          "totalGmv": 490596.92,
+          "shareOfItems": 10.36
+        },
+        {
+          "categoryKey": "furniture_decor",
+          "categoryLabel": "Furniture Decor",
+          "orderCount": 3111,
+          "itemCount": 4044,
+          "totalGmv": 324587.6,
+          "shareOfItems": 8.16
+        },
+        {
+          "categoryKey": "sports_leisure",
+          "categoryLabel": "Sports Leisure",
+          "orderCount": 3540,
+          "itemCount": 3978,
+          "totalGmv": 435674.14,
+          "shareOfItems": 8.03
+        },
+        {
+          "categoryKey": "health_beauty",
+          "categoryLabel": "Health Beauty",
+          "orderCount": 3305,
+          "itemCount": 3581,
+          "totalGmv": 473833,
+          "shareOfItems": 7.23
+        },
+        {
+          "categoryKey": "computers_accessories",
+          "categoryLabel": "Computers Accessories",
+          "orderCount": 2546,
+          "itemCount": 3010,
+          "totalGmv": 391786.29,
+          "shareOfItems": 6.07
+        },
+        {
+          "categoryKey": "housewares",
+          "categoryLabel": "Housewares",
+          "orderCount": 2383,
+          "itemCount": 2814,
+          "totalGmv": 222518.16,
+          "shareOfItems": 5.68
+        },
+        {
+          "categoryKey": "toys",
+          "categoryLabel": "Toys",
+          "orderCount": 2404,
+          "itemCount": 2552,
+          "totalGmv": 299056.71,
+          "shareOfItems": 5.15
+        },
+        {
+          "categoryKey": "garden_tools",
+          "categoryLabel": "Garden Tools",
+          "orderCount": 1934,
+          "itemCount": 2414,
+          "totalGmv": 256949.2,
+          "shareOfItems": 4.87
+        },
+        {
+          "categoryKey": "cool_stuff",
+          "categoryLabel": "Cool Stuff",
+          "orderCount": 2161,
+          "itemCount": 2264,
+          "totalGmv": 381414.3,
+          "shareOfItems": 4.57
+        },
+        {
+          "categoryKey": "watches_gifts",
+          "categoryLabel": "Watches Gifts",
+          "orderCount": 2073,
+          "itemCount": 2227,
+          "totalGmv": 475610.71,
+          "shareOfItems": 4.49
+        },
+        {
+          "categoryKey": "telephony",
+          "categoryLabel": "Telephony",
+          "orderCount": 1969,
+          "itemCount": 2129,
+          "totalGmv": 135508.26,
+          "shareOfItems": 4.3
+        },
+        {
+          "categoryKey": "perfumery",
+          "categoryLabel": "Perfumery",
+          "orderCount": 1602,
+          "itemCount": 1705,
+          "totalGmv": 210943.55,
+          "shareOfItems": 3.44
+        },
+        {
+          "categoryKey": "auto",
+          "categoryLabel": "Auto",
+          "orderCount": 1383,
+          "itemCount": 1552,
+          "totalGmv": 234550.09,
+          "shareOfItems": 3.13
+        },
+        {
+          "categoryKey": "baby",
+          "categoryLabel": "Baby",
+          "orderCount": 1173,
+          "itemCount": 1240,
+          "totalGmv": 148434.88,
+          "shareOfItems": 2.5
+        },
+        {
+          "categoryKey": "fashion_bags_accessories",
+          "categoryLabel": "Fashion Bags Accessories",
+          "orderCount": 992,
+          "itemCount": 1108,
+          "totalGmv": 79352.76,
+          "shareOfItems": 2.24
+        },
+        {
+          "categoryKey": "stationery",
+          "categoryLabel": "Stationery",
+          "orderCount": 897,
+          "itemCount": 965,
+          "totalGmv": 91472.94,
+          "shareOfItems": 1.95
+        },
+        {
+          "categoryKey": "electronics",
+          "categoryLabel": "Electronics",
+          "orderCount": 810,
+          "itemCount": 891,
+          "totalGmv": 55200.34,
+          "shareOfItems": 1.8
+        },
+        {
+          "categoryKey": "unknown_category",
+          "categoryLabel": "Unknown Category",
+          "orderCount": 785,
+          "itemCount": 875,
+          "totalGmv": 100066.8,
+          "shareOfItems": 1.77
+        },
+        {
+          "categoryKey": "office_furniture",
+          "categoryLabel": "Office Furniture",
+          "orderCount": 612,
+          "itemCount": 792,
+          "totalGmv": 126275.08,
+          "shareOfItems": 1.6
+        },
+        {
+          "categoryKey": "pet_shop",
+          "categoryLabel": "Pet Shop",
+          "orderCount": 682,
+          "itemCount": 774,
+          "totalGmv": 84156.32,
+          "shareOfItems": 1.56
+        },
+        {
+          "categoryKey": "consoles_games",
+          "categoryLabel": "Consoles Games",
+          "orderCount": 640,
+          "itemCount": 680,
+          "totalGmv": 82886.93,
+          "shareOfItems": 1.37
+        },
+        {
+          "categoryKey": "luggage_accessories",
+          "categoryLabel": "Luggage Accessories",
+          "orderCount": 556,
+          "itemCount": 590,
+          "totalGmv": 75088.7,
+          "shareOfItems": 1.19
+        },
+        {
+          "categoryKey": "small_appliances",
+          "categoryLabel": "Small Appliances",
+          "orderCount": 295,
+          "itemCount": 310,
+          "totalGmv": 96841.18,
+          "shareOfItems": 0.63
+        },
+        {
+          "categoryKey": "home_confort",
+          "categoryLabel": "Home Confort",
+          "orderCount": 246,
+          "itemCount": 275,
+          "totalGmv": 37270.8,
+          "shareOfItems": 0.55
+        },
+        {
+          "categoryKey": "musical_instruments",
+          "categoryLabel": "Musical Instruments",
+          "orderCount": 241,
+          "itemCount": 258,
+          "totalGmv": 78488.46,
+          "shareOfItems": 0.52
+        },
+        {
+          "categoryKey": "furniture_living_room",
+          "categoryLabel": "Furniture Living Room",
+          "orderCount": 203,
+          "itemCount": 256,
+          "totalGmv": 33883.44,
+          "shareOfItems": 0.52
+        },
+        {
+          "categoryKey": "home_appliances",
+          "categoryLabel": "Home Appliances",
+          "orderCount": 232,
+          "itemCount": 235,
+          "totalGmv": 23071.73,
+          "shareOfItems": 0.47
+        },
+        {
+          "categoryKey": "books_general_interest",
+          "categoryLabel": "Books General Interest",
+          "orderCount": 214,
+          "itemCount": 229,
+          "totalGmv": 18446,
+          "shareOfItems": 0.46
+        },
+        {
+          "categoryKey": "market_place",
+          "categoryLabel": "Market Place",
+          "orderCount": 174,
+          "itemCount": 187,
+          "totalGmv": 19314.91,
+          "shareOfItems": 0.38
+        },
+        {
+          "categoryKey": "fashion_shoes",
+          "categoryLabel": "Fashion Shoes",
+          "orderCount": 167,
+          "itemCount": 186,
+          "totalGmv": 14674.5,
+          "shareOfItems": 0.38
+        },
+        {
+          "categoryKey": "audio",
+          "categoryLabel": "Audio",
+          "orderCount": 159,
+          "itemCount": 165,
+          "totalGmv": 17452.67,
+          "shareOfItems": 0.33
+        },
+        {
+          "categoryKey": "fixed_telephony",
+          "categoryLabel": "Fixed Telephony",
+          "orderCount": 122,
+          "itemCount": 150,
+          "totalGmv": 27604.94,
+          "shareOfItems": 0.3
+        },
+        {
+          "categoryKey": "home_construction",
+          "categoryLabel": "Home Construction",
+          "orderCount": 110,
+          "itemCount": 142,
+          "totalGmv": 23742.45,
+          "shareOfItems": 0.29
+        },
+        {
+          "categoryKey": "construction_tools_construction",
+          "categoryLabel": "Construction Tools Construction",
+          "orderCount": 100,
+          "itemCount": 129,
+          "totalGmv": 19221.88,
+          "shareOfItems": 0.26
+        },
+        {
+          "categoryKey": "computers",
+          "categoryLabel": "Computers",
+          "orderCount": 121,
+          "itemCount": 127,
+          "totalGmv": 156280.8,
+          "shareOfItems": 0.26
+        },
+        {
+          "categoryKey": "air_conditioning",
+          "categoryLabel": "Air Conditioning",
+          "orderCount": 110,
+          "itemCount": 126,
+          "totalGmv": 27269.21,
+          "shareOfItems": 0.25
+        },
+        {
+          "categoryKey": "food_drink",
+          "categoryLabel": "Food Drink",
+          "orderCount": 104,
+          "itemCount": 124,
+          "totalGmv": 7286.94,
+          "shareOfItems": 0.25
+        },
+        {
+          "categoryKey": "kitchen_dining_laundry_garden_furniture",
+          "categoryLabel": "Kitchen Dining Laundry Garden Furniture",
+          "orderCount": 105,
+          "itemCount": 119,
+          "totalGmv": 18522.15,
+          "shareOfItems": 0.24
+        },
+        {
+          "categoryKey": "food",
+          "categoryLabel": "Food",
+          "orderCount": 102,
+          "itemCount": 119,
+          "totalGmv": 8346.38,
+          "shareOfItems": 0.24
+        },
+        {
+          "categoryKey": "fashion_male_clothing",
+          "categoryLabel": "Fashion Male Clothing",
+          "orderCount": 81,
+          "itemCount": 98,
+          "totalGmv": 8125.56,
+          "shareOfItems": 0.2
+        },
+        {
+          "categoryKey": "fashion_underwear_beach",
+          "categoryLabel": "Fashion Underwear Beach",
+          "orderCount": 80,
+          "itemCount": 85,
+          "totalGmv": 6896.85,
+          "shareOfItems": 0.17
+        },
+        {
+          "categoryKey": "home_appliances_2",
+          "categoryLabel": "Home Appliances 2",
+          "orderCount": 82,
+          "itemCount": 83,
+          "totalGmv": 21051.09,
+          "shareOfItems": 0.17
+        },
+        {
+          "categoryKey": "drinks",
+          "categoryLabel": "Drinks",
+          "orderCount": 70,
+          "itemCount": 82,
+          "totalGmv": 4646.65,
+          "shareOfItems": 0.17
+        },
+        {
+          "categoryKey": "costruction_tools_garden",
+          "categoryLabel": "Costruction Tools Garden",
+          "orderCount": 62,
+          "itemCount": 76,
+          "totalGmv": 8731.89,
+          "shareOfItems": 0.15
+        },
+        {
+          "categoryKey": "agro_industry_and_commerce",
+          "categoryLabel": "Agro Industry And Commerce",
+          "orderCount": 48,
+          "itemCount": 61,
+          "totalGmv": 29179.2,
+          "shareOfItems": 0.12
+        },
+        {
+          "categoryKey": "tablets_printing_image",
+          "categoryLabel": "Tablets Printing Image",
+          "orderCount": 59,
+          "itemCount": 61,
+          "totalGmv": 6260.45,
+          "shareOfItems": 0.12
+        },
+        {
+          "categoryKey": "christmas_supplies",
+          "categoryLabel": "Christmas Supplies",
+          "orderCount": 48,
+          "itemCount": 61,
+          "totalGmv": 2826.94,
+          "shareOfItems": 0.12
+        },
+        {
+          "categoryKey": "books_technical",
+          "categoryLabel": "Books Technical",
+          "orderCount": 43,
+          "itemCount": 44,
+          "totalGmv": 5762.22,
+          "shareOfItems": 0.09
+        },
+        {
+          "categoryKey": "signaling_and_security",
+          "categoryLabel": "Signaling And Security",
+          "orderCount": 33,
+          "itemCount": 44,
+          "totalGmv": 4248.81,
+          "shareOfItems": 0.09
+        },
+        {
+          "categoryKey": "furniture_bedroom",
+          "categoryLabel": "Furniture Bedroom",
+          "orderCount": 37,
+          "itemCount": 41,
+          "totalGmv": 8238.63,
+          "shareOfItems": 0.08
+        },
+        {
+          "categoryKey": "construction_tools_safety",
+          "categoryLabel": "Construction Tools Safety",
+          "orderCount": 34,
+          "itemCount": 40,
+          "totalGmv": 7846.9,
+          "shareOfItems": 0.08
+        },
+        {
+          "categoryKey": "dvds_blu_ray",
+          "categoryLabel": "Dvds Blu Ray",
+          "orderCount": 34,
+          "itemCount": 36,
+          "totalGmv": 3409.88,
+          "shareOfItems": 0.07
+        },
+        {
+          "categoryKey": "industry_commerce_and_business",
+          "categoryLabel": "Industry Commerce And Business",
+          "orderCount": 34,
+          "itemCount": 34,
+          "totalGmv": 8656.67,
+          "shareOfItems": 0.07
+        },
+        {
+          "categoryKey": "art",
+          "categoryLabel": "Art",
+          "orderCount": 32,
+          "itemCount": 32,
+          "totalGmv": 8981.34,
+          "shareOfItems": 0.06
+        },
+        {
+          "categoryKey": "fashio_female_clothing",
+          "categoryLabel": "Fashio Female Clothing",
+          "orderCount": 27,
+          "itemCount": 28,
+          "totalGmv": 1963.38,
+          "shareOfItems": 0.06
+        },
+        {
+          "categoryKey": "fashion_sport",
+          "categoryLabel": "Fashion Sport",
+          "orderCount": 21,
+          "itemCount": 24,
+          "totalGmv": 1725.02,
+          "shareOfItems": 0.05
+        },
+        {
+          "categoryKey": "costruction_tools_tools",
+          "categoryLabel": "Costruction Tools Tools",
+          "orderCount": 21,
+          "itemCount": 22,
+          "totalGmv": 4087.29,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "home_comfort_2",
+          "categoryLabel": "Home Comfort 2",
+          "orderCount": 17,
+          "itemCount": 20,
+          "totalGmv": 609.18,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "construction_tools_lights",
+          "categoryLabel": "Construction Tools Lights",
+          "orderCount": 17,
+          "itemCount": 18,
+          "totalGmv": 4053.48,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "furniture_mattress_and_upholstery",
+          "categoryLabel": "Furniture Mattress And Upholstery",
+          "orderCount": 18,
+          "itemCount": 18,
+          "totalGmv": 2548.28,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "books_imported",
+          "categoryLabel": "Books Imported",
+          "orderCount": 11,
+          "itemCount": 14,
+          "totalGmv": 947.99,
+          "shareOfItems": 0.03
+        },
+        {
+          "categoryKey": "cds_dvds_musicals",
+          "categoryLabel": "Cds Dvds Musicals",
+          "orderCount": 11,
+          "itemCount": 13,
+          "totalGmv": 665,
+          "shareOfItems": 0.03
+        },
+        {
+          "categoryKey": "music",
+          "categoryLabel": "Music",
+          "orderCount": 11,
+          "itemCount": 11,
+          "totalGmv": 1558.39,
+          "shareOfItems": 0.02
+        },
+        {
+          "categoryKey": "party_supplies",
+          "categoryLabel": "Party Supplies",
+          "orderCount": 9,
+          "itemCount": 10,
+          "totalGmv": 1843.4,
+          "shareOfItems": 0.02
+        },
+        {
+          "categoryKey": "la_cuisine",
+          "categoryLabel": "La Cuisine",
+          "orderCount": 10,
+          "itemCount": 10,
+          "totalGmv": 1273.99,
+          "shareOfItems": 0.02
+        },
+        {
+          "categoryKey": "cine_photo",
+          "categoryLabel": "Cine Photo",
+          "orderCount": 8,
+          "itemCount": 8,
+          "totalGmv": 695,
+          "shareOfItems": 0.02
+        },
+        {
+          "categoryKey": "flowers",
+          "categoryLabel": "Flowers",
+          "orderCount": 8,
+          "itemCount": 8,
+          "totalGmv": 270.5,
+          "shareOfItems": 0.02
+        },
+        {
+          "categoryKey": "pc_gamer",
+          "categoryLabel": "Pc Gamer",
+          "orderCount": 4,
+          "itemCount": 4,
+          "totalGmv": 519.96,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "fashion_childrens_clothes",
+          "categoryLabel": "Fashion Childrens Clothes",
+          "orderCount": 4,
+          "itemCount": 4,
+          "totalGmv": 349.98,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "small_appliances_home_oven_and_coffee",
+          "categoryLabel": "Small Appliances Home Oven And Coffee",
+          "orderCount": 3,
+          "itemCount": 3,
+          "totalGmv": 734.79,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "security_and_services",
+          "categoryLabel": "Security And Services",
+          "orderCount": 2,
+          "itemCount": 2,
+          "totalGmv": 283.29,
+          "shareOfItems": 0
+        },
+        {
+          "categoryKey": "arts_and_craftmanship",
+          "categoryLabel": "Arts And Craftmanship",
+          "orderCount": 2,
+          "itemCount": 2,
+          "totalGmv": 151.89,
+          "shareOfItems": 0
+        },
+        {
+          "categoryKey": "diapers_and_hygiene",
+          "categoryLabel": "Diapers And Hygiene",
+          "orderCount": 1,
+          "itemCount": 2,
+          "totalGmv": 76,
+          "shareOfItems": 0
+        }
+      ],
+      "topCategory": {
+        "categoryKey": "bed_bath_table",
+        "categoryLabel": "Bed Bath Table",
+        "orderCount": 4423,
+        "itemCount": 5135,
+        "totalGmv": 490596.92,
+        "shareOfItems": 10.36
+      }
+    },
+    "all": {
+      "shareBasis": "item_count",
+      "totals": {
+        "totalOrders": 96211,
+        "totalItems": 109880,
+        "totalGmv": 13181027.13
+      },
+      "categories": [
+        {
+          "categoryKey": "bed_bath_table",
+          "categoryLabel": "Bed Bath Table",
+          "orderCount": 9267,
+          "itemCount": 10945,
+          "totalGmv": 1022955.77,
+          "shareOfItems": 9.96
+        },
+        {
+          "categoryKey": "health_beauty",
+          "categoryLabel": "Health Beauty",
+          "orderCount": 8610,
+          "itemCount": 9422,
+          "totalGmv": 1229557.5,
+          "shareOfItems": 8.57
+        },
+        {
+          "categoryKey": "sports_leisure",
+          "categoryLabel": "Sports Leisure",
+          "orderCount": 7513,
+          "itemCount": 8414,
+          "totalGmv": 952840.4,
+          "shareOfItems": 7.66
+        },
+        {
+          "categoryKey": "furniture_decor",
+          "categoryLabel": "Furniture Decor",
+          "orderCount": 6258,
+          "itemCount": 8095,
+          "totalGmv": 706237.17,
+          "shareOfItems": 7.37
+        },
+        {
+          "categoryKey": "computers_accessories",
+          "categoryLabel": "Computers Accessories",
+          "orderCount": 6518,
+          "itemCount": 7632,
+          "totalGmv": 888055.59,
+          "shareOfItems": 6.95
+        },
+        {
+          "categoryKey": "housewares",
+          "categoryLabel": "Housewares",
+          "orderCount": 5734,
+          "itemCount": 6783,
+          "totalGmv": 614341.62,
+          "shareOfItems": 6.17
+        },
+        {
+          "categoryKey": "watches_gifts",
+          "categoryLabel": "Watches Gifts",
+          "orderCount": 5491,
+          "itemCount": 5855,
+          "totalGmv": 1163465.91,
+          "shareOfItems": 5.33
+        },
+        {
+          "categoryKey": "telephony",
+          "categoryLabel": "Telephony",
+          "orderCount": 4086,
+          "itemCount": 4422,
+          "totalGmv": 309631.94,
+          "shareOfItems": 4.02
+        },
+        {
+          "categoryKey": "garden_tools",
+          "categoryLabel": "Garden Tools",
+          "orderCount": 3443,
+          "itemCount": 4263,
+          "totalGmv": 469135.4,
+          "shareOfItems": 3.88
+        },
+        {
+          "categoryKey": "auto",
+          "categoryLabel": "Auto",
+          "orderCount": 3802,
+          "itemCount": 4132,
+          "totalGmv": 577838.39,
+          "shareOfItems": 3.76
+        },
+        {
+          "categoryKey": "toys",
+          "categoryLabel": "Toys",
+          "orderCount": 3782,
+          "itemCount": 4006,
+          "totalGmv": 467179.98,
+          "shareOfItems": 3.65
+        },
+        {
+          "categoryKey": "cool_stuff",
+          "categoryLabel": "Cool Stuff",
+          "orderCount": 3552,
+          "itemCount": 3711,
+          "totalGmv": 609158,
+          "shareOfItems": 3.38
+        },
+        {
+          "categoryKey": "perfumery",
+          "categoryLabel": "Perfumery",
+          "orderCount": 3060,
+          "itemCount": 3311,
+          "totalGmv": 385315.55,
+          "shareOfItems": 3.01
+        },
+        {
+          "categoryKey": "baby",
+          "categoryLabel": "Baby",
+          "orderCount": 2800,
+          "itemCount": 2971,
+          "totalGmv": 399050.67,
+          "shareOfItems": 2.7
+        },
+        {
+          "categoryKey": "electronics",
+          "categoryLabel": "Electronics",
+          "orderCount": 2516,
+          "itemCount": 2728,
+          "totalGmv": 154935.94,
+          "shareOfItems": 2.48
+        },
+        {
+          "categoryKey": "stationery",
+          "categoryLabel": "Stationery",
+          "orderCount": 2264,
+          "itemCount": 2466,
+          "totalGmv": 223788.69,
+          "shareOfItems": 2.24
+        },
+        {
+          "categoryKey": "fashion_bags_accessories",
+          "categoryLabel": "Fashion Bags Accessories",
+          "orderCount": 1812,
+          "itemCount": 1976,
+          "totalGmv": 148945.19,
+          "shareOfItems": 1.8
+        },
+        {
+          "categoryKey": "pet_shop",
+          "categoryLabel": "Pet Shop",
+          "orderCount": 1684,
+          "itemCount": 1920,
+          "totalGmv": 211005.96,
+          "shareOfItems": 1.75
+        },
+        {
+          "categoryKey": "office_furniture",
+          "categoryLabel": "Office Furniture",
+          "orderCount": 1248,
+          "itemCount": 1662,
+          "totalGmv": 266853.43,
+          "shareOfItems": 1.51
+        },
+        {
+          "categoryKey": "unknown_category",
+          "categoryLabel": "Unknown Category",
+          "orderCount": 1390,
+          "itemCount": 1535,
+          "totalGmv": 170660.74,
+          "shareOfItems": 1.4
+        },
+        {
+          "categoryKey": "consoles_games",
+          "categoryLabel": "Consoles Games",
+          "orderCount": 1011,
+          "itemCount": 1082,
+          "totalGmv": 144384.01,
+          "shareOfItems": 0.98
+        },
+        {
+          "categoryKey": "luggage_accessories",
+          "categoryLabel": "Luggage Accessories",
+          "orderCount": 1019,
+          "itemCount": 1077,
+          "totalGmv": 138701.63,
+          "shareOfItems": 0.98
+        },
+        {
+          "categoryKey": "construction_tools_construction",
+          "categoryLabel": "Construction Tools Construction",
+          "orderCount": 736,
+          "itemCount": 916,
+          "totalGmv": 142108.49,
+          "shareOfItems": 0.83
+        },
+        {
+          "categoryKey": "home_appliances",
+          "categoryLabel": "Home Appliances",
+          "orderCount": 747,
+          "itemCount": 754,
+          "totalGmv": 78832.48,
+          "shareOfItems": 0.69
+        },
+        {
+          "categoryKey": "small_appliances",
+          "categoryLabel": "Small Appliances",
+          "orderCount": 609,
+          "itemCount": 658,
+          "totalGmv": 182754.12,
+          "shareOfItems": 0.6
+        },
+        {
+          "categoryKey": "musical_instruments",
+          "categoryLabel": "Musical Instruments",
+          "orderCount": 611,
+          "itemCount": 651,
+          "totalGmv": 184315.74,
+          "shareOfItems": 0.59
+        },
+        {
+          "categoryKey": "home_construction",
+          "categoryLabel": "Home Construction",
+          "orderCount": 483,
+          "itemCount": 596,
+          "totalGmv": 81407.57,
+          "shareOfItems": 0.54
+        },
+        {
+          "categoryKey": "books_general_interest",
+          "categoryLabel": "Books General Interest",
+          "orderCount": 496,
+          "itemCount": 537,
+          "totalGmv": 45302.15,
+          "shareOfItems": 0.49
+        },
+        {
+          "categoryKey": "food",
+          "categoryLabel": "Food",
+          "orderCount": 440,
+          "itemCount": 498,
+          "totalGmv": 28651.25,
+          "shareOfItems": 0.45
+        },
+        {
+          "categoryKey": "furniture_living_room",
+          "categoryLabel": "Furniture Living Room",
+          "orderCount": 414,
+          "itemCount": 495,
+          "totalGmv": 67350.7,
+          "shareOfItems": 0.45
+        },
+        {
+          "categoryKey": "home_confort",
+          "categoryLabel": "Home Confort",
+          "orderCount": 392,
+          "itemCount": 429,
+          "totalGmv": 58008.45,
+          "shareOfItems": 0.39
+        },
+        {
+          "categoryKey": "drinks",
+          "categoryLabel": "Drinks",
+          "orderCount": 287,
+          "itemCount": 361,
+          "totalGmv": 21529.84,
+          "shareOfItems": 0.33
+        },
+        {
+          "categoryKey": "audio",
+          "categoryLabel": "Audio",
+          "orderCount": 346,
+          "itemCount": 360,
+          "totalGmv": 50413.61,
+          "shareOfItems": 0.33
+        },
+        {
+          "categoryKey": "construction_tools_lights",
+          "categoryLabel": "Construction Tools Lights",
+          "orderCount": 242,
+          "itemCount": 301,
+          "totalGmv": 39957,
+          "shareOfItems": 0.27
+        },
+        {
+          "categoryKey": "market_place",
+          "categoryLabel": "Market Place",
+          "orderCount": 269,
+          "itemCount": 294,
+          "totalGmv": 26880.48,
+          "shareOfItems": 0.27
+        },
+        {
+          "categoryKey": "air_conditioning",
+          "categoryLabel": "Air Conditioning",
+          "orderCount": 242,
+          "itemCount": 281,
+          "totalGmv": 51974.27,
+          "shareOfItems": 0.26
+        },
+        {
+          "categoryKey": "kitchen_dining_laundry_garden_furniture",
+          "categoryLabel": "Kitchen Dining Laundry Garden Furniture",
+          "orderCount": 241,
+          "itemCount": 274,
+          "totalGmv": 45531.98,
+          "shareOfItems": 0.25
+        },
+        {
+          "categoryKey": "food_drink",
+          "categoryLabel": "Food Drink",
+          "orderCount": 221,
+          "itemCount": 269,
+          "totalGmv": 14942.88,
+          "shareOfItems": 0.24
+        },
+        {
+          "categoryKey": "books_technical",
+          "categoryLabel": "Books Technical",
+          "orderCount": 256,
+          "itemCount": 263,
+          "totalGmv": 18702.23,
+          "shareOfItems": 0.24
+        },
+        {
+          "categoryKey": "industry_commerce_and_business",
+          "categoryLabel": "Industry Commerce And Business",
+          "orderCount": 229,
+          "itemCount": 261,
+          "totalGmv": 38139.21,
+          "shareOfItems": 0.24
+        },
+        {
+          "categoryKey": "fashion_shoes",
+          "categoryLabel": "Fashion Shoes",
+          "orderCount": 234,
+          "itemCount": 256,
+          "totalGmv": 22971.47,
+          "shareOfItems": 0.23
+        },
+        {
+          "categoryKey": "fixed_telephony",
+          "categoryLabel": "Fixed Telephony",
+          "orderCount": 207,
+          "itemCount": 250,
+          "totalGmv": 54610.33,
+          "shareOfItems": 0.23
+        },
+        {
+          "categoryKey": "costruction_tools_garden",
+          "categoryLabel": "Costruction Tools Garden",
+          "orderCount": 190,
+          "itemCount": 232,
+          "totalGmv": 25096.28,
+          "shareOfItems": 0.21
+        },
+        {
+          "categoryKey": "home_appliances_2",
+          "categoryLabel": "Home Appliances 2",
+          "orderCount": 227,
+          "itemCount": 231,
+          "totalGmv": 107953.95,
+          "shareOfItems": 0.21
+        },
+        {
+          "categoryKey": "agro_industry_and_commerce",
+          "categoryLabel": "Agro Industry And Commerce",
+          "orderCount": 177,
+          "itemCount": 206,
+          "totalGmv": 70566.1,
+          "shareOfItems": 0.19
+        },
+        {
+          "categoryKey": "computers",
+          "categoryLabel": "Computers",
+          "orderCount": 177,
+          "itemCount": 199,
+          "totalGmv": 218684.14,
+          "shareOfItems": 0.18
+        },
+        {
+          "categoryKey": "art",
+          "categoryLabel": "Art",
+          "orderCount": 195,
+          "itemCount": 197,
+          "totalGmv": 23657.3,
+          "shareOfItems": 0.18
+        },
+        {
+          "categoryKey": "signaling_and_security",
+          "categoryLabel": "Signaling And Security",
+          "orderCount": 138,
+          "itemCount": 197,
+          "totalGmv": 21315.05,
+          "shareOfItems": 0.18
+        },
+        {
+          "categoryKey": "construction_tools_safety",
+          "categoryLabel": "Construction Tools Safety",
+          "orderCount": 159,
+          "itemCount": 183,
+          "totalGmv": 38773.22,
+          "shareOfItems": 0.17
+        },
+        {
+          "categoryKey": "christmas_supplies",
+          "categoryLabel": "Christmas Supplies",
+          "orderCount": 125,
+          "itemCount": 150,
+          "totalGmv": 8737.84,
+          "shareOfItems": 0.14
+        },
+        {
+          "categoryKey": "fashion_underwear_beach",
+          "categoryLabel": "Fashion Underwear Beach",
+          "orderCount": 117,
+          "itemCount": 127,
+          "totalGmv": 9305.95,
+          "shareOfItems": 0.12
+        },
+        {
+          "categoryKey": "fashion_male_clothing",
+          "categoryLabel": "Fashion Male Clothing",
+          "orderCount": 105,
+          "itemCount": 124,
+          "totalGmv": 10427.43,
+          "shareOfItems": 0.11
+        },
+        {
+          "categoryKey": "furniture_bedroom",
+          "categoryLabel": "Furniture Bedroom",
+          "orderCount": 90,
+          "itemCount": 103,
+          "totalGmv": 19051.8,
+          "shareOfItems": 0.09
+        },
+        {
+          "categoryKey": "costruction_tools_tools",
+          "categoryLabel": "Costruction Tools Tools",
+          "orderCount": 97,
+          "itemCount": 103,
+          "totalGmv": 15903.95,
+          "shareOfItems": 0.09
+        },
+        {
+          "categoryKey": "tablets_printing_image",
+          "categoryLabel": "Tablets Printing Image",
+          "orderCount": 79,
+          "itemCount": 83,
+          "totalGmv": 7528.41,
+          "shareOfItems": 0.08
+        },
+        {
+          "categoryKey": "small_appliances_home_oven_and_coffee",
+          "categoryLabel": "Small Appliances Home Oven And Coffee",
+          "orderCount": 72,
+          "itemCount": 73,
+          "totalGmv": 46589.56,
+          "shareOfItems": 0.07
+        },
+        {
+          "categoryKey": "cine_photo",
+          "categoryLabel": "Cine Photo",
+          "orderCount": 63,
+          "itemCount": 70,
+          "totalGmv": 6674.47,
+          "shareOfItems": 0.06
+        },
+        {
+          "categoryKey": "dvds_blu_ray",
+          "categoryLabel": "Dvds Blu Ray",
+          "orderCount": 56,
+          "itemCount": 61,
+          "totalGmv": 4542.59,
+          "shareOfItems": 0.06
+        },
+        {
+          "categoryKey": "books_imported",
+          "categoryLabel": "Books Imported",
+          "orderCount": 50,
+          "itemCount": 57,
+          "totalGmv": 4418.86,
+          "shareOfItems": 0.05
+        },
+        {
+          "categoryKey": "fashio_female_clothing",
+          "categoryLabel": "Fashio Female Clothing",
+          "orderCount": 35,
+          "itemCount": 44,
+          "totalGmv": 2580.04,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "party_supplies",
+          "categoryLabel": "Party Supplies",
+          "orderCount": 38,
+          "itemCount": 42,
+          "totalGmv": 4465.19,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "music",
+          "categoryLabel": "Music",
+          "orderCount": 38,
+          "itemCount": 38,
+          "totalGmv": 6034.35,
+          "shareOfItems": 0.03
+        },
+        {
+          "categoryKey": "furniture_mattress_and_upholstery",
+          "categoryLabel": "Furniture Mattress And Upholstery",
+          "orderCount": 37,
+          "itemCount": 37,
+          "totalGmv": 4323.38,
+          "shareOfItems": 0.03
+        },
+        {
+          "categoryKey": "diapers_and_hygiene",
+          "categoryLabel": "Diapers And Hygiene",
+          "orderCount": 24,
+          "itemCount": 36,
+          "totalGmv": 1365.89,
+          "shareOfItems": 0.03
+        },
+        {
+          "categoryKey": "flowers",
+          "categoryLabel": "Flowers",
+          "orderCount": 29,
+          "itemCount": 33,
+          "totalGmv": 1110.04,
+          "shareOfItems": 0.03
+        },
+        {
+          "categoryKey": "home_comfort_2",
+          "categoryLabel": "Home Comfort 2",
+          "orderCount": 24,
+          "itemCount": 30,
+          "totalGmv": 760.27,
+          "shareOfItems": 0.03
+        },
+        {
+          "categoryKey": "fashion_sport",
+          "categoryLabel": "Fashion Sport",
+          "orderCount": 26,
+          "itemCount": 29,
+          "totalGmv": 2094.52,
+          "shareOfItems": 0.03
+        },
+        {
+          "categoryKey": "arts_and_craftmanship",
+          "categoryLabel": "Arts And Craftmanship",
+          "orderCount": 23,
+          "itemCount": 24,
+          "totalGmv": 1814.01,
+          "shareOfItems": 0.02
+        },
+        {
+          "categoryKey": "portateis_cozinha_e_preparadores_de_alimentos",
+          "categoryLabel": "Portateis Cozinha E Preparadores De Alimentos",
+          "orderCount": 13,
+          "itemCount": 14,
+          "totalGmv": 3933.63,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "la_cuisine",
+          "categoryLabel": "La Cuisine",
+          "orderCount": 13,
+          "itemCount": 14,
+          "totalGmv": 2054.99,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "cds_dvds_musicals",
+          "categoryLabel": "Cds Dvds Musicals",
+          "orderCount": 12,
+          "itemCount": 14,
+          "totalGmv": 730,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "pc_gamer",
+          "categoryLabel": "Pc Gamer",
+          "orderCount": 7,
+          "itemCount": 8,
+          "totalGmv": 1306.95,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "fashion_childrens_clothes",
+          "categoryLabel": "Fashion Childrens Clothes",
+          "orderCount": 7,
+          "itemCount": 7,
+          "totalGmv": 519.95,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "security_and_services",
+          "categoryLabel": "Security And Services",
+          "orderCount": 2,
+          "itemCount": 2,
+          "totalGmv": 283.29,
+          "shareOfItems": 0
+        }
+      ],
+      "topCategory": {
+        "categoryKey": "bed_bath_table",
+        "categoryLabel": "Bed Bath Table",
+        "orderCount": 9267,
+        "itemCount": 10945,
+        "totalGmv": 1022955.77,
+        "shareOfItems": 9.96
+      }
+    },
+    "2018_ytd": {
+      "shareBasis": "item_count",
+      "totals": {
+        "totalOrders": 52783,
+        "totalItems": 60324,
+        "totalGmv": 7218125.12
+      },
+      "categories": [
+        {
+          "categoryKey": "health_beauty",
+          "categoryLabel": "Health Beauty",
+          "orderCount": 5305,
+          "itemCount": 5841,
+          "totalGmv": 755724.5,
+          "shareOfItems": 9.68
+        },
+        {
+          "categoryKey": "bed_bath_table",
+          "categoryLabel": "Bed Bath Table",
+          "orderCount": 4844,
+          "itemCount": 5810,
+          "totalGmv": 532358.85,
+          "shareOfItems": 9.63
+        },
+        {
+          "categoryKey": "computers_accessories",
+          "categoryLabel": "Computers Accessories",
+          "orderCount": 3972,
+          "itemCount": 4622,
+          "totalGmv": 496269.3,
+          "shareOfItems": 7.66
+        },
+        {
+          "categoryKey": "sports_leisure",
+          "categoryLabel": "Sports Leisure",
+          "orderCount": 3973,
+          "itemCount": 4436,
+          "totalGmv": 517166.26,
+          "shareOfItems": 7.35
+        },
+        {
+          "categoryKey": "furniture_decor",
+          "categoryLabel": "Furniture Decor",
+          "orderCount": 3147,
+          "itemCount": 4051,
+          "totalGmv": 381649.57,
+          "shareOfItems": 6.72
+        },
+        {
+          "categoryKey": "housewares",
+          "categoryLabel": "Housewares",
+          "orderCount": 3351,
+          "itemCount": 3969,
+          "totalGmv": 391823.46,
+          "shareOfItems": 6.58
+        },
+        {
+          "categoryKey": "watches_gifts",
+          "categoryLabel": "Watches Gifts",
+          "orderCount": 3418,
+          "itemCount": 3628,
+          "totalGmv": 687855.2,
+          "shareOfItems": 6.01
+        },
+        {
+          "categoryKey": "auto",
+          "categoryLabel": "Auto",
+          "orderCount": 2419,
+          "itemCount": 2580,
+          "totalGmv": 343288.3,
+          "shareOfItems": 4.28
+        },
+        {
+          "categoryKey": "telephony",
+          "categoryLabel": "Telephony",
+          "orderCount": 2117,
+          "itemCount": 2293,
+          "totalGmv": 174123.68,
+          "shareOfItems": 3.8
+        },
+        {
+          "categoryKey": "garden_tools",
+          "categoryLabel": "Garden Tools",
+          "orderCount": 1509,
+          "itemCount": 1849,
+          "totalGmv": 212186.2,
+          "shareOfItems": 3.07
+        },
+        {
+          "categoryKey": "electronics",
+          "categoryLabel": "Electronics",
+          "orderCount": 1706,
+          "itemCount": 1837,
+          "totalGmv": 99735.6,
+          "shareOfItems": 3.05
+        },
+        {
+          "categoryKey": "baby",
+          "categoryLabel": "Baby",
+          "orderCount": 1627,
+          "itemCount": 1731,
+          "totalGmv": 250615.79,
+          "shareOfItems": 2.87
+        },
+        {
+          "categoryKey": "perfumery",
+          "categoryLabel": "Perfumery",
+          "orderCount": 1458,
+          "itemCount": 1606,
+          "totalGmv": 174372,
+          "shareOfItems": 2.66
+        },
+        {
+          "categoryKey": "stationery",
+          "categoryLabel": "Stationery",
+          "orderCount": 1367,
+          "itemCount": 1501,
+          "totalGmv": 132315.75,
+          "shareOfItems": 2.49
+        },
+        {
+          "categoryKey": "toys",
+          "categoryLabel": "Toys",
+          "orderCount": 1378,
+          "itemCount": 1454,
+          "totalGmv": 168123.27,
+          "shareOfItems": 2.41
+        },
+        {
+          "categoryKey": "cool_stuff",
+          "categoryLabel": "Cool Stuff",
+          "orderCount": 1391,
+          "itemCount": 1447,
+          "totalGmv": 227743.7,
+          "shareOfItems": 2.4
+        },
+        {
+          "categoryKey": "pet_shop",
+          "categoryLabel": "Pet Shop",
+          "orderCount": 1002,
+          "itemCount": 1146,
+          "totalGmv": 126849.64,
+          "shareOfItems": 1.9
+        },
+        {
+          "categoryKey": "office_furniture",
+          "categoryLabel": "Office Furniture",
+          "orderCount": 636,
+          "itemCount": 870,
+          "totalGmv": 140578.35,
+          "shareOfItems": 1.44
+        },
+        {
+          "categoryKey": "fashion_bags_accessories",
+          "categoryLabel": "Fashion Bags Accessories",
+          "orderCount": 820,
+          "itemCount": 868,
+          "totalGmv": 69592.43,
+          "shareOfItems": 1.44
+        },
+        {
+          "categoryKey": "construction_tools_construction",
+          "categoryLabel": "Construction Tools Construction",
+          "orderCount": 636,
+          "itemCount": 787,
+          "totalGmv": 122886.61,
+          "shareOfItems": 1.3
+        },
+        {
+          "categoryKey": "unknown_category",
+          "categoryLabel": "Unknown Category",
+          "orderCount": 605,
+          "itemCount": 660,
+          "totalGmv": 70593.94,
+          "shareOfItems": 1.09
+        },
+        {
+          "categoryKey": "home_appliances",
+          "categoryLabel": "Home Appliances",
+          "orderCount": 515,
+          "itemCount": 519,
+          "totalGmv": 55760.75,
+          "shareOfItems": 0.86
+        },
+        {
+          "categoryKey": "luggage_accessories",
+          "categoryLabel": "Luggage Accessories",
+          "orderCount": 463,
+          "itemCount": 487,
+          "totalGmv": 63612.93,
+          "shareOfItems": 0.81
+        },
+        {
+          "categoryKey": "home_construction",
+          "categoryLabel": "Home Construction",
+          "orderCount": 373,
+          "itemCount": 454,
+          "totalGmv": 57665.12,
+          "shareOfItems": 0.75
+        },
+        {
+          "categoryKey": "consoles_games",
+          "categoryLabel": "Consoles Games",
+          "orderCount": 371,
+          "itemCount": 402,
+          "totalGmv": 61497.08,
+          "shareOfItems": 0.67
+        },
+        {
+          "categoryKey": "musical_instruments",
+          "categoryLabel": "Musical Instruments",
+          "orderCount": 370,
+          "itemCount": 393,
+          "totalGmv": 105827.28,
+          "shareOfItems": 0.65
+        },
+        {
+          "categoryKey": "food",
+          "categoryLabel": "Food",
+          "orderCount": 338,
+          "itemCount": 379,
+          "totalGmv": 20304.87,
+          "shareOfItems": 0.63
+        },
+        {
+          "categoryKey": "small_appliances",
+          "categoryLabel": "Small Appliances",
+          "orderCount": 314,
+          "itemCount": 348,
+          "totalGmv": 85912.94,
+          "shareOfItems": 0.58
+        },
+        {
+          "categoryKey": "books_general_interest",
+          "categoryLabel": "Books General Interest",
+          "orderCount": 282,
+          "itemCount": 308,
+          "totalGmv": 26856.15,
+          "shareOfItems": 0.51
+        },
+        {
+          "categoryKey": "construction_tools_lights",
+          "categoryLabel": "Construction Tools Lights",
+          "orderCount": 225,
+          "itemCount": 283,
+          "totalGmv": 35903.52,
+          "shareOfItems": 0.47
+        },
+        {
+          "categoryKey": "drinks",
+          "categoryLabel": "Drinks",
+          "orderCount": 217,
+          "itemCount": 279,
+          "totalGmv": 16883.19,
+          "shareOfItems": 0.46
+        },
+        {
+          "categoryKey": "furniture_living_room",
+          "categoryLabel": "Furniture Living Room",
+          "orderCount": 211,
+          "itemCount": 239,
+          "totalGmv": 33467.26,
+          "shareOfItems": 0.4
+        },
+        {
+          "categoryKey": "industry_commerce_and_business",
+          "categoryLabel": "Industry Commerce And Business",
+          "orderCount": 195,
+          "itemCount": 227,
+          "totalGmv": 29482.54,
+          "shareOfItems": 0.38
+        },
+        {
+          "categoryKey": "books_technical",
+          "categoryLabel": "Books Technical",
+          "orderCount": 213,
+          "itemCount": 219,
+          "totalGmv": 12940.01,
+          "shareOfItems": 0.36
+        },
+        {
+          "categoryKey": "audio",
+          "categoryLabel": "Audio",
+          "orderCount": 187,
+          "itemCount": 195,
+          "totalGmv": 32960.94,
+          "shareOfItems": 0.32
+        },
+        {
+          "categoryKey": "art",
+          "categoryLabel": "Art",
+          "orderCount": 163,
+          "itemCount": 165,
+          "totalGmv": 14675.96,
+          "shareOfItems": 0.27
+        },
+        {
+          "categoryKey": "costruction_tools_garden",
+          "categoryLabel": "Costruction Tools Garden",
+          "orderCount": 128,
+          "itemCount": 156,
+          "totalGmv": 16364.39,
+          "shareOfItems": 0.26
+        },
+        {
+          "categoryKey": "kitchen_dining_laundry_garden_furniture",
+          "categoryLabel": "Kitchen Dining Laundry Garden Furniture",
+          "orderCount": 136,
+          "itemCount": 155,
+          "totalGmv": 27009.83,
+          "shareOfItems": 0.26
+        },
+        {
+          "categoryKey": "air_conditioning",
+          "categoryLabel": "Air Conditioning",
+          "orderCount": 132,
+          "itemCount": 155,
+          "totalGmv": 24705.06,
+          "shareOfItems": 0.26
+        },
+        {
+          "categoryKey": "home_confort",
+          "categoryLabel": "Home Confort",
+          "orderCount": 146,
+          "itemCount": 154,
+          "totalGmv": 20737.65,
+          "shareOfItems": 0.26
+        },
+        {
+          "categoryKey": "signaling_and_security",
+          "categoryLabel": "Signaling And Security",
+          "orderCount": 105,
+          "itemCount": 153,
+          "totalGmv": 17066.24,
+          "shareOfItems": 0.25
+        },
+        {
+          "categoryKey": "home_appliances_2",
+          "categoryLabel": "Home Appliances 2",
+          "orderCount": 145,
+          "itemCount": 148,
+          "totalGmv": 86902.86,
+          "shareOfItems": 0.25
+        },
+        {
+          "categoryKey": "agro_industry_and_commerce",
+          "categoryLabel": "Agro Industry And Commerce",
+          "orderCount": 129,
+          "itemCount": 145,
+          "totalGmv": 41386.9,
+          "shareOfItems": 0.24
+        },
+        {
+          "categoryKey": "food_drink",
+          "categoryLabel": "Food Drink",
+          "orderCount": 117,
+          "itemCount": 145,
+          "totalGmv": 7655.94,
+          "shareOfItems": 0.24
+        },
+        {
+          "categoryKey": "construction_tools_safety",
+          "categoryLabel": "Construction Tools Safety",
+          "orderCount": 125,
+          "itemCount": 143,
+          "totalGmv": 30926.32,
+          "shareOfItems": 0.24
+        },
+        {
+          "categoryKey": "market_place",
+          "categoryLabel": "Market Place",
+          "orderCount": 95,
+          "itemCount": 107,
+          "totalGmv": 7565.57,
+          "shareOfItems": 0.18
+        },
+        {
+          "categoryKey": "fixed_telephony",
+          "categoryLabel": "Fixed Telephony",
+          "orderCount": 85,
+          "itemCount": 100,
+          "totalGmv": 27005.39,
+          "shareOfItems": 0.17
+        },
+        {
+          "categoryKey": "christmas_supplies",
+          "categoryLabel": "Christmas Supplies",
+          "orderCount": 77,
+          "itemCount": 89,
+          "totalGmv": 5910.9,
+          "shareOfItems": 0.15
+        },
+        {
+          "categoryKey": "costruction_tools_tools",
+          "categoryLabel": "Costruction Tools Tools",
+          "orderCount": 76,
+          "itemCount": 81,
+          "totalGmv": 11816.66,
+          "shareOfItems": 0.13
+        },
+        {
+          "categoryKey": "computers",
+          "categoryLabel": "Computers",
+          "orderCount": 56,
+          "itemCount": 72,
+          "totalGmv": 62403.34,
+          "shareOfItems": 0.12
+        },
+        {
+          "categoryKey": "small_appliances_home_oven_and_coffee",
+          "categoryLabel": "Small Appliances Home Oven And Coffee",
+          "orderCount": 69,
+          "itemCount": 70,
+          "totalGmv": 45854.77,
+          "shareOfItems": 0.12
+        },
+        {
+          "categoryKey": "fashion_shoes",
+          "categoryLabel": "Fashion Shoes",
+          "orderCount": 67,
+          "itemCount": 70,
+          "totalGmv": 8296.97,
+          "shareOfItems": 0.12
+        },
+        {
+          "categoryKey": "furniture_bedroom",
+          "categoryLabel": "Furniture Bedroom",
+          "orderCount": 53,
+          "itemCount": 62,
+          "totalGmv": 10813.17,
+          "shareOfItems": 0.1
+        },
+        {
+          "categoryKey": "cine_photo",
+          "categoryLabel": "Cine Photo",
+          "orderCount": 55,
+          "itemCount": 62,
+          "totalGmv": 5979.47,
+          "shareOfItems": 0.1
+        },
+        {
+          "categoryKey": "books_imported",
+          "categoryLabel": "Books Imported",
+          "orderCount": 39,
+          "itemCount": 43,
+          "totalGmv": 3470.87,
+          "shareOfItems": 0.07
+        },
+        {
+          "categoryKey": "fashion_underwear_beach",
+          "categoryLabel": "Fashion Underwear Beach",
+          "orderCount": 37,
+          "itemCount": 42,
+          "totalGmv": 2409.1,
+          "shareOfItems": 0.07
+        },
+        {
+          "categoryKey": "diapers_and_hygiene",
+          "categoryLabel": "Diapers And Hygiene",
+          "orderCount": 23,
+          "itemCount": 34,
+          "totalGmv": 1289.89,
+          "shareOfItems": 0.06
+        },
+        {
+          "categoryKey": "party_supplies",
+          "categoryLabel": "Party Supplies",
+          "orderCount": 29,
+          "itemCount": 32,
+          "totalGmv": 2621.79,
+          "shareOfItems": 0.05
+        },
+        {
+          "categoryKey": "music",
+          "categoryLabel": "Music",
+          "orderCount": 27,
+          "itemCount": 27,
+          "totalGmv": 4475.96,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "fashion_male_clothing",
+          "categoryLabel": "Fashion Male Clothing",
+          "orderCount": 24,
+          "itemCount": 26,
+          "totalGmv": 2301.87,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "dvds_blu_ray",
+          "categoryLabel": "Dvds Blu Ray",
+          "orderCount": 22,
+          "itemCount": 25,
+          "totalGmv": 1132.71,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "flowers",
+          "categoryLabel": "Flowers",
+          "orderCount": 21,
+          "itemCount": 25,
+          "totalGmv": 839.54,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "arts_and_craftmanship",
+          "categoryLabel": "Arts And Craftmanship",
+          "orderCount": 21,
+          "itemCount": 22,
+          "totalGmv": 1662.12,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "tablets_printing_image",
+          "categoryLabel": "Tablets Printing Image",
+          "orderCount": 20,
+          "itemCount": 22,
+          "totalGmv": 1267.96,
+          "shareOfItems": 0.04
+        },
+        {
+          "categoryKey": "furniture_mattress_and_upholstery",
+          "categoryLabel": "Furniture Mattress And Upholstery",
+          "orderCount": 19,
+          "itemCount": 19,
+          "totalGmv": 1775.1,
+          "shareOfItems": 0.03
+        },
+        {
+          "categoryKey": "fashio_female_clothing",
+          "categoryLabel": "Fashio Female Clothing",
+          "orderCount": 8,
+          "itemCount": 16,
+          "totalGmv": 616.66,
+          "shareOfItems": 0.03
+        },
+        {
+          "categoryKey": "portateis_cozinha_e_preparadores_de_alimentos",
+          "categoryLabel": "Portateis Cozinha E Preparadores De Alimentos",
+          "orderCount": 13,
+          "itemCount": 14,
+          "totalGmv": 3933.63,
+          "shareOfItems": 0.02
+        },
+        {
+          "categoryKey": "home_comfort_2",
+          "categoryLabel": "Home Comfort 2",
+          "orderCount": 7,
+          "itemCount": 10,
+          "totalGmv": 151.09,
+          "shareOfItems": 0.02
+        },
+        {
+          "categoryKey": "fashion_sport",
+          "categoryLabel": "Fashion Sport",
+          "orderCount": 5,
+          "itemCount": 5,
+          "totalGmv": 369.5,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "pc_gamer",
+          "categoryLabel": "Pc Gamer",
+          "orderCount": 3,
+          "itemCount": 4,
+          "totalGmv": 786.99,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "la_cuisine",
+          "categoryLabel": "La Cuisine",
+          "orderCount": 3,
+          "itemCount": 4,
+          "totalGmv": 781,
+          "shareOfItems": 0.01
+        },
+        {
+          "categoryKey": "fashion_childrens_clothes",
+          "categoryLabel": "Fashion Childrens Clothes",
+          "orderCount": 3,
+          "itemCount": 3,
+          "totalGmv": 169.97,
+          "shareOfItems": 0
+        },
+        {
+          "categoryKey": "cds_dvds_musicals",
+          "categoryLabel": "Cds Dvds Musicals",
+          "orderCount": 1,
+          "itemCount": 1,
+          "totalGmv": 65,
+          "shareOfItems": 0
+        }
+      ],
+      "topCategory": {
+        "categoryKey": "health_beauty",
+        "categoryLabel": "Health Beauty",
+        "orderCount": 5305,
+        "itemCount": 5841,
+        "totalGmv": 755724.5,
+        "shareOfItems": 9.68
+      }
+    }
+  },
+  "reviewPanelsByRange": {
+    "2017": {
+      "population": {
+        "totalOrders": 43428,
+        "reviewedOrderCount": 43098,
+        "missingReviewOrderCount": 330,
+        "reviewRowCount": 43415
+      },
+      "delayDaysDomain": {
+        "min": -14,
+        "max": 60
+      },
+      "correlation": -0.33,
+      "points": [
+        {
+          "delayDays": -14,
+          "reviewScoreAvg": 4.33,
+          "orderCount": 20121
+        },
+        {
+          "delayDays": -13,
+          "reviewScoreAvg": 4.35,
+          "orderCount": 3007
+        },
+        {
+          "delayDays": -12,
+          "reviewScoreAvg": 4.31,
+          "orderCount": 2123
+        },
+        {
+          "delayDays": -11,
+          "reviewScoreAvg": 4.3,
+          "orderCount": 2288
+        },
+        {
+          "delayDays": -10,
+          "reviewScoreAvg": 4.34,
+          "orderCount": 2295
+        },
+        {
+          "delayDays": -9,
+          "reviewScoreAvg": 4.27,
+          "orderCount": 2194
+        },
+        {
+          "delayDays": -8,
+          "reviewScoreAvg": 4.22,
+          "orderCount": 2125
+        },
+        {
+          "delayDays": -7,
+          "reviewScoreAvg": 4.22,
+          "orderCount": 1995
+        },
+        {
+          "delayDays": -6,
+          "reviewScoreAvg": 4.14,
+          "orderCount": 1262
+        },
+        {
+          "delayDays": -5,
+          "reviewScoreAvg": 4.07,
+          "orderCount": 709
+        },
+        {
+          "delayDays": -4,
+          "reviewScoreAvg": 4.1,
+          "orderCount": 649
+        },
+        {
+          "delayDays": -3,
+          "reviewScoreAvg": 4.04,
+          "orderCount": 581
+        },
+        {
+          "delayDays": -2,
+          "reviewScoreAvg": 3.99,
+          "orderCount": 506
+        },
+        {
+          "delayDays": -1,
+          "reviewScoreAvg": 3.95,
+          "orderCount": 438
+        },
+        {
+          "delayDays": 0,
+          "reviewScoreAvg": 3.86,
+          "orderCount": 421
+        },
+        {
+          "delayDays": 1,
+          "reviewScoreAvg": 3.64,
+          "orderCount": 320
+        },
+        {
+          "delayDays": 2,
+          "reviewScoreAvg": 3.14,
+          "orderCount": 201
+        },
+        {
+          "delayDays": 3,
+          "reviewScoreAvg": 2.67,
+          "orderCount": 174
+        },
+        {
+          "delayDays": 4,
+          "reviewScoreAvg": 2.53,
+          "orderCount": 154
+        },
+        {
+          "delayDays": 5,
+          "reviewScoreAvg": 2.38,
+          "orderCount": 148
+        },
+        {
+          "delayDays": 6,
+          "reviewScoreAvg": 1.84,
+          "orderCount": 142
+        },
+        {
+          "delayDays": 7,
+          "reviewScoreAvg": 2.13,
+          "orderCount": 189
+        },
+        {
+          "delayDays": 8,
+          "reviewScoreAvg": 1.9,
+          "orderCount": 110
+        },
+        {
+          "delayDays": 9,
+          "reviewScoreAvg": 1.69,
+          "orderCount": 77
+        },
+        {
+          "delayDays": 10,
+          "reviewScoreAvg": 1.54,
+          "orderCount": 70
+        },
+        {
+          "delayDays": 11,
+          "reviewScoreAvg": 1.67,
+          "orderCount": 69
+        },
+        {
+          "delayDays": 12,
+          "reviewScoreAvg": 1.67,
+          "orderCount": 54
+        },
+        {
+          "delayDays": 13,
+          "reviewScoreAvg": 1.89,
+          "orderCount": 89
+        },
+        {
+          "delayDays": 14,
+          "reviewScoreAvg": 1.77,
+          "orderCount": 69
+        },
+        {
+          "delayDays": 15,
+          "reviewScoreAvg": 1.47,
+          "orderCount": 45
+        },
+        {
+          "delayDays": 16,
+          "reviewScoreAvg": 1.69,
+          "orderCount": 35
+        },
+        {
+          "delayDays": 17,
+          "reviewScoreAvg": 1.5,
+          "orderCount": 34
+        },
+        {
+          "delayDays": 18,
+          "reviewScoreAvg": 1.69,
+          "orderCount": 26
+        },
+        {
+          "delayDays": 19,
+          "reviewScoreAvg": 1.63,
+          "orderCount": 30
+        },
+        {
+          "delayDays": 20,
+          "reviewScoreAvg": 1.76,
+          "orderCount": 39
+        },
+        {
+          "delayDays": 21,
+          "reviewScoreAvg": 1.69,
+          "orderCount": 29
+        },
+        {
+          "delayDays": 22,
+          "reviewScoreAvg": 2,
+          "orderCount": 21
+        },
+        {
+          "delayDays": 23,
+          "reviewScoreAvg": 2.18,
+          "orderCount": 11
+        },
+        {
+          "delayDays": 24,
+          "reviewScoreAvg": 1.54,
+          "orderCount": 26
+        },
+        {
+          "delayDays": 25,
+          "reviewScoreAvg": 1.58,
+          "orderCount": 18
+        },
+        {
+          "delayDays": 26,
+          "reviewScoreAvg": 1.5,
+          "orderCount": 10
+        },
+        {
+          "delayDays": 27,
+          "reviewScoreAvg": 1.43,
+          "orderCount": 14
+        },
+        {
+          "delayDays": 28,
+          "reviewScoreAvg": 1.68,
+          "orderCount": 22
+        },
+        {
+          "delayDays": 29,
+          "reviewScoreAvg": 1.24,
+          "orderCount": 17
+        },
+        {
+          "delayDays": 30,
+          "reviewScoreAvg": 1.25,
+          "orderCount": 8
+        },
+        {
+          "delayDays": 31,
+          "reviewScoreAvg": 1.4,
+          "orderCount": 10
+        },
+        {
+          "delayDays": 32,
+          "reviewScoreAvg": 2,
+          "orderCount": 2
+        },
+        {
+          "delayDays": 33,
+          "reviewScoreAvg": 1.11,
+          "orderCount": 9
+        },
+        {
+          "delayDays": 34,
+          "reviewScoreAvg": 2.17,
+          "orderCount": 6
+        },
+        {
+          "delayDays": 35,
+          "reviewScoreAvg": 1.67,
+          "orderCount": 9
+        },
+        {
+          "delayDays": 36,
+          "reviewScoreAvg": 1,
+          "orderCount": 3
+        },
+        {
+          "delayDays": 37,
+          "reviewScoreAvg": 1,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 38,
+          "reviewScoreAvg": 3,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 39,
+          "reviewScoreAvg": 1,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 40,
+          "reviewScoreAvg": 1,
+          "orderCount": 5
+        },
+        {
+          "delayDays": 41,
+          "reviewScoreAvg": 1.38,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 42,
+          "reviewScoreAvg": 2.17,
+          "orderCount": 6
+        },
+        {
+          "delayDays": 43,
+          "reviewScoreAvg": 1,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 44,
+          "reviewScoreAvg": 1,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 45,
+          "reviewScoreAvg": 3,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 46,
+          "reviewScoreAvg": 1,
+          "orderCount": 2
+        },
+        {
+          "delayDays": 47,
+          "reviewScoreAvg": 1,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 48,
+          "reviewScoreAvg": 5,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 49,
+          "reviewScoreAvg": 2.5,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 50,
+          "reviewScoreAvg": 1.67,
+          "orderCount": 3
+        },
+        {
+          "delayDays": 51,
+          "reviewScoreAvg": 1,
+          "orderCount": 3
+        },
+        {
+          "delayDays": 54,
+          "reviewScoreAvg": 3,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 55,
+          "reviewScoreAvg": 4,
+          "orderCount": 2
+        },
+        {
+          "delayDays": 60,
+          "reviewScoreAvg": 2.94,
+          "orderCount": 53
+        }
+      ],
+      "trendLine": [
+        {
+          "delayDays": -14,
+          "reviewScoreAvg": 4.41
+        },
+        {
+          "delayDays": 60,
+          "reviewScoreAvg": 1
+        }
+      ]
+    },
+    "all": {
+      "population": {
+        "totalOrders": 96211,
+        "reviewedOrderCount": 95560,
+        "missingReviewOrderCount": 651,
+        "reviewRowCount": 96087
+      },
+      "delayDaysDomain": {
+        "min": -14,
+        "max": 60
+      },
+      "correlation": -0.34,
+      "points": [
+        {
+          "delayDays": -14,
+          "reviewScoreAvg": 4.33,
+          "orderCount": 41614
+        },
+        {
+          "delayDays": -13,
+          "reviewScoreAvg": 4.34,
+          "orderCount": 5923
+        },
+        {
+          "delayDays": -12,
+          "reviewScoreAvg": 4.31,
+          "orderCount": 4526
+        },
+        {
+          "delayDays": -11,
+          "reviewScoreAvg": 4.3,
+          "orderCount": 4589
+        },
+        {
+          "delayDays": -10,
+          "reviewScoreAvg": 4.33,
+          "orderCount": 4618
+        },
+        {
+          "delayDays": -9,
+          "reviewScoreAvg": 4.29,
+          "orderCount": 4606
+        },
+        {
+          "delayDays": -8,
+          "reviewScoreAvg": 4.26,
+          "orderCount": 4797
+        },
+        {
+          "delayDays": -7,
+          "reviewScoreAvg": 4.26,
+          "orderCount": 4814
+        },
+        {
+          "delayDays": -6,
+          "reviewScoreAvg": 4.25,
+          "orderCount": 3602
+        },
+        {
+          "delayDays": -5,
+          "reviewScoreAvg": 4.2,
+          "orderCount": 2208
+        },
+        {
+          "delayDays": -4,
+          "reviewScoreAvg": 4.15,
+          "orderCount": 1903
+        },
+        {
+          "delayDays": -3,
+          "reviewScoreAvg": 4.12,
+          "orderCount": 1713
+        },
+        {
+          "delayDays": -2,
+          "reviewScoreAvg": 4.13,
+          "orderCount": 1540
+        },
+        {
+          "delayDays": -1,
+          "reviewScoreAvg": 4.16,
+          "orderCount": 1449
+        },
+        {
+          "delayDays": 0,
+          "reviewScoreAvg": 4.04,
+          "orderCount": 1280
+        },
+        {
+          "delayDays": 1,
+          "reviewScoreAvg": 3.73,
+          "orderCount": 819
+        },
+        {
+          "delayDays": 2,
+          "reviewScoreAvg": 3.18,
+          "orderCount": 536
+        },
+        {
+          "delayDays": 3,
+          "reviewScoreAvg": 2.68,
+          "orderCount": 496
+        },
+        {
+          "delayDays": 4,
+          "reviewScoreAvg": 2.5,
+          "orderCount": 436
+        },
+        {
+          "delayDays": 5,
+          "reviewScoreAvg": 2.19,
+          "orderCount": 434
+        },
+        {
+          "delayDays": 6,
+          "reviewScoreAvg": 1.81,
+          "orderCount": 407
+        },
+        {
+          "delayDays": 7,
+          "reviewScoreAvg": 1.92,
+          "orderCount": 471
+        },
+        {
+          "delayDays": 8,
+          "reviewScoreAvg": 1.71,
+          "orderCount": 330
+        },
+        {
+          "delayDays": 9,
+          "reviewScoreAvg": 1.67,
+          "orderCount": 219
+        },
+        {
+          "delayDays": 10,
+          "reviewScoreAvg": 1.58,
+          "orderCount": 207
+        },
+        {
+          "delayDays": 11,
+          "reviewScoreAvg": 1.73,
+          "orderCount": 177
+        },
+        {
+          "delayDays": 12,
+          "reviewScoreAvg": 1.66,
+          "orderCount": 155
+        },
+        {
+          "delayDays": 13,
+          "reviewScoreAvg": 1.74,
+          "orderCount": 189
+        },
+        {
+          "delayDays": 14,
+          "reviewScoreAvg": 1.59,
+          "orderCount": 169
+        },
+        {
+          "delayDays": 15,
+          "reviewScoreAvg": 1.71,
+          "orderCount": 155
+        },
+        {
+          "delayDays": 16,
+          "reviewScoreAvg": 1.68,
+          "orderCount": 94
+        },
+        {
+          "delayDays": 17,
+          "reviewScoreAvg": 1.67,
+          "orderCount": 89
+        },
+        {
+          "delayDays": 18,
+          "reviewScoreAvg": 1.74,
+          "orderCount": 72
+        },
+        {
+          "delayDays": 19,
+          "reviewScoreAvg": 1.51,
+          "orderCount": 74
+        },
+        {
+          "delayDays": 20,
+          "reviewScoreAvg": 1.65,
+          "orderCount": 86
+        },
+        {
+          "delayDays": 21,
+          "reviewScoreAvg": 1.67,
+          "orderCount": 76
+        },
+        {
+          "delayDays": 22,
+          "reviewScoreAvg": 1.72,
+          "orderCount": 64
+        },
+        {
+          "delayDays": 23,
+          "reviewScoreAvg": 1.47,
+          "orderCount": 34
+        },
+        {
+          "delayDays": 24,
+          "reviewScoreAvg": 1.54,
+          "orderCount": 52
+        },
+        {
+          "delayDays": 25,
+          "reviewScoreAvg": 1.6,
+          "orderCount": 39
+        },
+        {
+          "delayDays": 26,
+          "reviewScoreAvg": 1.36,
+          "orderCount": 33
+        },
+        {
+          "delayDays": 27,
+          "reviewScoreAvg": 1.52,
+          "orderCount": 40
+        },
+        {
+          "delayDays": 28,
+          "reviewScoreAvg": 1.61,
+          "orderCount": 46
+        },
+        {
+          "delayDays": 29,
+          "reviewScoreAvg": 1.32,
+          "orderCount": 37
+        },
+        {
+          "delayDays": 30,
+          "reviewScoreAvg": 1.29,
+          "orderCount": 14
+        },
+        {
+          "delayDays": 31,
+          "reviewScoreAvg": 1.38,
+          "orderCount": 26
+        },
+        {
+          "delayDays": 32,
+          "reviewScoreAvg": 1.5,
+          "orderCount": 16
+        },
+        {
+          "delayDays": 33,
+          "reviewScoreAvg": 1.65,
+          "orderCount": 20
+        },
+        {
+          "delayDays": 34,
+          "reviewScoreAvg": 1.8,
+          "orderCount": 10
+        },
+        {
+          "delayDays": 35,
+          "reviewScoreAvg": 1.58,
+          "orderCount": 24
+        },
+        {
+          "delayDays": 36,
+          "reviewScoreAvg": 1.21,
+          "orderCount": 14
+        },
+        {
+          "delayDays": 37,
+          "reviewScoreAvg": 1.89,
+          "orderCount": 9
+        },
+        {
+          "delayDays": 38,
+          "reviewScoreAvg": 2.3,
+          "orderCount": 10
+        },
+        {
+          "delayDays": 39,
+          "reviewScoreAvg": 1.4,
+          "orderCount": 5
+        },
+        {
+          "delayDays": 40,
+          "reviewScoreAvg": 1.78,
+          "orderCount": 9
+        },
+        {
+          "delayDays": 41,
+          "reviewScoreAvg": 1.68,
+          "orderCount": 14
+        },
+        {
+          "delayDays": 42,
+          "reviewScoreAvg": 2.9,
+          "orderCount": 10
+        },
+        {
+          "delayDays": 43,
+          "reviewScoreAvg": 1,
+          "orderCount": 8
+        },
+        {
+          "delayDays": 44,
+          "reviewScoreAvg": 2.5,
+          "orderCount": 2
+        },
+        {
+          "delayDays": 45,
+          "reviewScoreAvg": 2.14,
+          "orderCount": 7
+        },
+        {
+          "delayDays": 46,
+          "reviewScoreAvg": 1.2,
+          "orderCount": 5
+        },
+        {
+          "delayDays": 47,
+          "reviewScoreAvg": 1.5,
+          "orderCount": 6
+        },
+        {
+          "delayDays": 48,
+          "reviewScoreAvg": 2.14,
+          "orderCount": 7
+        },
+        {
+          "delayDays": 49,
+          "reviewScoreAvg": 2.09,
+          "orderCount": 11
+        },
+        {
+          "delayDays": 50,
+          "reviewScoreAvg": 2.14,
+          "orderCount": 7
+        },
+        {
+          "delayDays": 51,
+          "reviewScoreAvg": 1,
+          "orderCount": 5
+        },
+        {
+          "delayDays": 52,
+          "reviewScoreAvg": 2.67,
+          "orderCount": 3
+        },
+        {
+          "delayDays": 53,
+          "reviewScoreAvg": 1,
+          "orderCount": 2
+        },
+        {
+          "delayDays": 54,
+          "reviewScoreAvg": 3,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 55,
+          "reviewScoreAvg": 3,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 56,
+          "reviewScoreAvg": 2.5,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 57,
+          "reviewScoreAvg": 1,
+          "orderCount": 2
+        },
+        {
+          "delayDays": 58,
+          "reviewScoreAvg": 5,
+          "orderCount": 3
+        },
+        {
+          "delayDays": 59,
+          "reviewScoreAvg": 5,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 60,
+          "reviewScoreAvg": 2.84,
+          "orderCount": 80
+        }
+      ],
+      "trendLine": [
+        {
+          "delayDays": -14,
+          "reviewScoreAvg": 4.44
+        },
+        {
+          "delayDays": 60,
+          "reviewScoreAvg": 1
+        }
+      ]
+    },
+    "2018_ytd": {
+      "population": {
+        "totalOrders": 52783,
+        "reviewedOrderCount": 52462,
+        "missingReviewOrderCount": 321,
+        "reviewRowCount": 52672
+      },
+      "delayDaysDomain": {
+        "min": -14,
+        "max": 60
+      },
+      "correlation": -0.36,
+      "points": [
+        {
+          "delayDays": -14,
+          "reviewScoreAvg": 4.32,
+          "orderCount": 21493
+        },
+        {
+          "delayDays": -13,
+          "reviewScoreAvg": 4.33,
+          "orderCount": 2916
+        },
+        {
+          "delayDays": -12,
+          "reviewScoreAvg": 4.31,
+          "orderCount": 2403
+        },
+        {
+          "delayDays": -11,
+          "reviewScoreAvg": 4.3,
+          "orderCount": 2301
+        },
+        {
+          "delayDays": -10,
+          "reviewScoreAvg": 4.32,
+          "orderCount": 2323
+        },
+        {
+          "delayDays": -9,
+          "reviewScoreAvg": 4.31,
+          "orderCount": 2412
+        },
+        {
+          "delayDays": -8,
+          "reviewScoreAvg": 4.29,
+          "orderCount": 2672
+        },
+        {
+          "delayDays": -7,
+          "reviewScoreAvg": 4.28,
+          "orderCount": 2819
+        },
+        {
+          "delayDays": -6,
+          "reviewScoreAvg": 4.31,
+          "orderCount": 2340
+        },
+        {
+          "delayDays": -5,
+          "reviewScoreAvg": 4.25,
+          "orderCount": 1499
+        },
+        {
+          "delayDays": -4,
+          "reviewScoreAvg": 4.17,
+          "orderCount": 1254
+        },
+        {
+          "delayDays": -3,
+          "reviewScoreAvg": 4.16,
+          "orderCount": 1132
+        },
+        {
+          "delayDays": -2,
+          "reviewScoreAvg": 4.19,
+          "orderCount": 1034
+        },
+        {
+          "delayDays": -1,
+          "reviewScoreAvg": 4.25,
+          "orderCount": 1011
+        },
+        {
+          "delayDays": 0,
+          "reviewScoreAvg": 4.12,
+          "orderCount": 859
+        },
+        {
+          "delayDays": 1,
+          "reviewScoreAvg": 3.79,
+          "orderCount": 499
+        },
+        {
+          "delayDays": 2,
+          "reviewScoreAvg": 3.2,
+          "orderCount": 335
+        },
+        {
+          "delayDays": 3,
+          "reviewScoreAvg": 2.69,
+          "orderCount": 322
+        },
+        {
+          "delayDays": 4,
+          "reviewScoreAvg": 2.48,
+          "orderCount": 282
+        },
+        {
+          "delayDays": 5,
+          "reviewScoreAvg": 2.1,
+          "orderCount": 286
+        },
+        {
+          "delayDays": 6,
+          "reviewScoreAvg": 1.8,
+          "orderCount": 265
+        },
+        {
+          "delayDays": 7,
+          "reviewScoreAvg": 1.77,
+          "orderCount": 282
+        },
+        {
+          "delayDays": 8,
+          "reviewScoreAvg": 1.61,
+          "orderCount": 220
+        },
+        {
+          "delayDays": 9,
+          "reviewScoreAvg": 1.65,
+          "orderCount": 142
+        },
+        {
+          "delayDays": 10,
+          "reviewScoreAvg": 1.6,
+          "orderCount": 137
+        },
+        {
+          "delayDays": 11,
+          "reviewScoreAvg": 1.76,
+          "orderCount": 108
+        },
+        {
+          "delayDays": 12,
+          "reviewScoreAvg": 1.66,
+          "orderCount": 101
+        },
+        {
+          "delayDays": 13,
+          "reviewScoreAvg": 1.6,
+          "orderCount": 100
+        },
+        {
+          "delayDays": 14,
+          "reviewScoreAvg": 1.47,
+          "orderCount": 100
+        },
+        {
+          "delayDays": 15,
+          "reviewScoreAvg": 1.81,
+          "orderCount": 110
+        },
+        {
+          "delayDays": 16,
+          "reviewScoreAvg": 1.67,
+          "orderCount": 59
+        },
+        {
+          "delayDays": 17,
+          "reviewScoreAvg": 1.78,
+          "orderCount": 55
+        },
+        {
+          "delayDays": 18,
+          "reviewScoreAvg": 1.76,
+          "orderCount": 46
+        },
+        {
+          "delayDays": 19,
+          "reviewScoreAvg": 1.43,
+          "orderCount": 44
+        },
+        {
+          "delayDays": 20,
+          "reviewScoreAvg": 1.55,
+          "orderCount": 47
+        },
+        {
+          "delayDays": 21,
+          "reviewScoreAvg": 1.66,
+          "orderCount": 47
+        },
+        {
+          "delayDays": 22,
+          "reviewScoreAvg": 1.58,
+          "orderCount": 43
+        },
+        {
+          "delayDays": 23,
+          "reviewScoreAvg": 1.13,
+          "orderCount": 23
+        },
+        {
+          "delayDays": 24,
+          "reviewScoreAvg": 1.54,
+          "orderCount": 26
+        },
+        {
+          "delayDays": 25,
+          "reviewScoreAvg": 1.62,
+          "orderCount": 21
+        },
+        {
+          "delayDays": 26,
+          "reviewScoreAvg": 1.3,
+          "orderCount": 23
+        },
+        {
+          "delayDays": 27,
+          "reviewScoreAvg": 1.58,
+          "orderCount": 26
+        },
+        {
+          "delayDays": 28,
+          "reviewScoreAvg": 1.54,
+          "orderCount": 24
+        },
+        {
+          "delayDays": 29,
+          "reviewScoreAvg": 1.4,
+          "orderCount": 20
+        },
+        {
+          "delayDays": 30,
+          "reviewScoreAvg": 1.33,
+          "orderCount": 6
+        },
+        {
+          "delayDays": 31,
+          "reviewScoreAvg": 1.38,
+          "orderCount": 16
+        },
+        {
+          "delayDays": 32,
+          "reviewScoreAvg": 1.43,
+          "orderCount": 14
+        },
+        {
+          "delayDays": 33,
+          "reviewScoreAvg": 2.09,
+          "orderCount": 11
+        },
+        {
+          "delayDays": 34,
+          "reviewScoreAvg": 1.25,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 35,
+          "reviewScoreAvg": 1.53,
+          "orderCount": 15
+        },
+        {
+          "delayDays": 36,
+          "reviewScoreAvg": 1.27,
+          "orderCount": 11
+        },
+        {
+          "delayDays": 37,
+          "reviewScoreAvg": 2,
+          "orderCount": 8
+        },
+        {
+          "delayDays": 38,
+          "reviewScoreAvg": 1.83,
+          "orderCount": 6
+        },
+        {
+          "delayDays": 39,
+          "reviewScoreAvg": 1.5,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 40,
+          "reviewScoreAvg": 2.75,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 41,
+          "reviewScoreAvg": 1.8,
+          "orderCount": 10
+        },
+        {
+          "delayDays": 42,
+          "reviewScoreAvg": 4,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 43,
+          "reviewScoreAvg": 1,
+          "orderCount": 7
+        },
+        {
+          "delayDays": 44,
+          "reviewScoreAvg": 4,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 45,
+          "reviewScoreAvg": 2,
+          "orderCount": 6
+        },
+        {
+          "delayDays": 46,
+          "reviewScoreAvg": 1.33,
+          "orderCount": 3
+        },
+        {
+          "delayDays": 47,
+          "reviewScoreAvg": 1.6,
+          "orderCount": 5
+        },
+        {
+          "delayDays": 48,
+          "reviewScoreAvg": 1.67,
+          "orderCount": 6
+        },
+        {
+          "delayDays": 49,
+          "reviewScoreAvg": 1.86,
+          "orderCount": 7
+        },
+        {
+          "delayDays": 50,
+          "reviewScoreAvg": 2.5,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 51,
+          "reviewScoreAvg": 1,
+          "orderCount": 2
+        },
+        {
+          "delayDays": 52,
+          "reviewScoreAvg": 2.67,
+          "orderCount": 3
+        },
+        {
+          "delayDays": 53,
+          "reviewScoreAvg": 1,
+          "orderCount": 2
+        },
+        {
+          "delayDays": 54,
+          "reviewScoreAvg": 3,
+          "orderCount": 3
+        },
+        {
+          "delayDays": 55,
+          "reviewScoreAvg": 2,
+          "orderCount": 2
+        },
+        {
+          "delayDays": 56,
+          "reviewScoreAvg": 2.5,
+          "orderCount": 4
+        },
+        {
+          "delayDays": 57,
+          "reviewScoreAvg": 1,
+          "orderCount": 2
+        },
+        {
+          "delayDays": 58,
+          "reviewScoreAvg": 5,
+          "orderCount": 3
+        },
+        {
+          "delayDays": 59,
+          "reviewScoreAvg": 5,
+          "orderCount": 1
+        },
+        {
+          "delayDays": 60,
+          "reviewScoreAvg": 2.63,
+          "orderCount": 27
+        }
+      ],
+      "trendLine": [
+        {
+          "delayDays": -14,
+          "reviewScoreAvg": 4.46
+        },
+        {
+          "delayDays": 60,
+          "reviewScoreAvg": 1
+        }
+      ]
     }
   }
 }

@@ -35,6 +35,12 @@ export type Phase2PaymentTypeOption = {
   orderCount: number;
 };
 
+export type Phase2DimensionOption = {
+  value: string;
+  label: string;
+  orderCount: number;
+};
+
 export type Phase2FreightBand = {
   band: string;
   orderCount: number;
@@ -83,6 +89,65 @@ export type Phase2PaymentRangePanels = {
   slicesByPaymentType: Record<string, Phase2PaymentPanelSlice>;
 };
 
+export type Phase3StateMetric = {
+  state: string;
+  label: string;
+  orderCount: number;
+  totalGmv: number;
+  lateDeliveryRate: number;
+};
+
+export type Phase3GeographyPanel = {
+  totalOrders: number;
+  totalStates: number;
+  stateMetrics: Phase3StateMetric[];
+};
+
+export type Phase3CategoryRow = {
+  categoryKey: string;
+  categoryLabel: string;
+  orderCount: number;
+  itemCount: number;
+  totalGmv: number;
+  shareOfItems: number;
+};
+
+export type Phase3CategoryPanel = {
+  shareBasis: 'item_count';
+  totals: {
+    totalOrders: number;
+    totalItems: number;
+    totalGmv: number;
+  };
+  categories: Phase3CategoryRow[];
+  topCategory: Phase3CategoryRow | null;
+};
+
+export type Phase3DelayReviewPoint = {
+  delayDays: number;
+  reviewScoreAvg: number;
+  orderCount: number;
+};
+
+export type Phase3ReviewPanel = {
+  population: {
+    totalOrders: number;
+    reviewedOrderCount: number;
+    missingReviewOrderCount: number;
+    reviewRowCount: number;
+  };
+  delayDaysDomain: {
+    min: number;
+    max: number;
+  };
+  correlation: number;
+  points: Phase3DelayReviewPoint[];
+  trendLine: Array<{
+    delayDays: number;
+    reviewScoreAvg: number;
+  }>;
+};
+
 export type Phase2DashboardArtifact = {
   metadata: {
     source: 'olist';
@@ -98,5 +163,10 @@ export type Phase2DashboardArtifact = {
   dateRanges: Phase2DateRange[];
   kpisByRange: Record<DateRangeId, Phase2Kpis>;
   monthlySeriesByRange: Record<DateRangeId, Phase2MonthlyPoint[]>;
+  customerStateOptionsByRange: Record<DateRangeId, Phase2DimensionOption[]>;
+  productCategoryOptionsByRange: Record<DateRangeId, Phase2DimensionOption[]>;
   paymentPanelsByRange: Record<DateRangeId, Phase2PaymentRangePanels>;
+  geographyPanelsByRange: Record<DateRangeId, Phase3GeographyPanel>;
+  categoryPanelsByRange: Record<DateRangeId, Phase3CategoryPanel>;
+  reviewPanelsByRange: Record<DateRangeId, Phase3ReviewPanel>;
 };

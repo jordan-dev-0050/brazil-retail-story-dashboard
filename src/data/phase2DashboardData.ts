@@ -4,6 +4,7 @@ import type {
   FilterId,
   Phase2DashboardArtifact,
   Phase2DateRange,
+  Phase2DimensionOption,
   Phase2PaymentPanelSlice,
   Phase2PaymentRangePanels,
   Phase2PaymentTypeOption,
@@ -74,12 +75,18 @@ export const filterOptions: Record<FilterId, FilterConfig> = {
   },
   customerState: {
     label: 'Customer State',
-    options: [{ label: 'All States', value: 'all-states' }],
+    options: phase2DashboardArtifact.customerStateOptionsByRange.all.map((option) => ({
+      label: option.label,
+      value: option.value,
+    })),
     disabled: true,
   },
   productCategory: {
     label: 'Product Category',
-    options: [{ label: 'All Categories', value: 'all-categories' }],
+    options: phase2DashboardArtifact.productCategoryOptionsByRange.all.map((option) => ({
+      label: option.label,
+      value: option.value,
+    })),
     disabled: true,
   },
   paymentType: {
@@ -128,6 +135,14 @@ export function getPaymentPanelsByRange(rangeId: DateRangeId): Phase2PaymentRang
 
 export function getPaymentTypeOptions(rangeId: DateRangeId): Phase2PaymentTypeOption[] {
   return getPaymentPanelsByRange(rangeId).paymentTypeOptions;
+}
+
+export function getCustomerStateOptions(rangeId: DateRangeId): Phase2DimensionOption[] {
+  return phase2DashboardArtifact.customerStateOptionsByRange[rangeId];
+}
+
+export function getProductCategoryOptions(rangeId: DateRangeId): Phase2DimensionOption[] {
+  return phase2DashboardArtifact.productCategoryOptionsByRange[rangeId];
 }
 
 export function getPaymentPanelSlice(

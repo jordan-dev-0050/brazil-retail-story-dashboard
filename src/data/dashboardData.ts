@@ -4,15 +4,16 @@ import {
   formatCurrencyCompact,
   formatOrderCount,
   formatOrderCountCompact,
+  getCustomerStateOptions,
   getDateRangeById,
   getMonthlySeries,
   getPaymentPanelSlice,
   getPaymentTypeOptions,
+  getProductCategoryOptions,
   getTimeTrendSummary,
   phase2DashboardArtifact,
 } from './phase2DashboardData';
 import {
-  filterOptions as mockFilterOptions,
   kpiCards as mockKpiCards,
   timeTrendHighlights as mockTimeTrendHighlights,
   timeTrendSeries as mockTimeTrendSeries,
@@ -83,13 +84,19 @@ export function getDashboardFilterOptions(
       options: dateRangeOptions,
     },
     customerState: {
-      label: mockFilterOptions.customerState.label,
-      options: mockFilterOptions.customerState.options,
+      label: 'Customer State',
+      options: getCustomerStateOptions(rangeId).map((option) => ({
+        label: option.label,
+        value: option.value,
+      })),
       disabled: true,
     },
     productCategory: {
-      label: mockFilterOptions.productCategory.label,
-      options: mockFilterOptions.productCategory.options,
+      label: 'Product Category',
+      options: getProductCategoryOptions(rangeId).map((option) => ({
+        label: option.label,
+        value: option.value,
+      })),
       disabled: true,
     },
     paymentType: {

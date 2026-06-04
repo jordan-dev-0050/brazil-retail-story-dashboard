@@ -6,6 +6,14 @@ import { fileURLToPath } from 'node:url';
 
 const COVERAGE_START = '2017-01-01';
 const COVERAGE_END = '2018-08-31';
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+const MIN_DELAY_BUCKET = -14;
+const MAX_DELAY_BUCKET = 60;
+const ALL_STATES_VALUE = 'all-states';
+const ALL_CATEGORIES_VALUE = 'all-categories';
+const UNKNOWN_STATE = 'Unknown';
+const UNKNOWN_CATEGORY_KEY = 'unknown_category';
+const UNKNOWN_CATEGORY_LABEL = 'Unknown Category';
 
 const DATE_RANGES = [
   {
@@ -30,8 +38,16 @@ const DATE_RANGES = [
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ordersCsvPath = path.join(projectRoot, 'data', 'olist_orders_dataset.csv');
+const customersCsvPath = path.join(projectRoot, 'data', 'olist_customers_dataset.csv');
 const orderItemsCsvPath = path.join(projectRoot, 'data', 'olist_order_items_dataset.csv');
+const productsCsvPath = path.join(projectRoot, 'data', 'olist_products_dataset.csv');
+const categoryTranslationCsvPath = path.join(
+  projectRoot,
+  'data',
+  'product_category_name_translation.csv',
+);
 const orderPaymentsCsvPath = path.join(projectRoot, 'data', 'olist_order_payments_dataset.csv');
+const orderReviewsCsvPath = path.join(projectRoot, 'data', 'olist_order_reviews_dataset.csv');
 const outputPath = path.join(projectRoot, 'src', 'data', 'phase2DashboardArtifact.json');
 
 const PAYMENT_TYPE_ORDER = ['credit_card', 'boleto', 'voucher', 'debit_card', 'not_defined'];
@@ -99,7 +115,9 @@ async function readCsvRows(filePath, onRow) {
     }
 
     if (headers.length === 0) {
-      headers = parseCsvLine(line);
+      headers = parseCsvLine(line).map((header, index) =>
+        index === 0 ? header.replace(/^\uFEFF/, '') : header,
+      );
       continue;
     }
 
@@ -114,6 +132,10 @@ function roundCurrency(value) {
 }
 
 function roundPercentage(value) {
+  return Number(value.toFixed(2));
+}
+
+function roundMetric(value) {
   return Number(value.toFixed(2));
 }
 
@@ -157,6 +179,32 @@ function formatPaymentTypeLabel(paymentType) {
   );
 }
 
+function toTitleCase(value) {
+  return value
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function normaliseCategory(rawCategoryName, translatedCategoryName) {
+  const raw = rawCategoryName.trim();
+  const translated = translatedCategoryName.trim();
+
+  if (!raw) {
+    return {
+      key: UNKNOWN_CATEGORY_KEY,
+      label: UNKNOWN_CATEGORY_LABEL,
+    };
+  }
+
+  const keySource = translated || raw;
+  const key = keySource.toLowerCase().replace(/\s+/g, '_');
+  const label = translated ? toTitleCase(translated) : toTitleCase(raw);
+
+  return { key, label };
+}
+
 function buildEmptyFreightBands() {
   return FREIGHT_BANDS.map(({ band }) => ({
     band,
@@ -193,6 +241,105 @@ function buildPaymentTypeOrder(paymentTypeSet) {
 
   unknownTypes.sort((left, right) => left.localeCompare(right));
   return ['all', ...knownTypes, ...unknownTypes];
+}
+
+function compareByOrderCountThenLabel(left, right) {
+  if (right.orderCount !== left.orderCount) {
+    return right.orderCount - left.orderCount;
+  }
+
+  return left.label.localeCompare(right.label);
+}
+
+function compareCategories(left, right) {
+  if (right.itemCount !== left.itemCount) {
+    return right.itemCount - left.itemCount;
+  }
+
+  if (right.totalGmv !== left.totalGmv) {
+    return right.totalGmv - left.totalGmv;
+  }
+
+  return left.categoryLabel.localeCompare(right.categoryLabel);
+}
+
+function getDateDiffInDays(leftDate, rightDate) {
+  return Math.round(
+    (Date.parse(`${leftDate}T00:00:00Z`) - Date.parse(`${rightDate}T00:00:00Z`)) / MS_PER_DAY,
+  );
+}
+
+function buildDimensionOptions(allLabel, allValue, rows, totalOrders) {
+  return [
+    {
+      value: allValue,
+      label: allLabel,
+      orderCount: totalOrders,
+    },
+    ...rows,
+  ];
+}
+
+function calculatePearsonCorrelation(points) {
+  if (points.length < 2) {
+    return 0;
+  }
+
+  const count = points.length;
+  const sumX = points.reduce((total, point) => total + point.x, 0);
+  const sumY = points.reduce((total, point) => total + point.y, 0);
+  const meanX = sumX / count;
+  const meanY = sumY / count;
+
+  let numerator = 0;
+  let denominatorLeft = 0;
+  let denominatorRight = 0;
+
+  for (const point of points) {
+    const deltaX = point.x - meanX;
+    const deltaY = point.y - meanY;
+    numerator += deltaX * deltaY;
+    denominatorLeft += deltaX ** 2;
+    denominatorRight += deltaY ** 2;
+  }
+
+  const denominator = Math.sqrt(denominatorLeft * denominatorRight);
+  return denominator === 0 ? 0 : roundMetric(numerator / denominator);
+}
+
+function buildTrendLine(points, minDelay, maxDelay) {
+  if (points.length < 2) {
+    return [];
+  }
+
+  const count = points.length;
+  const sumX = points.reduce((total, point) => total + point.x, 0);
+  const sumY = points.reduce((total, point) => total + point.y, 0);
+  const sumXY = points.reduce((total, point) => total + point.x * point.y, 0);
+  const sumXX = points.reduce((total, point) => total + point.x * point.x, 0);
+  const denominator = count * sumXX - sumX * sumX;
+
+  if (denominator === 0) {
+    const averageY = roundMetric(sumY / count);
+    return [
+      { delayDays: minDelay, reviewScoreAvg: averageY },
+      { delayDays: maxDelay, reviewScoreAvg: averageY },
+    ];
+  }
+
+  const slope = (count * sumXY - sumX * sumY) / denominator;
+  const intercept = (sumY - slope * sumX) / count;
+
+  return [
+    {
+      delayDays: minDelay,
+      reviewScoreAvg: roundMetric(Math.max(1, Math.min(5, intercept + slope * minDelay))),
+    },
+    {
+      delayDays: maxDelay,
+      reviewScoreAvg: roundMetric(Math.max(1, Math.min(5, intercept + slope * maxDelay))),
+    },
+  ];
 }
 
 function buildPaymentSlice(rangeOrders, paymentType, paymentsByOrder) {
@@ -284,23 +431,65 @@ function buildPaymentSlice(rangeOrders, paymentType, paymentsByOrder) {
   };
 }
 
+const customerStateByCustomerId = new Map();
+const translatedCategoryByRawCategory = new Map();
+const categoryByProductId = new Map();
 const orderMetricsById = new Map();
+const orderCategoriesById = new Map();
+
+await readCsvRows(customersCsvPath, (row) => {
+  customerStateByCustomerId.set(row.customer_id, (row.customer_state ?? '').trim() || UNKNOWN_STATE);
+});
+
+await readCsvRows(categoryTranslationCsvPath, (row) => {
+  translatedCategoryByRawCategory.set(
+    (row.product_category_name ?? '').trim(),
+    (row.product_category_name_english ?? '').trim(),
+  );
+});
+
+await readCsvRows(productsCsvPath, (row) => {
+  const rawCategory = (row.product_category_name ?? '').trim();
+  categoryByProductId.set(
+    row.product_id,
+    normaliseCategory(rawCategory, translatedCategoryByRawCategory.get(rawCategory) ?? ''),
+  );
+});
 
 await readCsvRows(orderItemsCsvPath, (row) => {
   const price = Number.parseFloat(row.price ?? '0');
   const freightValue = Number.parseFloat(row.freight_value ?? '0');
-
+  const safePrice = Number.isNaN(price) ? 0 : roundCurrency(price);
+  const safeFreightValue = Number.isNaN(freightValue) ? 0 : roundCurrency(freightValue);
   const currentMetrics = orderMetricsById.get(row.order_id) ?? {
     gmv: 0,
     freightValue: 0,
   };
 
   orderMetricsById.set(row.order_id, {
-    gmv: Number.isNaN(price) ? currentMetrics.gmv : roundCurrency(currentMetrics.gmv + price),
-    freightValue: Number.isNaN(freightValue)
-      ? currentMetrics.freightValue
-      : roundCurrency(currentMetrics.freightValue + freightValue),
+    gmv: roundCurrency(currentMetrics.gmv + safePrice),
+    freightValue: roundCurrency(currentMetrics.freightValue + safeFreightValue),
   });
+
+  const category = categoryByProductId.get(row.product_id) ?? {
+    key: UNKNOWN_CATEGORY_KEY,
+    label: UNKNOWN_CATEGORY_LABEL,
+  };
+  const categoriesForOrder = orderCategoriesById.get(row.order_id) ?? new Map();
+  const currentCategoryMetrics = categoriesForOrder.get(category.key) ?? {
+    categoryKey: category.key,
+    categoryLabel: category.label,
+    itemCount: 0,
+    totalGmv: 0,
+  };
+
+  categoriesForOrder.set(category.key, {
+    categoryKey: category.key,
+    categoryLabel: category.label,
+    itemCount: currentCategoryMetrics.itemCount + 1,
+    totalGmv: roundCurrency(currentCategoryMetrics.totalGmv + safePrice),
+  });
+  orderCategoriesById.set(row.order_id, categoriesForOrder);
 });
 
 const qualifyingOrders = [];
@@ -323,6 +512,10 @@ await readCsvRows(ordersCsvPath, (row) => {
   };
   const deliveredDate = (row.order_delivered_customer_date ?? '').slice(0, 10);
   const estimatedDate = (row.order_estimated_delivery_date ?? '').slice(0, 10);
+  const delayDays =
+    deliveredDate.length === 10 && estimatedDate.length === 10
+      ? getDateDiffInDays(deliveredDate, estimatedDate)
+      : null;
 
   qualifyingOrders.push({
     orderId: row.order_id,
@@ -332,6 +525,9 @@ await readCsvRows(ordersCsvPath, (row) => {
     freightValue: orderMetrics.freightValue,
     isOnTime:
       deliveredDate.length === 10 && estimatedDate.length === 10 && deliveredDate <= estimatedDate,
+    delayDays,
+    customerState: customerStateByCustomerId.get(row.customer_id) ?? UNKNOWN_STATE,
+    categories: Array.from((orderCategoriesById.get(row.order_id) ?? new Map()).values()),
   });
   qualifyingOrderIds.add(row.order_id);
 });
@@ -354,10 +550,30 @@ await readCsvRows(orderPaymentsCsvPath, (row) => {
   paymentsByOrder.set(row.order_id, paymentRows);
 });
 
+const reviewsByOrder = new Map();
+
+await readCsvRows(orderReviewsCsvPath, (row) => {
+  if (!qualifyingOrderIds.has(row.order_id)) {
+    return;
+  }
+
+  const reviewScore = Number.parseFloat(row.review_score ?? '0');
+  const safeReviewScore = Number.isNaN(reviewScore) ? 0 : reviewScore;
+  const currentReviewSummary = reviewsByOrder.get(row.order_id) ?? {
+    reviewRowCount: 0,
+    reviewScoreSum: 0,
+  };
+
+  reviewsByOrder.set(row.order_id, {
+    reviewRowCount: currentReviewSummary.reviewRowCount + 1,
+    reviewScoreSum: currentReviewSummary.reviewScoreSum + safeReviewScore,
+  });
+});
+
 const artifact = {
   metadata: {
     source: 'olist',
-    version: '0.2.0',
+    version: '0.3.0',
     generatedAt: new Date().toISOString(),
     currency: 'BRL',
     timeAxis: 'order_purchase_timestamp',
@@ -369,7 +585,12 @@ const artifact = {
   dateRanges: DATE_RANGES,
   kpisByRange: {},
   monthlySeriesByRange: {},
+  customerStateOptionsByRange: {},
+  productCategoryOptionsByRange: {},
   paymentPanelsByRange: {},
+  geographyPanelsByRange: {},
+  categoryPanelsByRange: {},
+  reviewPanelsByRange: {},
 };
 
 for (const range of DATE_RANGES) {
@@ -387,7 +608,10 @@ for (const range of DATE_RANGES) {
 
   let totalOrders = 0;
   let totalGmv = 0;
+  let totalCategoryItems = 0;
   const rangeOrders = [];
+  const stateMetricsByState = new Map();
+  const categoryMetricsByKey = new Map();
 
   for (const order of qualifyingOrders) {
     if (!isWithinRange(order.purchaseDate, range.start, range.end)) {
@@ -404,14 +628,104 @@ for (const range of DATE_RANGES) {
       monthEntry.orders += 1;
       monthEntry.gmv = roundCurrency(monthEntry.gmv + order.gmv);
     }
+
+    const stateMetric = stateMetricsByState.get(order.customerState) ?? {
+      state: order.customerState,
+      label: order.customerState,
+      orderCount: 0,
+      totalGmv: 0,
+      delayedOrderCount: 0,
+    };
+
+    stateMetric.orderCount += 1;
+    stateMetric.totalGmv = roundCurrency(stateMetric.totalGmv + order.gmv);
+    stateMetric.delayedOrderCount += order.isOnTime ? 0 : 1;
+    stateMetricsByState.set(order.customerState, stateMetric);
+
+    for (const category of order.categories) {
+      const categoryMetric = categoryMetricsByKey.get(category.categoryKey) ?? {
+        categoryKey: category.categoryKey,
+        categoryLabel: category.categoryLabel,
+        orderCount: 0,
+        itemCount: 0,
+        totalGmv: 0,
+      };
+
+      categoryMetric.orderCount += 1;
+      categoryMetric.itemCount += category.itemCount;
+      categoryMetric.totalGmv = roundCurrency(categoryMetric.totalGmv + category.totalGmv);
+      totalCategoryItems += category.itemCount;
+      categoryMetricsByKey.set(category.categoryKey, categoryMetric);
+    }
   }
 
   artifact.kpisByRange[range.id] = {
     totalOrders,
     totalGmv: roundCurrency(totalGmv),
   };
-
   artifact.monthlySeriesByRange[range.id] = Array.from(seriesByMonth.values());
+
+  const stateMetrics = Array.from(stateMetricsByState.values())
+    .map((stateMetric) => ({
+      state: stateMetric.state,
+      label: stateMetric.label,
+      orderCount: stateMetric.orderCount,
+      totalGmv: stateMetric.totalGmv,
+      lateDeliveryRate:
+        stateMetric.orderCount === 0
+          ? 0
+          : roundPercentage((stateMetric.delayedOrderCount / stateMetric.orderCount) * 100),
+    }))
+    .sort(compareByOrderCountThenLabel);
+
+  artifact.customerStateOptionsByRange[range.id] = buildDimensionOptions(
+    'All States',
+    ALL_STATES_VALUE,
+    stateMetrics.map((stateMetric) => ({
+      value: stateMetric.state,
+      label: stateMetric.label,
+      orderCount: stateMetric.orderCount,
+    })),
+    totalOrders,
+  );
+  artifact.geographyPanelsByRange[range.id] = {
+    totalOrders,
+    totalStates: stateMetrics.length,
+    stateMetrics,
+  };
+
+  const categories = Array.from(categoryMetricsByKey.values())
+    .sort(compareCategories)
+    .map((categoryMetric) => ({
+      categoryKey: categoryMetric.categoryKey,
+      categoryLabel: categoryMetric.categoryLabel,
+      orderCount: categoryMetric.orderCount,
+      itemCount: categoryMetric.itemCount,
+      totalGmv: categoryMetric.totalGmv,
+      shareOfItems:
+        totalCategoryItems === 0 ? 0 : roundPercentage((categoryMetric.itemCount / totalCategoryItems) * 100),
+    }));
+
+  artifact.productCategoryOptionsByRange[range.id] = buildDimensionOptions(
+    'All Categories',
+    ALL_CATEGORIES_VALUE,
+    categories.map((category) => ({
+      value: category.categoryKey,
+      label: category.categoryLabel,
+      orderCount: category.orderCount,
+    })),
+    totalOrders,
+  );
+  artifact.categoryPanelsByRange[range.id] = {
+    shareBasis: 'item_count',
+    totals: {
+      totalOrders,
+      totalItems: totalCategoryItems,
+      totalGmv: roundCurrency(totalGmv),
+    },
+    categories,
+    topCategory: categories[0] ?? null,
+  };
 
   const paymentTypesInRange = new Set();
 
@@ -435,6 +749,62 @@ for (const range of DATE_RANGES) {
       orderCount: slicesByPaymentType[paymentType].orderCount,
     })),
     slicesByPaymentType,
+  };
+
+  const reviewPopulation = [];
+  const bucketByDelayDays = new Map();
+  let reviewRowCount = 0;
+
+  for (const order of rangeOrders) {
+    const reviewSummary = reviewsByOrder.get(order.orderId);
+
+    if (!reviewSummary || order.delayDays === null) {
+      continue;
+    }
+
+    const averageReviewScore = reviewSummary.reviewScoreSum / reviewSummary.reviewRowCount;
+    const bucketDelayDays = Math.max(MIN_DELAY_BUCKET, Math.min(MAX_DELAY_BUCKET, order.delayDays));
+    reviewRowCount += reviewSummary.reviewRowCount;
+    reviewPopulation.push({
+      x: bucketDelayDays,
+      y: averageReviewScore,
+    });
+
+    const currentBucket = bucketByDelayDays.get(bucketDelayDays) ?? {
+      delayDays: bucketDelayDays,
+      reviewScoreSum: 0,
+      orderCount: 0,
+    };
+
+    currentBucket.reviewScoreSum += averageReviewScore;
+    currentBucket.orderCount += 1;
+    bucketByDelayDays.set(bucketDelayDays, currentBucket);
+  }
+
+  const points = Array.from(bucketByDelayDays.values())
+    .sort((left, right) => left.delayDays - right.delayDays)
+    .map((bucket) => ({
+      delayDays: bucket.delayDays,
+      reviewScoreAvg: roundMetric(bucket.reviewScoreSum / bucket.orderCount),
+      orderCount: bucket.orderCount,
+    }));
+  const minDelay = points[0]?.delayDays ?? 0;
+  const maxDelay = points[points.length - 1]?.delayDays ?? 0;
+
+  artifact.reviewPanelsByRange[range.id] = {
+    population: {
+      totalOrders,
+      reviewedOrderCount: reviewPopulation.length,
+      missingReviewOrderCount: totalOrders - reviewPopulation.length,
+      reviewRowCount,
+    },
+    delayDaysDomain: {
+      min: minDelay,
+      max: maxDelay,
+    },
+    correlation: calculatePearsonCorrelation(reviewPopulation),
+    points,
+    trendLine: buildTrendLine(reviewPopulation, minDelay, maxDelay),
   };
 }
 

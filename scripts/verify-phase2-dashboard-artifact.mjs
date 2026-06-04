@@ -83,9 +83,134 @@ const expectedSliceChecks = {
     },
   },
 };
+const expectedGeographyChecks = {
+  all: {
+    topState: {
+      state: 'SP',
+      label: 'SP',
+      orderCount: 40406,
+      totalGmv: 5055587.13,
+      lateDeliveryRate: 4.51,
+    },
+    secondState: {
+      state: 'RJ',
+      label: 'RJ',
+      orderCount: 12310,
+      totalGmv: 1751433.85,
+      lateDeliveryRate: 12.14,
+    },
+  },
+  '2017': {
+    topState: {
+      state: 'SP',
+      label: 'SP',
+      orderCount: 17071,
+      totalGmv: 2136258.96,
+      lateDeliveryRate: 3.81,
+    },
+  },
+  '2018_ytd': {
+    topState: {
+      state: 'SP',
+      label: 'SP',
+      orderCount: 23335,
+      totalGmv: 2919328.17,
+      lateDeliveryRate: 5.03,
+    },
+  },
+};
+const expectedCategoryChecks = {
+  all: {
+    topCategory: {
+      categoryKey: 'bed_bath_table',
+      categoryLabel: 'Bed Bath Table',
+      orderCount: 9267,
+      itemCount: 10945,
+      totalGmv: 1022955.77,
+      shareOfItems: 9.96,
+    },
+  },
+  '2017': {
+    topCategory: {
+      categoryKey: 'bed_bath_table',
+      categoryLabel: 'Bed Bath Table',
+      orderCount: 4423,
+      itemCount: 5135,
+      totalGmv: 490596.92,
+      shareOfItems: 10.36,
+    },
+  },
+  '2018_ytd': {
+    topCategory: {
+      categoryKey: 'health_beauty',
+      categoryLabel: 'Health Beauty',
+      orderCount: 5305,
+      itemCount: 5841,
+      totalGmv: 755724.5,
+      shareOfItems: 9.68,
+    },
+  },
+};
+const expectedReviewChecks = {
+  all: {
+    population: {
+      totalOrders: 96211,
+      reviewedOrderCount: 95560,
+      missingReviewOrderCount: 651,
+      reviewRowCount: 96087,
+    },
+    correlation: -0.34,
+    pointAtMinus14: {
+      delayDays: -14,
+      reviewScoreAvg: 4.33,
+      orderCount: 41614,
+    },
+    pointAt0: {
+      delayDays: 0,
+      reviewScoreAvg: 4.04,
+      orderCount: 1280,
+    },
+    pointAt60: {
+      delayDays: 60,
+      reviewScoreAvg: 2.84,
+      orderCount: 80,
+    },
+    trendLine: [
+      { delayDays: -14, reviewScoreAvg: 4.44 },
+      { delayDays: 60, reviewScoreAvg: 1 },
+    ],
+  },
+  '2017': {
+    correlation: -0.33,
+    pointAt0: {
+      delayDays: 0,
+      reviewScoreAvg: 3.86,
+      orderCount: 421,
+    },
+  },
+  '2018_ytd': {
+    correlation: -0.36,
+    pointAt60: {
+      delayDays: 60,
+      reviewScoreAvg: 2.63,
+      orderCount: 27,
+    },
+  },
+};
+
+function sum(array, getter) {
+  return array.reduce((total, item) => total + getter(item), 0);
+}
+
+function assertClose(actual, expected, epsilon = 0.02) {
+  assert.ok(
+    Math.abs(actual - expected) <= epsilon,
+    `Expected ${actual} to be within ${epsilon} of ${expected}`,
+  );
+}
 
 assert.equal(artifact.metadata.source, 'olist');
-assert.equal(artifact.metadata.version, '0.2.0');
+assert.equal(artifact.metadata.version, '0.3.0');
 assert.equal(artifact.metadata.currency, 'BRL');
 assert.equal(artifact.metadata.timeAxis, 'order_purchase_timestamp');
 assert.equal(artifact.metadata.grain, 'month');
@@ -102,8 +227,13 @@ for (const rangeId of expectedRanges) {
   const kpis = artifact.kpisByRange[rangeId];
   const series = artifact.monthlySeriesByRange[rangeId];
   const paymentPanels = artifact.paymentPanelsByRange[rangeId];
-  const summedOrders = series.reduce((total, point) => total + point.orders, 0);
-  const summedGmv = Number(series.reduce((total, point) => total + point.gmv, 0).toFixed(2));
+  const stateOptions = artifact.customerStateOptionsByRange[rangeId];
+  const categoryOptions = artifact.productCategoryOptionsByRange[rangeId];
+  const geographyPanel = artifact.geographyPanelsByRange[rangeId];
+  const categoryPanel = artifact.categoryPanelsByRange[rangeId];
+  const reviewPanel = artifact.reviewPanelsByRange[rangeId];
+  const summedOrders = sum(series, (point) => point.orders);
+  const summedGmv = Number(sum(series, (point) => point.gmv).toFixed(2));
 
   assert.equal(series.length, expectedMonthCounts[rangeId]);
   assert.equal(summedOrders, kpis.totalOrders);
@@ -116,16 +246,10 @@ for (const rangeId of expectedRanges) {
 
   for (const option of paymentPanels.paymentTypeOptions) {
     const slice = paymentPanels.slicesByPaymentType[option.value];
-    const freightOrderCount = slice.freightDistribution.bands.reduce(
-      (total, band) => total + band.orderCount,
-      0,
-    );
-    const paymentMixRowCount = slice.paymentMix.entries.reduce(
-      (total, entry) => total + entry.paymentRowCount,
-      0,
-    );
+    const freightOrderCount = sum(slice.freightDistribution.bands, (band) => band.orderCount);
+    const paymentMixRowCount = sum(slice.paymentMix.entries, (entry) => entry.paymentRowCount);
     const paymentMixValue = Number(
-      slice.paymentMix.entries.reduce((total, entry) => total + entry.paymentValue, 0).toFixed(2),
+      sum(slice.paymentMix.entries, (entry) => entry.paymentValue).toFixed(2),
     );
 
     assert.ok(slice);
@@ -141,6 +265,46 @@ for (const rangeId of expectedRanges) {
     assert.equal(paymentMixRowCount, slice.paymentRowCount);
     assert.equal(paymentMixValue, slice.paymentMix.totalPaymentValue);
   }
+
+  assert.equal(stateOptions[0].value, 'all-states');
+  assert.equal(stateOptions[0].orderCount, kpis.totalOrders);
+  assert.equal(categoryOptions[0].value, 'all-categories');
+  assert.equal(categoryOptions[0].orderCount, kpis.totalOrders);
+
+  assert.equal(geographyPanel.totalOrders, kpis.totalOrders);
+  assert.equal(geographyPanel.totalStates, geographyPanel.stateMetrics.length);
+  assert.equal(sum(geographyPanel.stateMetrics, (entry) => entry.orderCount), kpis.totalOrders);
+  assert.equal(
+    Number(sum(geographyPanel.stateMetrics, (entry) => entry.totalGmv).toFixed(2)),
+    kpis.totalGmv,
+  );
+
+  assert.equal(categoryPanel.shareBasis, 'item_count');
+  assert.equal(categoryPanel.totals.totalOrders, kpis.totalOrders);
+  assert.equal(categoryPanel.topCategory?.categoryKey, categoryPanel.categories[0]?.categoryKey ?? null);
+  assert.equal(
+    sum(categoryPanel.categories, (entry) => entry.itemCount),
+    categoryPanel.totals.totalItems,
+  );
+  assert.equal(
+    Number(sum(categoryPanel.categories, (entry) => entry.totalGmv).toFixed(2)),
+    categoryPanel.totals.totalGmv,
+  );
+  assertClose(Number(sum(categoryPanel.categories, (entry) => entry.shareOfItems).toFixed(2)), 100);
+
+  assert.equal(reviewPanel.population.totalOrders, kpis.totalOrders);
+  assert.equal(
+    reviewPanel.population.reviewedOrderCount + reviewPanel.population.missingReviewOrderCount,
+    kpis.totalOrders,
+  );
+  assert.equal(sum(reviewPanel.points, (entry) => entry.orderCount), reviewPanel.population.reviewedOrderCount);
+  assert.equal(reviewPanel.delayDaysDomain.min, reviewPanel.points[0]?.delayDays ?? 0);
+  assert.equal(
+    reviewPanel.delayDaysDomain.max,
+    reviewPanel.points[reviewPanel.points.length - 1]?.delayDays ?? 0,
+  );
+  assert.equal(reviewPanel.trendLine.length, 2);
+  assert.ok(reviewPanel.trendLine.every((point) => point.reviewScoreAvg >= 1 && point.reviewScoreAvg <= 5));
 }
 
 const allRangeOptions = artifact.paymentPanelsByRange.all.paymentTypeOptions.map((option) => option.value);
@@ -168,6 +332,50 @@ for (const [rangeId, rangeChecks] of Object.entries(expectedSliceChecks)) {
   }
 }
 
+for (const [rangeId, expected] of Object.entries(expectedGeographyChecks)) {
+  const geographyPanel = artifact.geographyPanelsByRange[rangeId];
+
+  assert.deepEqual(geographyPanel.stateMetrics[0], expected.topState);
+
+  if (expected.secondState) {
+    assert.deepEqual(geographyPanel.stateMetrics[1], expected.secondState);
+  }
+}
+
+for (const [rangeId, expected] of Object.entries(expectedCategoryChecks)) {
+  const categoryPanel = artifact.categoryPanelsByRange[rangeId];
+  assert.deepEqual(categoryPanel.topCategory, expected.topCategory);
+}
+
+for (const [rangeId, expected] of Object.entries(expectedReviewChecks)) {
+  const reviewPanel = artifact.reviewPanelsByRange[rangeId];
+
+  if (expected.population) {
+    assert.deepEqual(reviewPanel.population, expected.population);
+    assert.deepEqual(reviewPanel.trendLine, expected.trendLine);
+    assert.deepEqual(
+      reviewPanel.points.find((point) => point.delayDays === -14),
+      expected.pointAtMinus14,
+    );
+  }
+
+  assert.equal(reviewPanel.correlation, expected.correlation);
+
+  if (expected.pointAt0) {
+    assert.deepEqual(
+      reviewPanel.points.find((point) => point.delayDays === 0),
+      expected.pointAt0,
+    );
+  }
+
+  if (expected.pointAt60) {
+    assert.deepEqual(
+      reviewPanel.points.find((point) => point.delayDays === 60),
+      expected.pointAt60,
+    );
+  }
+}
+
 assert.ok(
   artifact.paymentPanelsByRange.all.slicesByPaymentType.all.paymentRowCount >
     artifact.paymentPanelsByRange.all.slicesByPaymentType.all.orderCount,
@@ -185,4 +393,4 @@ assert.deepEqual(
   ['boleto'],
 );
 
-console.log('Phase 2 dashboard artifact checks passed.');
+console.log('Phase 2/3 dashboard artifact checks passed.');
