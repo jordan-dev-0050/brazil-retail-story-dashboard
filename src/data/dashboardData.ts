@@ -19,22 +19,25 @@ import {
   type TimeGranularity,
 } from './dashboardMock';
 import type {
+  DateRangeId,
   DashboardPaymentPanelSlice,
   DashboardPaymentTypeOption,
   FilterId,
   PaymentTypeId,
 } from './dashboardTypes';
 
-type FilterOption = {
+export type DashboardFilterOption = {
   label: string;
   value: string;
 };
 
-type FilterConfig = {
+export type DashboardFilterConfig = {
   label: string;
-  options: FilterOption[];
+  options: DashboardFilterOption[];
   disabled?: boolean;
 };
+
+export type DashboardFilterOptions = Record<FilterId, DashboardFilterConfig>;
 
 type KpiCardViewModel = {
   title: string;
@@ -62,31 +65,57 @@ type TimeTrendHighlight = {
 
 export const dashboardArtifact = phase2DashboardArtifact;
 
-export const filterOptions: Record<FilterId, FilterConfig> = {
-  dateRange: {
-    label: 'Date Range',
-    options: dashboardArtifact.dateRanges.map((range) => ({
-      label: range.label,
-      value: range.id,
-    })),
-  },
-  customerState: {
-    label: mockFilterOptions.customerState.label,
-    options: mockFilterOptions.customerState.options,
-  },
-  productCategory: {
-    label: mockFilterOptions.productCategory.label,
-    options: mockFilterOptions.productCategory.options,
-  },
-  paymentType: {
-    label: mockFilterOptions.paymentType.label,
-    options: mockFilterOptions.paymentType.options,
-  },
-};
+const dateRangeOptions = dashboardArtifact.dateRanges.map((range) => ({
+  label: range.label,
+  value: range.id,
+}));
+
+const defaultRangeId = (dateRangeOptions[0]?.value ?? 'all') as DateRangeId;
 
 export { formatCurrency, formatCurrencyCompact, formatOrderCount, formatOrderCountCompact };
 
-export function buildKpiCards(rangeId: Parameters<typeof buildPhase2KpiCards>[0]): KpiCardViewModel[] {
+export function getDashboardFilterOptions(
+  rangeId: Parameters<typeof getPaymentTypeOptions>[0],
+): DashboardFilterOptions {
+  return {
+    dateRange: {
+      label: 'Date Range',
+      options: dateRangeOptions,
+    },
+    customerState: {
+      label: mockFilterOptions.customerState.label,
+      options: mockFilterOptions.customerState.options,
+      disabled: true,
+    },
+    productCategory: {
+      label: mockFilterOptions.productCategory.label,
+      options: mockFilterOptions.productCategory.options,
+      disabled: true,
+    },
+    paymentType: {
+      label: 'Payment Type',
+      options: getPaymentTypeOptions(rangeId).map((option) => ({
+        label: option.label,
+        value: option.value,
+      })),
+    },
+  };
+}
+
+export function getInitialFilterValues(): Record<FilterId, string> {
+  const initialFilterOptions = getDashboardFilterOptions(defaultRangeId);
+
+  return {
+    dateRange: initialFilterOptions.dateRange.options[0]?.value ?? defaultRangeId,
+    customerState: initialFilterOptions.customerState.options[0]?.value ?? 'all-states',
+    productCategory: initialFilterOptions.productCategory.options[0]?.value ?? 'all-categories',
+    paymentType: initialFilterOptions.paymentType.options[0]?.value ?? 'all',
+  };
+}
+
+export function buildKpiCards(
+  rangeId: Parameters<typeof buildPhase2KpiCards>[0],
+): KpiCardViewModel[] {
   const realCards = buildPhase2KpiCards(rangeId);
   const [ordersCard, gmvCard] = realCards;
   const range = getDateRangeById(rangeId);
@@ -163,6 +192,16 @@ export function getDashboardPaymentTypeOptions(
   rangeId: Parameters<typeof getPaymentTypeOptions>[0],
 ): DashboardPaymentTypeOption[] {
   return getPaymentTypeOptions(rangeId);
+}
+
+export function getDashboardPaymentTypeLabel(
+  rangeId: Parameters<typeof getPaymentTypeOptions>[0],
+  paymentType: PaymentTypeId,
+): string {
+  return (
+    getPaymentTypeOptions(rangeId).find((option) => option.value === paymentType)?.label ??
+    paymentType
+  );
 }
 
 export function getDashboardPaymentPanelSlice(

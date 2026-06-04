@@ -1,6 +1,12 @@
 import { useState } from 'react';
-import { buildKpiCards, filterOptions } from '../data/dashboardData';
-import type { DateRangeId, FilterId } from '../data/dashboardTypes';
+import {
+  buildKpiCards,
+  getDashboardFilterOptions,
+  getDashboardPaymentPanelSlice,
+  getDashboardPaymentTypeLabel,
+  getInitialFilterValues,
+} from '../data/dashboardData';
+import type { DateRangeId, FilterId, PaymentTypeId } from '../data/dashboardTypes';
 import type { MapMetric, TimeGranularity } from '../data/dashboardMock';
 import { BrazilMapPanel } from './BrazilMapPanel';
 import { CategorySharePanel } from './CategorySharePanel';
@@ -12,26 +18,59 @@ import { OnTimeDelayPanel } from './OnTimeDelayPanel';
 import { PaymentMixPanel } from './PaymentMixPanel';
 import { TimeTrendPanel } from './TimeTrendPanel';
 
-const initialFilterValues = Object.fromEntries(
-  (Object.keys(filterOptions) as FilterId[]).map((id) => [id, filterOptions[id].options[0].value]),
-) as Record<FilterId, string>;
-
 export function DashboardPage() {
-  const [filters, setFilters] = useState<Record<FilterId, string>>(initialFilterValues);
+  const [filters, setFilters] = useState<Record<FilterId, string>>(() => getInitialFilterValues());
   const [mapMetric, setMapMetric] = useState<MapMetric>('orders');
   const [timeGranularity, setTimeGranularity] = useState<TimeGranularity>('weekly');
 
   const selectedRangeId = filters.dateRange as DateRangeId;
+  const filterConfigs = getDashboardFilterOptions(selectedRangeId);
+  const selectedPaymentType = (
+    filterConfigs.paymentType.options.find((option) => option.value === filters.paymentType)?.value ??
+    filterConfigs.paymentType.options[0]?.value ??
+    'all'
+  ) as PaymentTypeId;
   const kpiCards = buildKpiCards(selectedRangeId);
+  const paymentPanelSlice = getDashboardPaymentPanelSlice(selectedRangeId, selectedPaymentType);
+  const selectedRangeLabel =
+    filterConfigs.dateRange.options.find((option) => option.value === selectedRangeId)?.label ??
+    selectedRangeId;
+  const paymentTypeLabel = getDashboardPaymentTypeLabel(selectedRangeId, selectedPaymentType);
 
   const updateFilter = (id: FilterId, value: string) => {
-    setFilters((current) => ({ ...current, [id]: value }));
+    setFilters((current) => {
+      if (id !== 'dateRange') {
+        return { ...current, [id]: value };
+      }
+
+      const nextRangeId = value as DateRangeId;
+      const nextPaymentOptions = getDashboardFilterOptions(nextRangeId).paymentType.options;
+      const paymentTypeValue = nextPaymentOptions.some(
+        (option) => option.value === current.paymentType,
+      )
+        ? current.paymentType
+        : (nextPaymentOptions[0]?.value ?? 'all');
+
+      return {
+        ...current,
+        dateRange: nextRangeId,
+        paymentType: paymentTypeValue,
+      };
+    });
   };
 
   return (
     <main className="min-h-screen px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-6">
-        <FilterBar values={filters} onChange={updateFilter} />
+        <FilterBar configs={filterConfigs} values={filters} onChange={updateFilter} />
+
+        <section className="rounded-[24px] border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm text-slate shadow-soft">
+          <p>
+            <span className="font-semibold text-ink">Hybrid boundary:</span> Payment Type updates
+            only Freight Distribution, Payment Mix, and On-time vs Delayed in this phase. Brazil
+            Map, Category Share, and Delay vs Review remain mock-backed.
+          </p>
+        </section>
 
         <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
           {kpiCards.map((card) => (
@@ -49,8 +88,16 @@ export function DashboardPage() {
         </section>
 
         <section className="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
-          <OnTimeDelayPanel />
-          <FreightDistributionPanel />
+          <OnTimeDelayPanel
+            slice={paymentPanelSlice}
+            rangeLabel={selectedRangeLabel}
+            paymentTypeLabel={paymentTypeLabel}
+          />
+          <FreightDistributionPanel
+            slice={paymentPanelSlice}
+            rangeLabel={selectedRangeLabel}
+            paymentTypeLabel={paymentTypeLabel}
+          />
           <div className="md:col-span-2 2xl:col-span-1">
             <DelayReviewPanel />
           </div>
@@ -58,7 +105,11 @@ export function DashboardPage() {
 
         <section className="grid gap-6 xl:grid-cols-2">
           <CategorySharePanel />
-          <PaymentMixPanel />
+          <PaymentMixPanel
+            slice={paymentPanelSlice}
+            rangeLabel={selectedRangeLabel}
+            paymentTypeLabel={paymentTypeLabel}
+          />
         </section>
       </div>
     </main>

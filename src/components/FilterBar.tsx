@@ -1,9 +1,10 @@
 import type { ChangeEvent } from 'react';
-import { filterOptions } from '../data/dashboardData';
+import type { DashboardFilterOptions } from '../data/dashboardData';
 import type { FilterId } from '../data/dashboardTypes';
 import { BoxIcon, CalendarIcon, CardIcon, ChevronDownIcon, MapPinIcon } from './Icons';
 
 type FilterBarProps = {
+  configs: DashboardFilterOptions;
   values: Record<FilterId, string>;
   onChange: (id: FilterId, value: string) => void;
 };
@@ -15,7 +16,7 @@ const iconMap = {
   paymentType: CardIcon,
 };
 
-export function FilterBar({ values, onChange }: FilterBarProps) {
+export function FilterBar({ configs, values, onChange }: FilterBarProps) {
   const handleChange = (id: FilterId) => (event: ChangeEvent<HTMLSelectElement>) => {
     onChange(id, event.target.value);
   };
@@ -28,9 +29,9 @@ export function FilterBar({ values, onChange }: FilterBarProps) {
         </h1>
       </div>
 
-      {(Object.keys(filterOptions) as FilterId[]).map((id) => {
+      {(Object.keys(configs) as FilterId[]).map((id) => {
         const Icon = iconMap[id];
-        const config = filterOptions[id];
+        const config = configs[id];
 
         return (
           <label

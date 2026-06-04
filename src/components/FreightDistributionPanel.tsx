@@ -1,24 +1,63 @@
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { freightDistributionData } from '../data/dashboardMock';
+import { formatCurrency, formatOrderCount } from '../data/dashboardData';
+import type { DashboardPaymentPanelSlice } from '../data/dashboardTypes';
 import { ChartCard } from './ChartCard';
 import { TruckIcon } from './Icons';
 
-export function FreightDistributionPanel() {
+type FreightDistributionPanelProps = {
+  slice: DashboardPaymentPanelSlice;
+  rangeLabel: string;
+  paymentTypeLabel: string;
+};
+
+function formatAxisCount(value: number): string {
+  if (value >= 1000) {
+    return `${(value / 1000).toFixed(value >= 10000 ? 0 : 1)}K`;
+  }
+
+  return String(value);
+}
+
+export function FreightDistributionPanel({
+  slice,
+  rangeLabel,
+  paymentTypeLabel,
+}: FreightDistributionPanelProps) {
+  const freightData = slice.freightDistribution.bands.map((entry) => ({
+    band: entry.band,
+    orderCount: entry.orderCount,
+  }));
+
   return (
     <ChartCard
       title="Freight Distribution"
+      subtitle={`Real-backed order-level freight for ${rangeLabel} / ${paymentTypeLabel}`}
       footer={
-        <div className="grid gap-3 md:grid-cols-[72px_1fr_1fr]">
-          <div className="flex items-center justify-center rounded-[20px] border border-blue-100 bg-blue-50/70 text-accent-blue">
-            <TruckIcon className="h-7 w-7" />
+        <div className="grid gap-3 md:grid-cols-3">
+          <div className="rounded-[20px] border border-blue-100 bg-blue-50/70 px-4 py-3 text-accent-blue">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-accent-blue shadow-soft">
+                <TruckIcon className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-sm text-slate">Matched Orders</p>
+                <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">
+                  {formatOrderCount(slice.freightDistribution.totalOrders)}
+                </p>
+              </div>
+            </div>
           </div>
           <div className="rounded-[20px] border border-slate-200 bg-slate-50/70 px-4 py-3">
             <p className="text-sm text-slate">Avg Freight Cost</p>
-            <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">R$32.45</p>
+            <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">
+              {formatCurrency(slice.freightDistribution.avgFreightValue)}
+            </p>
           </div>
           <div className="rounded-[20px] border border-slate-200 bg-slate-50/70 px-4 py-3">
-            <p className="text-sm text-slate">Med Freight Cost</p>
-            <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">R$25.10</p>
+            <p className="text-sm text-slate">Median Freight Cost</p>
+            <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">
+              {formatCurrency(slice.freightDistribution.medianFreightValue)}
+            </p>
           </div>
         </div>
       }
@@ -26,14 +65,19 @@ export function FreightDistributionPanel() {
       <div className="mb-2 text-sm font-medium text-accent-blue">Orders</div>
       <div className="h-[280px]">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={freightDistributionData} barSize={22}>
+          <BarChart data={freightData} barSize={22}>
             <CartesianGrid stroke="#E2E8F0" strokeDasharray="4 6" vertical={false} />
-            <XAxis dataKey="band" tickLine={false} axisLine={false} tick={{ fill: '#6B7891', fontSize: 12 }} />
+            <XAxis
+              dataKey="band"
+              tickLine={false}
+              axisLine={false}
+              tick={{ fill: '#6B7891', fontSize: 12 }}
+            />
             <YAxis
               tickLine={false}
               axisLine={false}
               tick={{ fill: '#6B7891', fontSize: 12 }}
-              tickFormatter={(value) => `${value / 1000}K`}
+              tickFormatter={formatAxisCount}
             />
             <Tooltip
               cursor={{ fill: 'rgba(58, 134, 246, 0.08)' }}
@@ -42,9 +86,9 @@ export function FreightDistributionPanel() {
                 border: '1px solid #E2E8F0',
                 boxShadow: '0 20px 40px -30px rgba(45, 70, 116, 0.4)',
               }}
-              formatter={(value: number) => [`${(value / 1000).toFixed(1)}K`, 'Orders']}
+              formatter={(value: number) => [formatOrderCount(value), 'Orders']}
             />
-            <Bar dataKey="orders" fill="#3A86F6" radius={[10, 10, 0, 0]} />
+            <Bar dataKey="orderCount" fill="#3A86F6" radius={[10, 10, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
