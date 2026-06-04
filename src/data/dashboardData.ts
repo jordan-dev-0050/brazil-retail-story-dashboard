@@ -4,12 +4,15 @@ import {
   formatCurrencyCompact,
   formatOrderCount,
   formatOrderCountCompact,
+  getCategoryPanel,
   getCustomerStateOptions,
   getDateRangeById,
+  getGeographyPanel,
   getMonthlySeries,
   getPaymentPanelSlice,
   getPaymentTypeOptions,
   getProductCategoryOptions,
+  getReviewPanel,
   getTimeTrendSummary,
   phase2DashboardArtifact,
 } from './phase2DashboardData';
@@ -216,6 +219,24 @@ export function getDashboardPaymentPanelSlice(
   paymentType: PaymentTypeId,
 ): DashboardPaymentPanelSlice {
   return getPaymentPanelSlice(rangeId, paymentType);
+}
+
+export function getDashboardGeographyPanel(
+  rangeId: Parameters<typeof getGeographyPanel>[0],
+) {
+  return getGeographyPanel(rangeId);
+}
+
+export function getDashboardCategoryPanel(
+  rangeId: Parameters<typeof getCategoryPanel>[0],
+) {
+  return getCategoryPanel(rangeId);
+}
+
+export function getDashboardReviewPanel(
+  rangeId: Parameters<typeof getReviewPanel>[0],
+) {
+  return getReviewPanel(rangeId);
 }
 
 export { getDateRangeById, getMonthlySeries, getTimeTrendSummary };

@@ -2,12 +2,15 @@ import artifactJson from './phase2DashboardArtifact.json';
 import type {
   DateRangeId,
   FilterId,
+  Phase3CategoryPanel,
   Phase2DashboardArtifact,
   Phase2DateRange,
   Phase2DimensionOption,
   Phase2PaymentPanelSlice,
   Phase2PaymentRangePanels,
   Phase2PaymentTypeOption,
+  Phase3GeographyPanel,
+  Phase3ReviewPanel,
   PaymentTypeId,
 } from './phase2DashboardTypes';
 
@@ -131,6 +134,18 @@ export function getMonthlySeries(rangeId: DateRangeId) {
 
 export function getPaymentPanelsByRange(rangeId: DateRangeId): Phase2PaymentRangePanels {
   return phase2DashboardArtifact.paymentPanelsByRange[rangeId];
+}
+
+export function getGeographyPanel(rangeId: DateRangeId): Phase3GeographyPanel {
+  return phase2DashboardArtifact.geographyPanelsByRange[rangeId];
+}
+
+export function getCategoryPanel(rangeId: DateRangeId): Phase3CategoryPanel {
+  return phase2DashboardArtifact.categoryPanelsByRange[rangeId];
+}
+
+export function getReviewPanel(rangeId: DateRangeId): Phase3ReviewPanel {
+  return phase2DashboardArtifact.reviewPanelsByRange[rangeId];
 }
 
 export function getPaymentTypeOptions(rangeId: DateRangeId): Phase2PaymentTypeOption[] {

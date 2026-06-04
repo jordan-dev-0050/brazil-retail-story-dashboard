@@ -2,6 +2,8 @@ export type {
   DateRangeId,
   FilterId,
   Phase2DashboardArtifact as DashboardArtifact,
+  Phase3CategoryPanel as DashboardCategoryPanel,
+  Phase3CategoryRow as DashboardCategoryRow,
   Phase2DateRange as DashboardDateRange,
   Phase2FreightDistributionPanel as DashboardFreightDistributionPanel,
   Phase2Kpis as DashboardKpis,
@@ -10,5 +12,9 @@ export type {
   Phase2PaymentMixPanel as DashboardPaymentMixPanel,
   Phase2PaymentPanelSlice as DashboardPaymentPanelSlice,
   Phase2PaymentTypeOption as DashboardPaymentTypeOption,
+  Phase3DelayReviewPoint as DashboardDelayReviewPoint,
+  Phase3GeographyPanel as DashboardGeographyPanel,
+  Phase3ReviewPanel as DashboardReviewPanel,
+  Phase3StateMetric as DashboardStateMetric,
   PaymentTypeId,
 } from './phase2DashboardTypes';
