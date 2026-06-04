@@ -3,196 +3,201 @@ author: Codex
 date: 2026-06-04
 title: 真實資料整合第二階段總規劃
 uuid: 7b968c39e5ff4d86a7da50a6ac76a73f
-version: 0.1
-status: draft
+version: 0.2
+status: synced
 ---
 
-# 規劃書 – 真實資料整合第二階段
+# 規劃書 - 真實資料整合第二階段
 
-## 1. 背景與動機 (Background & Motivation)
+## 1. 同步摘要 (Sync Summary)
 
-參照 [P01 真實資料整合第一階段規劃](./P01_Real_Data_Integration_Plan.md) 與既有實作文件，可以確認第一階段的主路徑已建立：`KPI + Time Trend + Date Range` 已接上真實資料、repo 中已存在可匯入的 dashboard artifact 與生成流程，而 dashboard 也刻意維持在 hybrid 狀態，讓部分區塊 real-backed、其餘區塊仍為 mock-backed。
+本文件已依 2026-06-04 的程式現況同步。
 
-第二階段不重談第一階段已完成的主軸，而是要處理下一個資料依賴最小、但驗證價值夠高的擴充切面：讓 `Payment Type` filter 與 `Freight Distribution`、`Payment Mix`、`On-time vs Delayed` 三個面板接上真實資料。
+和先前規劃版相比，第二階段目前不是「準備開始」，而是主功能已經落地：
 
-這份規劃的核心動機有三個：
+1. `Payment Type` 已從 placeholder 變成可操作的真實 filter。
+2. `Freight Distribution`、`Payment Mix`、`On-time vs Delayed` 已接上同一份 dashboard artifact 的 real-backed slices。
+3. dashboard 仍維持 hybrid 邊界，`Brazil Map`、`Category Share`、`Delay vs Review` 依然是 mock-backed。
+4. phase2 artifact 生成與驗證腳本都已存在，且目前可通過自動驗證。
 
-1. 延續單一 dashboard artifact 與 hybrid dashboard 策略，而不是為 payment / delivery 另開第二份資料契約。
-2. 以最小新增資料依賴擴大 real-backed 覆蓋率，避免過早引入 geography、category、review 等額外複雜度。
-3. 先把 `Date Range + Payment Type` 的切片語意定清楚，避免 UI 先跑、資料定義後補，造成第二階段數字互相對不起來。
+目前尚未從 repo 中看到第二階段專屬的 screenshot baseline / before-after 對照紀錄，也沒有為 `P2`、`P3`、`P4` 各自補齊獨立 FXX 文件；因此第二階段在「程式功能」層面可視為已完成主路徑，在「驗證紀錄與文件完備度」層面則仍有收尾空間。
 
-## 2. 總體目標 (Overall Goal)
+## 2. 目前整體目標 (Current Overall Goal)
 
-當第二階段各階段完成後，使用者將能在既有 hybrid dashboard 中，實際操作 `Payment Type` 作為全域 filter，並看到 `Freight Distribution`、`Payment Mix`、`On-time vs Delayed` 三個面板隨 `Date Range` 與 `Payment Type` 一起變化；同時團隊仍維持單一 dashboard artifact 與清楚的 mock-backed / real-backed 邊界，不把尚未完成的地圖、品類或評論面板誤包裝成已完成真實化。
+第二階段的實際目標已從「建立 payment-aware phase」轉成「穩定維護已落地的 payment-aware hybrid dashboard，並把邊界、驗證與後續 phase 的切線記錄清楚」。
 
-## 3. 影響範圍 (Scope & Impact)
+以目前程式碼來看，這個目標可拆成兩部分：
 
-| 受影響模組 / 功能 | 預計改動類型 | 備註 |
-|----------------|-------------|------|
-| dashboard artifact schema | 新增功能 | 擴充 `Date Range -> Payment Type` 切片 |
-| artifact 生成腳本 | 新增功能 | 產出 payment-aware slices |
-| artifact 驗證腳本 | 新增功能 | 驗證新欄位與切片一致性 |
-| `Payment Type` filter | 新增功能 | 從 placeholder 轉為真實可用 filter |
-| `Freight Distribution` 面板 | 新增功能 | 接上 real-backed freight 分箱 |
-| `Payment Mix` 面板 | 新增功能 | 接上 payment-level 聚合 |
-| `On-time vs Delayed` 面板 | 新增功能 | 接上 delivery classification |
-| hybrid dashboard 邊界說明 | 修正 | 保持 mock-backed 區塊不被誤解為已同步更新 |
+1. 維持既有單一 artifact 策略，不另開 payment / delivery 專用 artifact。
+2. 明確標記哪些區塊現在已 real-backed，哪些區塊仍刻意保留 mock-backed，避免 UI 看起來像是全頁都已真實化。
 
-## 4. 各階段計劃 (Phase Plan)
+## 3. 程式現況對齊 (Codebase Alignment)
+
+| 範圍 | 現況 | 主要證據 |
+|------|------|----------|
+| artifact schema | 已擴充第二階段資料 | `src/data/phase2DashboardTypes.ts` 定義 `paymentPanelsByRange`、`paymentTypeOptions`、三個 payment-aware panels |
+| artifact 生成 | 已完成 | `scripts/generate-phase2-dashboard-artifact.mjs` 會輸出 KPI、monthly series、payment-aware slices |
+| artifact 檔案 | 已存在 | `src/data/phase2DashboardArtifact.json`，metadata version 為 `0.2.0` |
+| artifact facade | 已完成 | `src/data/phase2DashboardData.ts` 與 `src/data/dashboardData.ts` 已提供 UI 使用的讀取與轉接函式 |
+| Payment Type filter | 已接線 | `src/components/DashboardPage.tsx`、`src/components/FilterBar.tsx` |
+| 三個 phase2 panels | 已接線 | `src/components/FreightDistributionPanel.tsx`、`src/components/PaymentMixPanel.tsx`、`src/components/OnTimeDelayPanel.tsx` |
+| hybrid boundary 提示 | 已存在 | `src/components/DashboardPage.tsx` 內有明確 boundary 文案 |
+| 自動驗證 | 已存在且可通過 | `scripts/verify-phase2-dashboard-artifact.mjs`、`npm run test:phase2-artifact` |
+| build 驗證 | 可通過 | `npm run build` |
+
+## 4. 已實作的資料語意 (Implemented Data Semantics)
+
+以下不是「規劃中的口徑」，而是目前程式真正採用的口徑：
+
+- 分析母體沿用第一階段，只納入 `order_status = delivered` 且 `order_purchase_timestamp` 介於 `2017-01-01` 到 `2018-08-31` 的訂單。
+- 日期切片固定為 `all`、`2017`、`2018_ytd` 三組，時間軸仍以 `order_purchase_timestamp` 為準。
+- `Payment Type` 的命中規則是 order membership：只要某筆訂單含有指定 `payment_type`，該訂單就會進入該 slice。
+- `Freight Distribution` 走 order-level 聚合，使用 `SUM(order_items.freight_value)` by `order_id`。
+- `Payment Mix` 走 payment-row / payment-value 聚合；同一訂單若有多筆付款，會保留多筆付款在 mix 中。
+- `On-time vs Delayed` 的判定為 `order_delivered_customer_date <= order_estimated_delivery_date` 視為 `On-time`；若任一日期缺失，依目前實作會落入非 on-time，最後被算進 delayed。
+- `payment_type = all` 時，切片會保留全體符合日期區間的訂單；其中 order-level panel 與 payment-level panel 的總數不必相同，這是目前設計的一部分，不是 bug。
+
+## 5. 各階段同步狀態 (Phase Status Sync)
 
 ### 總覽
 
-| 階段 | 名稱 | 建議文檔類型 | 關聯文檔 | 狀態 |
-|------|------|------------|--------|------|
-| P1 | Payment-aware 基底切片與共享契約 | FXX | [F04-phase2-payment-aware-slice-contract.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F04-phase2-payment-aware-slice-contract.md) | [~] 進行中 |
-| P2 | 單一 dashboard artifact 擴充 | FXX | — | [ ] 未開始 |
-| P3 | Hybrid dashboard 接線 | FXX | — | [ ] 未開始 |
-| P4 | 測試、對帳與範圍封板 | FXX | — | [ ] 未開始 |
+| 階段 | 名稱 | 關聯文檔 / 程式 | 狀態 | 同步說明 |
+|------|------|-----------------|------|----------|
+| P1 | Payment-aware 基底切片與共享契約 | [F04-phase2-payment-aware-slice-contract.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F04-phase2-payment-aware-slice-contract.md) | [x] 已完成 | 契約已反映在生成腳本與型別中 |
+| P2 | 單一 dashboard artifact 擴充 | [generate-phase2-dashboard-artifact.mjs](/d:/Jordan_Backup/brazil-retail-story-dashboard/scripts/generate-phase2-dashboard-artifact.mjs) | [x] 已完成 | 同一份 artifact 已包含第二階段所需資料 |
+| P3 | Hybrid dashboard 接線 | [DashboardPage.tsx](/d:/Jordan_Backup/brazil-retail-story-dashboard/src/components/DashboardPage.tsx) | [x] 已完成 | `Payment Type` 與三個面板已接上 real-backed slices |
+| P4 | 測試、對帳與範圍封板 | [verify-phase2-dashboard-artifact.mjs](/d:/Jordan_Backup/brazil-retail-story-dashboard/scripts/verify-phase2-dashboard-artifact.mjs) | [~] 部分完成 | 自動驗證與 build 已通過，但 repo 內尚未見到 screenshot/baseline 紀錄 |
 
 ---
 
-### 階段 1 — Payment-aware 基底切片與共享契約
+### P1 - Payment-aware 基底切片與共享契約
 
-**描述**
-先把第二階段的共用切片邏輯鎖定，讓後續 artifact 與 UI 都建立在一致的 order-level / payment-level 定義上。
+**目前狀態**
 
-這一階段需要明確確認：
+此階段已不只是規格討論，實際契約已落在程式內：
 
-- 第二階段沿用第一階段的 `Date Range` 定義與 delivered order 母體。
-- 切片順序為 `Date Range -> Payment Type`。
-- `On-time` 定義為 `order_delivered_customer_date <= order_estimated_delivery_date`，`Delayed` 定義為大於。
-- `Freight Distribution` 的 order-level freight 採 `sum(order_items.freight_value)` by `order_id`。
-- `Payment Mix` 以 `payment_value` 加總，保留同一訂單的多筆付款。
-- `Payment Type` 命中規則為訂單 membership，只要某訂單出現所選 `payment_type` 即命中，不定義主付款方式。
-- `payment_type = all` 時，訂單型面板與付款型面板的母體差異必須可被解釋與對帳。
+- `scripts/generate-phase2-dashboard-artifact.mjs`
+- `src/data/phase2DashboardTypes.ts`
+- [F04-phase2-payment-aware-slice-contract.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F04-phase2-payment-aware-slice-contract.md)
 
-**使用者確認方式**
-- [ ] 團隊可以不依賴 UI 位置，而是用資料依賴順序說清楚 `Date Range`、`Payment Type`、訂單型聚合與付款型聚合之間的關係。
-- [ ] 團隊可以清楚說明多筆付款訂單、缺付款紀錄訂單、缺交付日期訂單在各面板中的處理方式。
+**與原規劃相比的同步結論**
 
-**建議文檔類型**：`FXX`（功能規格）
+- `Date Range -> Payment Type` 切片已實作。
+- order-level / payment-level 的分流責任已實作。
+- `Payment Type = all` 時的統計差異已透過驗證腳本明確接受。
 
-**關聯文檔**：[F04-phase2-payment-aware-slice-contract.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F04-phase2-payment-aware-slice-contract.md)
+**備註**
 
-**狀態**：`[~] 進行中`
+若之後要調整「缺交付日期是否應算 delayed」，那會是口徑變更，不是單純文件修正。
 
 ---
 
-### 階段 2 — 單一 dashboard artifact 擴充
+### P2 - 單一 dashboard artifact 擴充
 
-**描述**
-在不拆新 artifact 的前提下，把第二階段所需的 `paymentTypeOptions` 與三個面板切片資料加進既有 dashboard artifact。
+**目前狀態**
 
-第二階段必須保留第一階段既有欄位責任：
+此階段已完成，且採用的是「加法擴充單一 artifact」而非拆第二份 artifact。
+
+目前 artifact 結構包含：
 
 - `metadata`
 - `dateRanges`
 - `kpisByRange`
 - `monthlySeriesByRange`
+- `paymentPanelsByRange`
 
-並以加法擴充 `paymentPanelsByRange` 類型的新資料區塊，使同一份 artifact 可提供：
+其中 `paymentPanelsByRange` 內含：
 
 - `paymentTypeOptions`
-- `Payment Mix`
-- `Freight Distribution`
-- `On-time vs Delayed`
+- `slicesByPaymentType`
+- 每個 slice 的 `freightDistribution`
+- 每個 slice 的 `paymentMix`
+- 每個 slice 的 `onTimeVsDelayed`
 
-不允許新增第二份 payment / delivery artifact，也不應讓 UI 直接繞過既有 facade 去耦合底層 schema。
+**主要證據**
 
-**使用者確認方式**
-- [ ] UI 仍只需要讀取同一份 dashboard artifact，就能取得第一階段與第二階段所需資料。
-- [ ] 每個 `Date Range` 都能找到對應的 `paymentTypeOptions` 與三個面板切片資料，且不需要回頭直接讀 CSV 才能 render。
+- [generate-phase2-dashboard-artifact.mjs](/d:/Jordan_Backup/brazil-retail-story-dashboard/scripts/generate-phase2-dashboard-artifact.mjs)
+- [phase2DashboardArtifact.json](/d:/Jordan_Backup/brazil-retail-story-dashboard/src/data/phase2DashboardArtifact.json)
+- [phase2DashboardData.ts](/d:/Jordan_Backup/brazil-retail-story-dashboard/src/data/phase2DashboardData.ts)
 
-**建議文檔類型**：`FXX`（功能規格）
+**目前 artifact 快照**
 
-**關聯文檔**：—
-
-**狀態**：`[ ] 未開始`
-
----
-
-### 階段 3 — Hybrid dashboard 接線
-
-**描述**
-在維持 hybrid UI 的前提下，讓 `Payment Type` 與三個指定面板正式走 real-backed 路徑，同時維持其他面板的 mock-backed 邊界清楚可見。
-
-這一階段應：
-
-- 將 `Payment Type` 從 disabled placeholder 改為真實互動。
-- 讓 `Freight Distribution`、`Payment Mix`、`On-time vs Delayed` 讀取 artifact-backed 資料。
-- 保留 `Brazil Map`、`Category Share`、`Delay vs Review` 等 mock-backed 狀態。
-- 確保 `Payment Type` 雖是全域 filter，但只影響第二階段已 real-backed 的面板。
-
-**使用者確認方式**
-- [ ] 切換 `Date Range` 與 `Payment Type` 後，只有第二階段範圍內的三個面板跟著更新。
-- [ ] 其他仍為 mock-backed 的面板保持穩定，不出現看似同步變動、實際仍是假資料的誤導性互動。
-
-**建議文檔類型**：`FXX`（功能規格）
-
-**關聯文檔**：—
-
-**狀態**：`[ ] 未開始`
+- metadata version: `0.2.0`
+- generatedAt: `2026-06-04T03:18:43.724Z`
+- coverage: `2017-01-01` 到 `2018-08-31`
+- KPI:
+  - `all`: `96,211` orders / `13,181,027.13` BRL GMV
+  - `2017`: `43,428` orders / `5,962,902.01` BRL GMV
+  - `2018_ytd`: `52,783` orders / `7,218,125.12` BRL GMV
 
 ---
 
-### 階段 4 — 測試、對帳與範圍封板
+### P3 - Hybrid dashboard 接線
 
-**描述**
-確認第二階段的 payment-aware slices、面板數值與 hybrid 邊界都可被解釋、驗證與維持，並把第三階段不該提前吸收的範圍封住。
+**目前狀態**
 
-此階段聚焦：
+此階段已完成主路徑接線。
 
-- artifact 結構驗證
-- panel-level 數值對帳
-- UI screenshot / 行為驗證
-- 已知資料品質例外與 phase 邊界記錄
+**已完成內容**
 
-建議至少抽查以下組合：
+- `dashboardData.ts` 已把 phase2 artifact 與既有 mock facade 合併成 app-facing data access layer。
+- `FilterBar.tsx` 已顯示可操作的 `Payment Type`。
+- `DashboardPage.tsx` 會在切換 `Date Range` 時同步校正 payment type 選項，避免保留失效值。
+- `FreightDistributionPanel.tsx`、`PaymentMixPanel.tsx`、`OnTimeDelayPanel.tsx` 已吃 `paymentPanelSlice`。
+- 畫面中保留 hybrid boundary 提示文字，明確說明只有三個 panel 會被 `Payment Type` 影響。
 
-- `Date Range = all`，`Payment Type = all`
-- `Date Range = 2017`，`Payment Type = credit_card`
-- `Date Range = 2018_ytd`，`Payment Type = boleto`
+**仍維持 mock-backed 的區塊**
 
-**使用者確認方式**
-- [ ] `Payment Mix`、`Freight Distribution`、`On-time vs Delayed` 的切片結果可被 artifact 與原始資料交叉驗證。
-- [ ] 第二階段完成後，團隊仍能清楚指出哪些區塊是 real-backed、哪些區塊故意維持 mock-backed，且這個邊界有被記錄。
+- `Brazil Map`
+- `Category Share`
+- `Delay vs Review`
 
-**建議文檔類型**：`FXX`（功能規格）
-
-**關聯文檔**：—
-
-**狀態**：`[ ] 未開始`
+這個邊界符合 [Real_Data_Integration_UI_Guardrails.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/docs/Real_Data_Integration_UI_Guardrails.md) 的方向。
 
 ---
 
-## 5. 接棒說明（AI 指引）
+### P4 - 測試、對帳與範圍封板
 
-> 本節為接棒 AI 的執行指引。
+**目前狀態**
 
-接棒 AI 在開始工作前，請依序執行：
+此階段已有自動化基礎，但驗證紀錄還不算完整，因此同步為 `[~] 部分完成`。
 
-1. 先閱讀 [P01 真實資料整合第一階段規劃](./P01_Real_Data_Integration_Plan.md)，確認第二階段是在既有單一 artifact 與 hybrid dashboard 之上擴充，而不是重建第一階段。
-2. 先承接 `P1` 的共享資料契約，明確鎖定 `Date Range -> Payment Type` 切片、order-level / payment-level 聚合口徑與邊界條件，再起草對應 `FXX`。
-3. 起草與實作時，嚴格維持第二階段 in-scope 只包含 `orders`、`order_items`、`payments`，不要把 `customers`、`products`、`reviews`、`geolocation` 提前納入。
-4. 擴充 artifact 時只能延伸同一份 dashboard artifact；若需要升級 schema，可以升級版本，但不能另起第二份 payment / delivery artifact。
-5. UI 接線時，必須同步維持 hybrid dashboard 的說明與 guardrails，避免 `Payment Type` 製造「整頁皆已真實化」的錯覺。
-6. 完成每個階段後，回寫本文件的總覽表、階段狀態與關聯文檔；若某階段發現需求已進入 geography / category / review 範圍，應停止擴 scope，視為第三階段候選。
-7. 若遇到多筆付款、缺付款紀錄、缺交付日期等資料例外，需先在規格與對帳紀錄中定義處理方式，再進行 UI 接線。
+**已完成**
 
-> 若共享契約仍有模糊處，先透過 `ddd-start` 或 `grill-me` 收斂，再進入實作。
+- `scripts/verify-phase2-dashboard-artifact.mjs` 會驗證：
+  - metadata 與 coverage
+  - range month counts
+  - KPI 與 monthly totals 對帳
+  - `paymentTypeOptions` 與 slices 對應
+  - selected sample slices 的數值
+- `npm run test:phase2-artifact` 已通過
+- `npm run build` 已通過
 
-## 6. 補充說明 (Additional Notes)
+**目前尚缺**
 
-第二階段 In Scope：
+- screenshot baseline / before-after 比對紀錄
+- 第二階段手動對帳紀錄文件
+- `P2`、`P3`、`P4` 專屬實作文件
 
-- 真實化 `Payment Type`
-- 真實化 `Freight Distribution`
-- 真實化 `Payment Mix`
-- 真實化 `On-time vs Delayed`
-- 延伸既有單一 dashboard artifact
-- 延伸既有 artifact 生成與驗證腳本
+**本次同步時的驗證結果**
 
-第二階段 Out of Scope：
+- `npm run test:phase2-artifact`：passed
+- `npm run build`：passed
+- build 仍有 Vite chunk size warning，主 bundle 約 `613.42 kB`，但不影響本次 phase2 文件同步結論
+
+## 6. In Scope / Out of Scope 同步版
+
+### In Scope
+
+- `Payment Type` 真實 filter
+- `Freight Distribution` real-backed
+- `Payment Mix` real-backed
+- `On-time vs Delayed` real-backed
+- 單一 artifact 延伸
+- artifact 生成腳本與驗證腳本
+- hybrid boundary 文案與資料責任維持清楚
+
+### Out of Scope
 
 - `Brazil Map`
 - `Category Share`
@@ -202,17 +207,22 @@ status: draft
 - `customers`、`products`、`reviews`、`sellers`、`geolocation`
 - 第二份 payment / delivery artifact
 - 新 API、資料庫或後端服務
-- 自由起訖日
+- 自由起訖日期
 
-UI guardrails：
+## 7. 下一步建議 (Recommended Next Steps)
 
-- 先換資料來源，不先刪面板、刪 filter、縮 layout。
-- `Payment Type` 即使是全域 filter，也不得暗示整頁所有面板都已同步更新。
-- 若某區塊仍是 mock-backed，文件與驗證紀錄必須明確標示其狀態。
-- 第二階段不應順手把 `Customer State`、`Product Category` 一起假裝啟用。
+如果接下來要讓文件與程式完全一致，建議優先順序如下：
 
-第三階段建議方向：
+1. 補一份第二階段驗證紀錄，至少包含 artifact sample slice 對帳與 UI screenshot。
+2. 決定是否為 `P2`、`P3`、`P4` 補各自的 FXX 文件；若不補，至少要在本文件中維持目前這種同步粒度。
+3. 若要啟動第三階段，先明確切題到 `Customer State` / `Product Category` 或 geography / category / review，不要把 phase2 再往外擴。
 
-- 先補需要新資料表的維度，例如 `Customer State`、`Product Category`。
-- 再擴展到 geography / category / review 相關面板，例如 `Brazil Map`、`Category Share`、`Delay vs Review`。
-- 視第三階段實作壓力，再決定是否把單一 artifact 進一步抽成更明確的 domain sections；但在第二階段之前，不建議為了未來可能需求先拆檔。
+## 8. 接棒備註 (Handoff Notes)
+
+後續接手者若看到本文件，請先把第二階段視為「功能已落地、驗證文件待補強」，不要再把 `Payment Type` 與三個 payment-aware panels 當成未開始需求重新規劃。
+
+真正還需要決策的，是：
+
+1. 是否把 screenshot / manual reconciliation 正式納入 repo。
+2. 是否為 phase2 的 artifact / UI / verification 補獨立實作文件。
+3. 第三階段要先擴維度 filter，還是先擴 geography / category / review panels。
