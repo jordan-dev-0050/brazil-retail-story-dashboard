@@ -1,17 +1,16 @@
 import {
+  buildFilterOptions as buildPhase2FilterOptions,
   buildKpiCards as buildPhase2KpiCards,
   formatCurrency,
   formatCurrencyCompact,
   formatOrderCount,
   formatOrderCountCompact,
   getCategoryPanel,
-  getCustomerStateOptions,
   getDateRangeById,
   getGeographyPanel,
   getMonthlySeries,
   getPaymentPanelSlice,
   getPaymentTypeOptions,
-  getProductCategoryOptions,
   getReviewPanel,
   getTimeTrendSummary,
   phase2DashboardArtifact,
@@ -81,35 +80,7 @@ export { formatCurrency, formatCurrencyCompact, formatOrderCount, formatOrderCou
 export function getDashboardFilterOptions(
   rangeId: Parameters<typeof getPaymentTypeOptions>[0],
 ): DashboardFilterOptions {
-  return {
-    dateRange: {
-      label: 'Date Range',
-      options: dateRangeOptions,
-    },
-    customerState: {
-      label: 'Customer State',
-      options: getCustomerStateOptions(rangeId).map((option) => ({
-        label: option.label,
-        value: option.value,
-      })),
-      disabled: true,
-    },
-    productCategory: {
-      label: 'Product Category',
-      options: getProductCategoryOptions(rangeId).map((option) => ({
-        label: option.label,
-        value: option.value,
-      })),
-      disabled: true,
-    },
-    paymentType: {
-      label: 'Payment Type',
-      options: getPaymentTypeOptions(rangeId).map((option) => ({
-        label: option.label,
-        value: option.value,
-      })),
-    },
-  };
+  return buildPhase2FilterOptions(rangeId);
 }
 
 export function getInitialFilterValues(): Record<FilterId, string> {

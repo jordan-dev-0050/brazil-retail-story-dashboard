@@ -7,15 +7,72 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { delayReviewScatterData, delayReviewTrend } from '../data/dashboardMock';
+import type { Phase3ReviewPanel } from '../data/phase2DashboardTypes';
+import { formatOrderCount } from '../data/dashboardData';
 import { ChartCard } from './ChartCard';
 
-export function DelayReviewPanel() {
+type DelayReviewPanelProps = {
+  panel: Phase3ReviewPanel;
+  rangeLabel: string;
+};
+
+type TooltipPayload = {
+  payload?: {
+    delayDays: number;
+    reviewScoreAvg: number;
+    orderCount?: number;
+  };
+};
+
+function ReviewTooltip({
+  active,
+  payload,
+}: {
+  active?: boolean;
+  payload?: TooltipPayload[];
+}) {
+  const point = payload?.[0]?.payload;
+
+  if (!active || !point) {
+    return null;
+  }
+
   return (
-    <ChartCard title="Delay vs Review Relationship">
+    <div className="rounded-[18px] border border-slate-200 bg-white px-4 py-3 text-sm shadow-soft">
+      <p className="font-medium text-ink">{point.delayDays} days</p>
+      <p className="mt-1 text-slate">Avg review: {point.reviewScoreAvg.toFixed(2)}</p>
+      {typeof point.orderCount === 'number' ? (
+        <p className="text-slate">Orders: {formatOrderCount(point.orderCount)}</p>
+      ) : null}
+    </div>
+  );
+}
+
+export function DelayReviewPanel({ panel, rangeLabel }: DelayReviewPanelProps) {
+  const coverageRate =
+    panel.population.totalOrders === 0
+      ? 0
+      : (panel.population.reviewedOrderCount / panel.population.totalOrders) * 100;
+
+  return (
+    <ChartCard
+      title="Delay vs Review Relationship"
+      subtitle={`Delivered orders with reviews in ${rangeLabel}`}
+      footer={
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-[22px] border border-slate-100 bg-slate-50/80 px-4 py-4 text-sm text-slate">
+          <span>
+            Reviewed orders: {formatOrderCount(panel.population.reviewedOrderCount)} /{' '}
+            {formatOrderCount(panel.population.totalOrders)} ({coverageRate.toFixed(1)}%)
+          </span>
+          <span>Review rows: {formatOrderCount(panel.population.reviewRowCount)}</span>
+        </div>
+      }
+    >
       <div className="mb-3 flex items-center justify-between gap-3">
         <p className="text-sm font-medium text-slate">Review Score</p>
-        <p className="text-sm font-medium text-accent-blue">Correlation: -0.42</p>
+        <p className="text-sm font-medium text-accent-blue">
+          Correlation: {panel.correlation.toFixed(2)}
+        </p>
       </div>
       <div className="h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
@@ -23,9 +80,10 @@ export function DelayReviewPanel() {
             <CartesianGrid stroke="#E2E8F0" strokeDasharray="4 6" />
             <XAxis
               type="number"
-              dataKey="delay"
+              dataKey="delayDays"
               name="Delivery Delay"
               unit=" days"
+              domain={[panel.delayDaysDomain.min, panel.delayDaysDomain.max]}
               tickLine={false}
               axisLine={false}
               tick={{ fill: '#6B7891', fontSize: 12 }}
@@ -38,7 +96,7 @@ export function DelayReviewPanel() {
             />
             <YAxis
               type="number"
-              dataKey="review"
+              dataKey="reviewScoreAvg"
               name="Review Score"
               domain={[1, 5]}
               tickLine={false}
@@ -47,19 +105,11 @@ export function DelayReviewPanel() {
             />
             <Tooltip
               cursor={{ strokeDasharray: '4 4' }}
-              contentStyle={{
-                borderRadius: 18,
-                border: '1px solid #E2E8F0',
-                boxShadow: '0 20px 40px -30px rgba(45, 70, 116, 0.4)',
-              }}
-              formatter={(value: number, name: string) => [
-                name === 'delay' ? `${value} days` : value,
-                name === 'delay' ? 'Delay' : 'Review Score',
-              ]}
+              content={<ReviewTooltip />}
             />
-            <Scatter data={delayReviewScatterData} fill="#3A86F6" />
+            <Scatter data={panel.points} fill="#3A86F6" />
             <Scatter
-              data={delayReviewTrend}
+              data={panel.trendLine}
               line={{ stroke: '#6A8DC4', strokeDasharray: '5 5', strokeWidth: 2 }}
               shape={() => <g />}
               fill="transparent"

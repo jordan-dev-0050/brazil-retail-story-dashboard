@@ -1,19 +1,37 @@
-import { categoryShareData } from '../data/dashboardMock';
+import type { Phase3CategoryPanel } from '../data/phase2DashboardTypes';
+import { formatCurrencyCompact } from '../data/dashboardData';
 import { ChartCard } from './ChartCard';
 import { TrophyIcon } from './Icons';
 
-export function CategorySharePanel() {
+type CategorySharePanelProps = {
+  panel: Phase3CategoryPanel;
+  rangeLabel: string;
+};
+
+const barColors = ['#2F7AE7', '#3F86EA', '#4B91ED', '#5A9AF0', '#7AAEF3', '#A7C8F8'];
+
+function formatShare(value: number) {
+  return `${value.toFixed(2)}%`;
+}
+
+export function CategorySharePanel({ panel, rangeLabel }: CategorySharePanelProps) {
+  const categories = panel.categories.slice(0, 6);
+  const topCategory = panel.topCategory;
+
   return (
     <ChartCard
       title="Category Share / Top Categories"
+      subtitle={`Share of order items for ${rangeLabel}`}
       footer={
         <div className="flex items-center gap-3 rounded-[22px] border border-blue-100 bg-blue-50/60 px-4 py-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-accent-blue shadow-soft">
             <TrophyIcon className="h-6 w-6" />
           </div>
           <p className="text-sm text-slate">
-            Top Category by Orders:{' '}
-            <span className="font-semibold text-accent-blue">Casa & Decoracao (24.1%)</span>
+            Top Category by Item Share:{' '}
+            <span className="font-semibold text-accent-blue">
+              {topCategory ? `${topCategory.categoryLabel} (${formatShare(topCategory.shareOfItems)})` : 'N/A'}
+            </span>
           </p>
         </div>
       }
@@ -24,21 +42,27 @@ export function CategorySharePanel() {
         <span className="text-right">GMV (R$)</span>
       </div>
       <div className="space-y-5">
-        {categoryShareData.map((category) => (
-          <div key={category.name} className="grid grid-cols-[minmax(0,1fr)_72px_88px] gap-4">
+        {categories.map((category, index) => (
+          <div
+            key={category.categoryKey}
+            className="grid grid-cols-[minmax(0,1fr)_72px_88px] gap-4"
+          >
             <div className="min-w-0">
               <div className="mb-2 flex items-center justify-between gap-3">
-                <p className="truncate text-sm font-medium text-ink">{category.name}</p>
+                <p className="truncate text-sm font-medium text-ink">{category.categoryLabel}</p>
               </div>
               <div className="h-4 overflow-hidden rounded-full bg-slate-100">
                 <div
                   className="h-full rounded-full"
-                  style={{ width: `${category.share}%`, backgroundColor: category.color }}
+                  style={{
+                    width: `${Math.max(category.shareOfItems, 2)}%`,
+                    backgroundColor: barColors[index] ?? '#D7DEE8',
+                  }}
                 />
               </div>
             </div>
-            <p className="text-right text-sm font-medium text-ink">{category.share}%</p>
-            <p className="text-right text-sm text-slate">{category.gmv}</p>
+            <p className="text-right text-sm font-medium text-ink">{formatShare(category.shareOfItems)}</p>
+            <p className="text-right text-sm text-slate">{formatCurrencyCompact(category.totalGmv)}</p>
           </div>
         ))}
       </div>

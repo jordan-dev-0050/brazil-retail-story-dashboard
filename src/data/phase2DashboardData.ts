@@ -68,39 +68,42 @@ const dateRangeById = Object.fromEntries(
   phase2DashboardArtifact.dateRanges.map((range) => [range.id, range]),
 ) as Record<DateRangeId, Phase2DateRange>;
 
-export const filterOptions: Record<FilterId, FilterConfig> = {
-  dateRange: {
-    label: 'Date Range',
-    options: phase2DashboardArtifact.dateRanges.map((range) => ({
-      label: range.label,
-      value: range.id,
-    })),
-  },
-  customerState: {
-    label: 'Customer State',
-    options: phase2DashboardArtifact.customerStateOptionsByRange.all.map((option) => ({
-      label: option.label,
-      value: option.value,
-    })),
-    disabled: true,
-  },
-  productCategory: {
-    label: 'Product Category',
-    options: phase2DashboardArtifact.productCategoryOptionsByRange.all.map((option) => ({
-      label: option.label,
-      value: option.value,
-    })),
-    disabled: true,
-  },
-  paymentType: {
-    label: 'Payment Type',
-    options: phase2DashboardArtifact.paymentPanelsByRange.all.paymentTypeOptions.map((option) => ({
-      label: option.label,
-      value: option.value,
-    })),
-    disabled: true,
-  },
-};
+export function buildFilterOptions(rangeId: DateRangeId): Record<FilterId, FilterConfig> {
+  return {
+    dateRange: {
+      label: 'Date Range',
+      options: phase2DashboardArtifact.dateRanges.map((range) => ({
+        label: range.label,
+        value: range.id,
+      })),
+    },
+    customerState: {
+      label: 'Customer State',
+      options: phase2DashboardArtifact.customerStateOptionsByRange[rangeId].map((option) => ({
+        label: option.label,
+        value: option.value,
+      })),
+      disabled: true,
+    },
+    productCategory: {
+      label: 'Product Category',
+      options: phase2DashboardArtifact.productCategoryOptionsByRange[rangeId].map((option) => ({
+        label: option.label,
+        value: option.value,
+      })),
+      disabled: true,
+    },
+    paymentType: {
+      label: 'Payment Type',
+      options: phase2DashboardArtifact.paymentPanelsByRange[rangeId].paymentTypeOptions.map((option) => ({
+        label: option.label,
+        value: option.value,
+      })),
+    },
+  };
+}
+
+export const filterOptions = buildFilterOptions('all');
 
 export function getDateRangeById(rangeId: DateRangeId): Phase2DateRange {
   return dateRangeById[rangeId];
