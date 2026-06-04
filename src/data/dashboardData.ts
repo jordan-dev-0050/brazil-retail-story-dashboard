@@ -6,6 +6,8 @@ import {
   formatOrderCountCompact,
   getDateRangeById,
   getMonthlySeries,
+  getPaymentPanelSlice,
+  getPaymentTypeOptions,
   getTimeTrendSummary,
   phase2DashboardArtifact,
 } from './phase2DashboardData';
@@ -16,7 +18,12 @@ import {
   timeTrendSeries as mockTimeTrendSeries,
   type TimeGranularity,
 } from './dashboardMock';
-import type { FilterId } from './dashboardTypes';
+import type {
+  DashboardPaymentPanelSlice,
+  DashboardPaymentTypeOption,
+  FilterId,
+  PaymentTypeId,
+} from './dashboardTypes';
 
 type FilterOption = {
   label: string;
@@ -150,6 +157,19 @@ export function getTimeTrendHighlights(
       detail: 'Mock-backed monthly delay reference',
     },
   ];
+}
+
+export function getDashboardPaymentTypeOptions(
+  rangeId: Parameters<typeof getPaymentTypeOptions>[0],
+): DashboardPaymentTypeOption[] {
+  return getPaymentTypeOptions(rangeId);
+}
+
+export function getDashboardPaymentPanelSlice(
+  rangeId: Parameters<typeof getPaymentPanelSlice>[0],
+  paymentType: PaymentTypeId,
+): DashboardPaymentPanelSlice {
+  return getPaymentPanelSlice(rangeId, paymentType);
 }
 
 export { getDateRangeById, getMonthlySeries, getTimeTrendSummary };

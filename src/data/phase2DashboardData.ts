@@ -134,7 +134,9 @@ export function getPaymentPanelSlice(
   rangeId: DateRangeId,
   paymentType: PaymentTypeId,
 ): Phase2PaymentPanelSlice {
-  return getPaymentPanelsByRange(rangeId).slicesByPaymentType[paymentType];
+  const fallbackSlice = getPaymentPanelsByRange(rangeId).slicesByPaymentType.all;
+
+  return getPaymentPanelsByRange(rangeId).slicesByPaymentType[paymentType] ?? fallbackSlice;
 }
 
 export function getTimeTrendSummary(rangeId: DateRangeId): TimeTrendSummary {
