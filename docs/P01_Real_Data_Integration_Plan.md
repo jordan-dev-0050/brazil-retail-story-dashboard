@@ -4,7 +4,7 @@ date: 2026-06-04
 title: 真實資料整合第一階段總規劃
 uuid: 8f4d34e7dc2d4fb6ac8e1b5b7b84ab31
 version: 0.1
-status: draft
+status: synced
 ---
 
 # 規劃書 – 真實資料整合第一階段
@@ -44,10 +44,10 @@ status: draft
 
 | 階段 | 名稱 | 建議文檔類型 | 關聯文檔 | 狀態 |
 |------|------|------------|--------|------|
-| P1 | 規格收斂與資料定義 | FXX | [F01-real-data-phase1-contract.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F01-real-data-phase1-contract.md) | [~] 進行中 |
-| P2 | 真資料 artifact 生成 | FXX | [F02-real-data-phase2-artifact-generation.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F02-real-data-phase2-artifact-generation.md) | [ ] 未開始 |
-| P3 | 前端最小接線與雙資料源切換 | FXX | [F03-real-data-phase3-dashboard-switch.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F03-real-data-phase3-dashboard-switch.md) | [ ] 未開始 |
-| P4 | 人工驗證與範圍封板 | FXX | — | [ ] 未開始 |
+| P1 | 規格收斂與資料定義 | FXX | [F01-real-data-phase1-contract.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F01-real-data-phase1-contract.md) | [x] 已完成 |
+| P2 | 真資料 artifact 生成 | FXX | [F02-real-data-phase2-artifact-generation.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F02-real-data-phase2-artifact-generation.md) | [x] 已完成 |
+| P3 | 前端最小接線與雙資料源切換 | FXX | [F03-real-data-phase3-dashboard-switch.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F03-real-data-phase3-dashboard-switch.md) | [x] 已完成 |
+| P4 | 人工驗證與範圍封板 | FXX | [verify-phase2-dashboard-artifact.mjs](/d:/Jordan_Backup/brazil-retail-story-dashboard/scripts/verify-phase2-dashboard-artifact.mjs) | [~] 部分完成 |
 
 ---
 
@@ -69,14 +69,14 @@ status: draft
 - 第一版只處理 dashboard 首屏所需資料，不預先為後續頁面抽象化。
 
 **使用者確認方式**
-- [ ] 團隊可以清楚回答第一版做什麼、不做什麼，且不再對 `GMV`、訂單母體、日期區間定義有歧義。
-- [ ] 團隊可以指出第一版唯一真正接真實資料的範圍是 `KPI + Time Trend + Date Filter`，其餘區塊仍保留 mock 或 placeholder。
+- [x] 團隊可以清楚回答第一版做什麼、不做什麼，且不再對 `GMV`、訂單母體、日期區間定義有歧義。
+- [x] 團隊可以指出第一版唯一真正接真實資料的範圍是 `KPI + Time Trend + Date Filter`，其餘區塊仍保留 mock 或 placeholder。
 
 **建議文檔類型**：`FXX`（功能規格）
 
 **關聯文檔**：[F01-real-data-phase1-contract.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F01-real-data-phase1-contract.md)
 
-**狀態**：`[~] 進行中`
+**狀態**：`[x] 已完成`
 
 ---
 
@@ -101,14 +101,14 @@ status: draft
 - daily / weekly 等多粒度時間序列
 
 **使用者確認方式**
-- [ ] 產出的 artifact 可被前端直接匯入，且至少能提供一組全期間 KPI 與對應月序列。
-- [ ] 抽查若干月份與日期區間後，artifact 中的訂單數與 GMV 可與原始 CSV 聚合結果對上。
+- [x] 產出的 artifact 可被前端直接匯入，且至少能提供一組全期間 KPI 與對應月序列。
+- [x] 抽查若干月份與日期區間後，artifact 中的訂單數與 GMV 可與原始 CSV 聚合結果對上。
 
 **建議文檔類型**：`FXX`（功能規格）
 
 **關聯文檔**：[F02-real-data-phase2-artifact-generation.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F02-real-data-phase2-artifact-generation.md)
 
-**狀態**：`[ ] 未開始`
+**狀態**：`[x] 已完成`
 
 ---
 
@@ -126,14 +126,14 @@ status: draft
 - 保留其他篩選器 UI，但仍使用 mock 邏輯或不產生真實資料效果。
 
 **使用者確認方式**
-- [ ] 切到 real 模式後，KPI 與 Time Trend 顯示真實資料，切換日期選項時兩者會同步變化。
-- [ ] 切回 mock 模式後，畫面仍可正常展示，其他未接真資料的區塊不會因第一階段接線而壞掉。
+- [x] 切到 real 模式後，KPI 與 Time Trend 顯示真實資料，切換日期選項時兩者會同步變化。
+- [x] 切回 mock 模式後，畫面仍可正常展示，其他未接真資料的區塊不會因第一階段接線而壞掉。
 
 **建議文檔類型**：`FXX`（功能規格）
 
 **關聯文檔**：[F03-real-data-phase3-dashboard-switch.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F03-real-data-phase3-dashboard-switch.md)
 
-**狀態**：`[ ] 未開始`
+**狀態**：`[x] 已完成`
 
 ---
 
@@ -151,13 +151,13 @@ status: draft
 
 **使用者確認方式**
 - [ ] 人工核對結果可說明 KPI 與月趨勢可信，且團隊同意第一階段已達最小可成功版本。
-- [ ] 已知問題被明確記錄，沒有在同一輪驗證中被無限制吸收成新的 scope。
+- [x] 已知問題被明確記錄，沒有在同一輪驗證中被無限制吸收成新的 scope。
 
 **建議文檔類型**：`FXX`（功能規格）
 
-**關聯文檔**：—
+**關聯文檔**：[verify-phase2-dashboard-artifact.mjs](/d:/Jordan_Backup/brazil-retail-story-dashboard/scripts/verify-phase2-dashboard-artifact.mjs)
 
-**狀態**：`[ ] 未開始`
+**狀態**：`[~] 部分完成`
 
 ---
 
@@ -168,7 +168,7 @@ status: draft
 接棒 AI 在開始工作前，請依序執行：
 
 1. 閱讀「總體目標」與「各階段計劃」，先把第一階段限定在 `KPI + Time Trend + Date Filter` 的最小成功切面。
-2. 優先承接狀態為 `[~] 進行中` 的 `P1`；若 `P1` 已完成，再依序往 `P2`、`P3`、`P4` 推進。
+2. 目前 `P1`、`P2`、`P3` 已完成；若要延續本計畫，優先承接 `[~] 部分完成` 的 `P4`。
 3. 在起草或實作前，先遵守本文件已鎖定的資料定義：`GMV` 不含運費、訂單母體為 delivered orders、主時間軸為 `order_purchase_timestamp`、日期區間固定。
 4. 依照對應階段呼叫 `ddd-doc` 起草或更新相關 `FXX` 文件，再由人類審查核准後使用 `ddd-tdd` 實作。
 5. 實作過程中保持 mock / real 並存，不要因為第一階段接線而提前移除 mock data 或擴張到其他故事面板。

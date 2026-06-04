@@ -4,7 +4,7 @@ date: 2026-06-04
 title: 真實資料整合第三階段總規劃
 uuid: 59ac75b812684b469bce7e830b816616
 version: 0.1
-status: draft
+status: synced
 ---
 
 # 規劃書 - 真實資料整合第三階段
@@ -68,10 +68,10 @@ status: draft
 
 | 階段 | 名稱 | 建議文檔類型 | 關聯文檔 | 狀態 |
 |------|------|------------|--------|------|
-| P1 | Geography / Category / Review 共享資料契約 | FXX | — | [ ] 未開始 |
-| P2 | 單一 dashboard artifact 擴充至 v0.3 | FXX | — | [ ] 未開始 |
-| P3 | 三個剩餘分析面板切換到 real-backed | FXX | — | [ ] 未開始 |
-| P4 | 對帳、baseline 與第三階段封板 | FXX | — | [ ] 未開始 |
+| P1 | Geography / Category / Review 共享資料契約 | FXX | [F05-phase3-geography-category-review-contract.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F05-phase3-geography-category-review-contract.md) | [x] 已完成 |
+| P2 | 單一 dashboard artifact 擴充至 v0.3 | FXX | [generate-phase2-dashboard-artifact.mjs](/d:/Jordan_Backup/brazil-retail-story-dashboard/scripts/generate-phase2-dashboard-artifact.mjs) | [x] 已完成 |
+| P3 | 三個剩餘分析面板切換到 real-backed | FXX | [DashboardPage.tsx](/d:/Jordan_Backup/brazil-retail-story-dashboard/src/components/DashboardPage.tsx) | [x] 已完成 |
+| P4 | 對帳、baseline 與第三階段封板 | FXX | [verify-phase2-dashboard-artifact.mjs](/d:/Jordan_Backup/brazil-retail-story-dashboard/scripts/verify-phase2-dashboard-artifact.mjs) | [~] 部分完成 |
 
 ---
 
@@ -93,15 +93,15 @@ status: draft
 
 **使用者確認方式**
 
-- [ ] 文件中能直接找到州別、品類、review 三條資料路徑的 join 與聚合口徑。
-- [ ] 文件中能直接回答「Category Share 的 share 分母是什麼」與「Delay vs Review 如何降採樣或分箱」。
-- [ ] 文件中已明確寫出第三階段不啟用 `Customer State` / `Product Category` filter。
+- [x] 文件中能直接找到州別、品類、review 三條資料路徑的 join 與聚合口徑。
+- [x] 文件中能直接回答「Category Share 的 share 分母是什麼」與「Delay vs Review 如何降採樣或分箱」。
+- [x] 文件中已明確寫出第三階段不啟用 `Customer State` / `Product Category` filter。
 
 **建議文檔類型**：`FXX`
 
-**關聯文檔**：—（預計為第三階段第一份功能規格）
+**關聯文檔**：[F05-phase3-geography-category-review-contract.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/documents/implements/F05-phase3-geography-category-review-contract.md)
 
-**狀態**：`[ ] 未開始`
+**狀態**：`[x] 已完成`
 
 ---
 
@@ -126,15 +126,15 @@ status: draft
 
 **使用者確認方式**
 
-- [ ] artifact 生成後，檔案中可見 geography / category / review 新 sections。
-- [ ] 驗證腳本可通過，且至少能對出一組州別、一組 top category 與一組 delay-review sample。
-- [ ] 沒有新增第二份 dashboard artifact，也沒有讓 UI 直接讀原始 CSV。
+- [x] artifact 生成後，檔案中可見 geography / category / review 新 sections。
+- [x] 驗證腳本可通過，且至少能對出一組州別、一組 top category 與一組 delay-review sample。
+- [x] 沒有新增第二份 dashboard artifact，也沒有讓 UI 直接讀原始 CSV。
 
 **建議文檔類型**：`FXX`
 
-**關聯文檔**：—（預計為第三階段第二份功能規格）
+**關聯文檔**：[generate-phase2-dashboard-artifact.mjs](/d:/Jordan_Backup/brazil-retail-story-dashboard/scripts/generate-phase2-dashboard-artifact.mjs)
 
-**狀態**：`[ ] 未開始`
+**狀態**：`[x] 已完成`
 
 ---
 
@@ -160,15 +160,15 @@ status: draft
 
 **使用者確認方式**
 
-- [ ] 切換 `Date Range` 時，三個新面板的數值與內容會改變，且不再顯示 mock 資料。
-- [ ] 切換 `Brazil Map` 的 metric tabs 時，州別著色與圖例對應真實州別指標。
-- [ ] `Category Share` 與 `Delay vs Review` 畫面可正常渲染，且版型沒有因改接真實資料而崩壞。
+- [x] 切換 `Date Range` 時，三個新面板的數值與內容會改變，且不再顯示 mock 資料。
+- [x] 切換 `Brazil Map` 的 metric tabs 時，州別著色與圖例對應真實州別指標。
+- [x] `Category Share` 與 `Delay vs Review` 畫面可正常渲染，且版型沒有因改接真實資料而崩壞。
 
 **建議文檔類型**：`FXX`
 
-**關聯文檔**：—（預計為第三階段第三份功能規格）
+**關聯文檔**：[DashboardPage.tsx](/d:/Jordan_Backup/brazil-retail-story-dashboard/src/components/DashboardPage.tsx)
 
-**狀態**：`[ ] 未開始`
+**狀態**：`[x] 已完成`
 
 ---
 
@@ -190,14 +190,14 @@ status: draft
 **使用者確認方式**
 
 - [ ] repo 中有第三階段前後的 baseline 或等價驗證紀錄。
-- [ ] 自動驗證與 build 可通過。
-- [ ] 文件中能清楚看出第三階段完成了什麼，以及哪些需求被刻意延後。
+- [x] 自動驗證與 build 可通過。
+- [x] 文件中能清楚看出第三階段完成了什麼，以及哪些需求被刻意延後。
 
 **建議文檔類型**：`FXX`
 
-**關聯文檔**：—（預計為第三階段第四份功能規格）
+**關聯文檔**：[verify-phase2-dashboard-artifact.mjs](/d:/Jordan_Backup/brazil-retail-story-dashboard/scripts/verify-phase2-dashboard-artifact.mjs)
 
-**狀態**：`[ ] 未開始`
+**狀態**：`[~] 部分完成`
 
 ---
 
@@ -209,7 +209,7 @@ status: draft
 
 1. 先閱讀 [docs/P02_Real_Data_Integration_Phase2_Plan.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/docs/P02_Real_Data_Integration_Phase2_Plan.md)，確認第二階段的 hybrid 邊界與已落地語意。
 2. 再閱讀 [docs/Real_Data_Integration_UI_Guardrails.md](/d:/Jordan_Backup/brazil-retail-story-dashboard/docs/Real_Data_Integration_UI_Guardrails.md)，避免在 phase3 直接改動 dashboard 形狀。
-3. 依本文件的總覽表，優先選擇最前面的 `[ ] 未開始` 階段，將其狀態改為 `[~] 進行中`。
+3. 目前 `P1`、`P2`、`P3` 已完成；若要延續本文件，優先承接 `[~] 部分完成` 的 `P4`，補齊 baseline 與人工對帳紀錄。
 4. 針對該階段呼叫 `ddd-doc` 起草對應的 `FXX` 文件，先把語意與驗收條件鎖定，再進入實作。
 5. 人類審查通過後，再使用 `ddd-tdd` 進行實作與驗證。
 6. 每完成一個階段：

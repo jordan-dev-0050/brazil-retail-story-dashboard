@@ -37,7 +37,7 @@ status: synced
 |------|------|----------|
 | artifact schema | 已擴充第二階段資料 | `src/data/phase2DashboardTypes.ts` 定義 `paymentPanelsByRange`、`paymentTypeOptions`、三個 payment-aware panels |
 | artifact 生成 | 已完成 | `scripts/generate-phase2-dashboard-artifact.mjs` 會輸出 KPI、monthly series、payment-aware slices |
-| artifact 檔案 | 已存在 | `src/data/phase2DashboardArtifact.json`，metadata version 為 `0.2.0` |
+| artifact 檔案 | 已存在 | `src/data/phase2DashboardArtifact.json`，metadata version 為 `0.3.0`，並在同一份 artifact 上延續 phase2 與 phase3 資料 |
 | artifact facade | 已完成 | `src/data/phase2DashboardData.ts` 與 `src/data/dashboardData.ts` 已提供 UI 使用的讀取與轉接函式 |
 | Payment Type filter | 已接線 | `src/components/DashboardPage.tsx`、`src/components/FilterBar.tsx` |
 | 三個 phase2 panels | 已接線 | `src/components/FreightDistributionPanel.tsx`、`src/components/PaymentMixPanel.tsx`、`src/components/OnTimeDelayPanel.tsx` |
@@ -122,13 +122,14 @@ status: synced
 
 **目前 artifact 快照**
 
-- metadata version: `0.2.0`
+- metadata version: `0.3.0`
 - generatedAt: `2026-06-04T03:18:43.724Z`
 - coverage: `2017-01-01` 到 `2018-08-31`
 - KPI:
   - `all`: `96,211` orders / `13,181,027.13` BRL GMV
   - `2017`: `43,428` orders / `5,962,902.01` BRL GMV
   - `2018_ytd`: `52,783` orders / `7,218,125.12` BRL GMV
+- 同步說明：phase2 的 `paymentPanelsByRange` 結構仍完整保留，但目前 artifact 已額外包含 phase3 的 geography / category / review 與 dimension options 欄位。
 
 ---
 
