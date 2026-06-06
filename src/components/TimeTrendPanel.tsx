@@ -44,7 +44,7 @@ export function TimeTrendPanel({
       title="Time Trend"
       subtitle={
         granularity === 'monthly'
-          ? 'Orders / GMV use real monthly data; delay rate remains mock-backed'
+          ? 'Orders / GMV / Late Delivery Rate use real monthly artifact data'
           : 'Orders / GMV / Late Delivery Over Time'
       }
       actions={<ToggleTabs options={timeTabs} value={granularity} onChange={onGranularityChange} />}

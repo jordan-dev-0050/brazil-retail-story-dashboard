@@ -24,7 +24,7 @@ import { TimeTrendPanel } from './TimeTrendPanel';
 export function DashboardPage() {
   const [filters, setFilters] = useState<Record<FilterId, string>>(() => getInitialFilterValues());
   const [mapMetric, setMapMetric] = useState<MapMetric>('orders');
-  const [timeGranularity, setTimeGranularity] = useState<TimeGranularity>('weekly');
+  const [timeGranularity, setTimeGranularity] = useState<TimeGranularity>('monthly');
 
   const selectedRangeId = filters.dateRange as DateRangeId;
   const filterConfigs = getDashboardFilterOptions(selectedRangeId);
@@ -72,10 +72,10 @@ export function DashboardPage() {
 
         <section className="rounded-[24px] border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm text-slate shadow-soft">
           <p>
-            <span className="font-semibold text-ink">Hybrid boundary:</span> Payment Type updates
-            only Freight Distribution, Payment Mix, and On-time vs Delayed in this phase. Brazil
-            Map, Category Share, and Delay vs Review now read from the dashboard artifact by date
-            range only.
+            <span className="font-semibold text-ink">Hybrid boundary:</span> KPI cards and monthly
+            Time Trend now read from the real dashboard artifact. Payment Type still updates only
+            Freight Distribution, Payment Mix, and On-time vs Delayed, while Brazil Map, Category
+            Share, and Delay vs Review remain artifact-backed by date range only.
           </p>
         </section>
 

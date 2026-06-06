@@ -602,12 +602,14 @@ for (const range of DATE_RANGES) {
         label: formatMonthLabel(month),
         orders: 0,
         gmv: 0,
+        delayedOrders: 0,
       },
     ]),
   );
 
   let totalOrders = 0;
   let totalGmv = 0;
+  let delayedOrders = 0;
   let totalCategoryItems = 0;
   const rangeOrders = [];
   const stateMetricsByState = new Map();
@@ -627,7 +629,10 @@ for (const range of DATE_RANGES) {
     if (monthEntry) {
       monthEntry.orders += 1;
       monthEntry.gmv = roundCurrency(monthEntry.gmv + order.gmv);
+      monthEntry.delayedOrders += order.isOnTime ? 0 : 1;
     }
+
+    delayedOrders += order.isOnTime ? 0 : 1;
 
     const stateMetric = stateMetricsByState.get(order.customerState) ?? {
       state: order.customerState,
@@ -662,8 +667,18 @@ for (const range of DATE_RANGES) {
   artifact.kpisByRange[range.id] = {
     totalOrders,
     totalGmv: roundCurrency(totalGmv),
+    lateDeliveryRate: totalOrders === 0 ? 0 : roundPercentage((delayedOrders / totalOrders) * 100),
   };
-  artifact.monthlySeriesByRange[range.id] = Array.from(seriesByMonth.values());
+  artifact.monthlySeriesByRange[range.id] = Array.from(seriesByMonth.values()).map((monthEntry) => ({
+    month: monthEntry.month,
+    label: monthEntry.label,
+    orders: monthEntry.orders,
+    gmv: monthEntry.gmv,
+    lateDeliveryRate:
+      monthEntry.orders === 0
+        ? 0
+        : roundPercentage((monthEntry.delayedOrders / monthEntry.orders) * 100),
+  }));
 
   const stateMetrics = Array.from(stateMetricsByState.values())
     .map((stateMetric) => ({

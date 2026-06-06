@@ -11,14 +11,17 @@ const expectedKpis = {
   all: {
     totalOrders: 96211,
     totalGmv: 13181027.13,
+    lateDeliveryRate: 6.8,
   },
   '2017': {
     totalOrders: 43428,
     totalGmv: 5962902.01,
+    lateDeliveryRate: 5.65,
   },
   '2018_ytd': {
     totalOrders: 52783,
     totalGmv: 7218125.12,
+    lateDeliveryRate: 7.74,
   },
 };
 const expectedSliceChecks = {
@@ -234,11 +237,21 @@ for (const rangeId of expectedRanges) {
   const reviewPanel = artifact.reviewPanelsByRange[rangeId];
   const summedOrders = sum(series, (point) => point.orders);
   const summedGmv = Number(sum(series, (point) => point.gmv).toFixed(2));
+  const weightedLateDeliveryRate =
+    summedOrders === 0
+      ? 0
+      : Number(
+          (
+            (sum(series, (point) => point.orders * (point.lateDeliveryRate / 100)) / summedOrders) * 100
+          ).toFixed(2),
+        );
 
   assert.equal(series.length, expectedMonthCounts[rangeId]);
   assert.equal(summedOrders, kpis.totalOrders);
   assert.equal(summedGmv, kpis.totalGmv);
   assert.deepEqual(kpis, expectedKpis[rangeId]);
+  assert.ok(series.every((point) => typeof point.lateDeliveryRate === 'number'));
+  assertClose(weightedLateDeliveryRate, kpis.lateDeliveryRate, 0.03);
 
   assert.ok(paymentPanels);
   assert.equal(paymentPanels.paymentTypeOptions[0].value, 'all');

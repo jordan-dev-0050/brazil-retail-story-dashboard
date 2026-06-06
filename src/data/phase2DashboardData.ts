@@ -28,7 +28,7 @@ type FilterConfig = {
 type KpiCardViewModel = {
   title: string;
   value: string;
-  icon: 'orders' | 'gmv';
+  icon: 'orders' | 'gmv' | 'delay';
   chipClassName: string;
   caption: string;
 };
@@ -40,6 +40,7 @@ type TimeTrendSummary = {
   monthsCovered: number;
   averageOrders: number;
   averageGmv: number;
+  lateDeliveryRate: number;
 };
 
 const compactNumberFormatter = new Intl.NumberFormat('en-US', {
@@ -128,6 +129,13 @@ export function buildKpiCards(rangeId: DateRangeId): KpiCardViewModel[] {
       chipClassName: 'bg-emerald-50 text-accent-teal',
       caption: `Sum of order_items.price, ${range.label}`,
     },
+    {
+      title: 'Late Delivery Rate',
+      value: `${kpis.lateDeliveryRate.toFixed(1)}%`,
+      icon: 'delay',
+      chipClassName: 'bg-orange-50 text-orange-500',
+      caption: `Delivered after estimated date, ${range.label}`,
+    },
   ];
 }
 
@@ -185,6 +193,7 @@ export function getTimeTrendSummary(rangeId: DateRangeId): TimeTrendSummary {
     monthsCovered: series.length,
     averageOrders: kpis.totalOrders / monthsCovered,
     averageGmv: kpis.totalGmv / monthsCovered,
+    lateDeliveryRate: kpis.lateDeliveryRate,
   };
 }
 

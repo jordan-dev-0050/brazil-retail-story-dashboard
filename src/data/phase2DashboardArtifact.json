@@ -2,7 +2,7 @@
   "metadata": {
     "source": "olist",
     "version": "0.3.0",
-    "generatedAt": "2026-06-04T05:52:01.497Z",
+    "generatedAt": "2026-06-06T04:38:29.232Z",
     "currency": "BRL",
     "timeAxis": "order_purchase_timestamp",
     "grain": "month",
@@ -33,15 +33,18 @@
   "kpisByRange": {
     "2017": {
       "totalOrders": 43428,
-      "totalGmv": 5962902.01
+      "totalGmv": 5962902.01,
+      "lateDeliveryRate": 5.65
     },
     "all": {
       "totalOrders": 96211,
-      "totalGmv": 13181027.13
+      "totalGmv": 13181027.13,
+      "lateDeliveryRate": 6.8
     },
     "2018_ytd": {
       "totalOrders": 52783,
-      "totalGmv": 7218125.12
+      "totalGmv": 7218125.12,
+      "lateDeliveryRate": 7.74
     }
   },
   "monthlySeriesByRange": {
@@ -50,73 +53,85 @@
         "month": "2017-01",
         "label": "Jan '17",
         "orders": 750,
-        "gmv": 111798.36
+        "gmv": 111798.36,
+        "lateDeliveryRate": 2.93
       },
       {
         "month": "2017-02",
         "label": "Feb '17",
         "orders": 1653,
-        "gmv": 234223.4
+        "gmv": 234223.4,
+        "lateDeliveryRate": 2.96
       },
       {
         "month": "2017-03",
         "label": "Mar '17",
         "orders": 2546,
-        "gmv": 359198.85
+        "gmv": 359198.85,
+        "lateDeliveryRate": 4.56
       },
       {
         "month": "2017-04",
         "label": "Apr '17",
         "orders": 2303,
-        "gmv": 340669.68
+        "gmv": 340669.68,
+        "lateDeliveryRate": 6.56
       },
       {
         "month": "2017-05",
         "label": "May '17",
         "orders": 3546,
-        "gmv": 489338.25
+        "gmv": 489338.25,
+        "lateDeliveryRate": 3.02
       },
       {
         "month": "2017-06",
         "label": "Jun '17",
         "orders": 3135,
-        "gmv": 421923.37
+        "gmv": 421923.37,
+        "lateDeliveryRate": 3.03
       },
       {
         "month": "2017-07",
         "label": "Jul '17",
         "orders": 3872,
-        "gmv": 481604.52
+        "gmv": 481604.52,
+        "lateDeliveryRate": 2.79
       },
       {
         "month": "2017-08",
         "label": "Aug '17",
         "orders": 4193,
-        "gmv": 554699.7
+        "gmv": 554699.7,
+        "lateDeliveryRate": 2.91
       },
       {
         "month": "2017-09",
         "label": "Sep '17",
         "orders": 4150,
-        "gmv": 607399.67
+        "gmv": 607399.67,
+        "lateDeliveryRate": 4.39
       },
       {
         "month": "2017-10",
         "label": "Oct '17",
         "orders": 4478,
-        "gmv": 648247.65
+        "gmv": 648247.65,
+        "lateDeliveryRate": 4.18
       },
       {
         "month": "2017-11",
         "label": "Nov '17",
         "orders": 7289,
-        "gmv": 987765.37
+        "gmv": 987765.37,
+        "lateDeliveryRate": 12.42
       },
       {
         "month": "2017-12",
         "label": "Dec '17",
         "orders": 5513,
-        "gmv": 726033.19
+        "gmv": 726033.19,
+        "lateDeliveryRate": 7.46
       }
     ],
     "all": [
@@ -124,121 +139,141 @@
         "month": "2017-01",
         "label": "Jan '17",
         "orders": 750,
-        "gmv": 111798.36
+        "gmv": 111798.36,
+        "lateDeliveryRate": 2.93
       },
       {
         "month": "2017-02",
         "label": "Feb '17",
         "orders": 1653,
-        "gmv": 234223.4
+        "gmv": 234223.4,
+        "lateDeliveryRate": 2.96
       },
       {
         "month": "2017-03",
         "label": "Mar '17",
         "orders": 2546,
-        "gmv": 359198.85
+        "gmv": 359198.85,
+        "lateDeliveryRate": 4.56
       },
       {
         "month": "2017-04",
         "label": "Apr '17",
         "orders": 2303,
-        "gmv": 340669.68
+        "gmv": 340669.68,
+        "lateDeliveryRate": 6.56
       },
       {
         "month": "2017-05",
         "label": "May '17",
         "orders": 3546,
-        "gmv": 489338.25
+        "gmv": 489338.25,
+        "lateDeliveryRate": 3.02
       },
       {
         "month": "2017-06",
         "label": "Jun '17",
         "orders": 3135,
-        "gmv": 421923.37
+        "gmv": 421923.37,
+        "lateDeliveryRate": 3.03
       },
       {
         "month": "2017-07",
         "label": "Jul '17",
         "orders": 3872,
-        "gmv": 481604.52
+        "gmv": 481604.52,
+        "lateDeliveryRate": 2.79
       },
       {
         "month": "2017-08",
         "label": "Aug '17",
         "orders": 4193,
-        "gmv": 554699.7
+        "gmv": 554699.7,
+        "lateDeliveryRate": 2.91
       },
       {
         "month": "2017-09",
         "label": "Sep '17",
         "orders": 4150,
-        "gmv": 607399.67
+        "gmv": 607399.67,
+        "lateDeliveryRate": 4.39
       },
       {
         "month": "2017-10",
         "label": "Oct '17",
         "orders": 4478,
-        "gmv": 648247.65
+        "gmv": 648247.65,
+        "lateDeliveryRate": 4.18
       },
       {
         "month": "2017-11",
         "label": "Nov '17",
         "orders": 7289,
-        "gmv": 987765.37
+        "gmv": 987765.37,
+        "lateDeliveryRate": 12.42
       },
       {
         "month": "2017-12",
         "label": "Dec '17",
         "orders": 5513,
-        "gmv": 726033.19
+        "gmv": 726033.19,
+        "lateDeliveryRate": 7.46
       },
       {
         "month": "2018-01",
         "label": "Jan '18",
         "orders": 7069,
-        "gmv": 924645
+        "gmv": 924645,
+        "lateDeliveryRate": 5.7
       },
       {
         "month": "2018-02",
         "label": "Feb '18",
         "orders": 6555,
-        "gmv": 826437.13
+        "gmv": 826437.13,
+        "lateDeliveryRate": 14.13
       },
       {
         "month": "2018-03",
         "label": "Mar '18",
         "orders": 7003,
-        "gmv": 953356.25
+        "gmv": 953356.25,
+        "lateDeliveryRate": 18.96
       },
       {
         "month": "2018-04",
         "label": "Apr '18",
         "orders": 6798,
-        "gmv": 973534.09
+        "gmv": 973534.09,
+        "lateDeliveryRate": 4.5
       },
       {
         "month": "2018-05",
         "label": "May '18",
         "orders": 6749,
-        "gmv": 977544.69
+        "gmv": 977544.69,
+        "lateDeliveryRate": 6.56
       },
       {
         "month": "2018-06",
         "label": "Jun '18",
         "orders": 6099,
-        "gmv": 856077.86
+        "gmv": 856077.86,
+        "lateDeliveryRate": 1.21
       },
       {
         "month": "2018-07",
         "label": "Jul '18",
         "orders": 6159,
-        "gmv": 867953.46
+        "gmv": 867953.46,
+        "lateDeliveryRate": 3.43
       },
       {
         "month": "2018-08",
         "label": "Aug '18",
         "orders": 6351,
-        "gmv": 838576.64
+        "gmv": 838576.64,
+        "lateDeliveryRate": 6.19
       }
     ],
     "2018_ytd": [
@@ -246,49 +281,57 @@
         "month": "2018-01",
         "label": "Jan '18",
         "orders": 7069,
-        "gmv": 924645
+        "gmv": 924645,
+        "lateDeliveryRate": 5.7
       },
       {
         "month": "2018-02",
         "label": "Feb '18",
         "orders": 6555,
-        "gmv": 826437.13
+        "gmv": 826437.13,
+        "lateDeliveryRate": 14.13
       },
       {
         "month": "2018-03",
         "label": "Mar '18",
         "orders": 7003,
-        "gmv": 953356.25
+        "gmv": 953356.25,
+        "lateDeliveryRate": 18.96
       },
       {
         "month": "2018-04",
         "label": "Apr '18",
         "orders": 6798,
-        "gmv": 973534.09
+        "gmv": 973534.09,
+        "lateDeliveryRate": 4.5
       },
       {
         "month": "2018-05",
         "label": "May '18",
         "orders": 6749,
-        "gmv": 977544.69
+        "gmv": 977544.69,
+        "lateDeliveryRate": 6.56
       },
       {
         "month": "2018-06",
         "label": "Jun '18",
         "orders": 6099,
-        "gmv": 856077.86
+        "gmv": 856077.86,
+        "lateDeliveryRate": 1.21
       },
       {
         "month": "2018-07",
         "label": "Jul '18",
         "orders": 6159,
-        "gmv": 867953.46
+        "gmv": 867953.46,
+        "lateDeliveryRate": 3.43
       },
       {
         "month": "2018-08",
         "label": "Aug '18",
         "orders": 6351,
-        "gmv": 838576.64
+        "gmv": 838576.64,
+        "lateDeliveryRate": 6.19
       }
     ]
   },

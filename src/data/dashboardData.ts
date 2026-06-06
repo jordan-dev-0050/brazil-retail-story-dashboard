@@ -98,7 +98,7 @@ export function buildKpiCards(
   rangeId: Parameters<typeof buildPhase2KpiCards>[0],
 ): KpiCardViewModel[] {
   const realCards = buildPhase2KpiCards(rangeId);
-  const [ordersCard, gmvCard] = realCards;
+  const [ordersCard, gmvCard, lateDeliveryRateCard] = realCards;
   const range = getDateRangeById(rangeId);
 
   return [
@@ -110,7 +110,12 @@ export function buildKpiCards(
       ...gmvCard,
       caption: `Sum of order_items.price, ${range.label}`,
     },
-    ...mockKpiCards.slice(2),
+    mockKpiCards[2],
+    {
+      ...lateDeliveryRateCard,
+      caption: `Delivered after estimated date, ${range.label}`,
+    },
+    mockKpiCards[4],
   ];
 }
 
@@ -122,14 +127,11 @@ export function getTimeTrendSeries(
     return mockTimeTrendSeries[granularity];
   }
 
-  const realMonthlySeries = getMonthlySeries(rangeId);
-  const mockMonthlySeries = mockTimeTrendSeries.monthly;
-  const fallbackDelayRate =
-    mockMonthlySeries.length > 0 ? mockMonthlySeries[mockMonthlySeries.length - 1].delayRate : 0;
-
-  return realMonthlySeries.map((point, index) => ({
-    ...point,
-    delayRate: mockMonthlySeries[index]?.delayRate ?? fallbackDelayRate,
+  return getMonthlySeries(rangeId).map((point) => ({
+    label: point.label,
+    orders: point.orders,
+    gmv: point.gmv,
+    delayRate: point.lateDeliveryRate,
   }));
 }
 
@@ -146,9 +148,6 @@ export function getTimeTrendHighlights(
   }
 
   const summary = getTimeTrendSummary(rangeId);
-  const monthlySeries = getTimeTrendSeries('monthly', rangeId);
-  const averageDelayRate =
-    monthlySeries.reduce((total, point) => total + point.delayRate, 0) / (monthlySeries.length || 1);
 
   return [
     {
@@ -163,8 +162,8 @@ export function getTimeTrendHighlights(
     },
     {
       label: 'Late Delivery Rate',
-      value: `${averageDelayRate.toFixed(1)}%`,
-      detail: 'Mock-backed monthly delay reference',
+      value: `${summary.lateDeliveryRate.toFixed(1)}%`,
+      detail: `Range-level delivered-order delay rate for ${summary.rangeLabel}`,
     },
   ];
 }

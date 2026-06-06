@@ -20,6 +20,7 @@ export type Phase2DateRange = {
 export type Phase2Kpis = {
   totalOrders: number;
   totalGmv: number;
+  lateDeliveryRate: number;
 };
 
 export type Phase2MonthlyPoint = {
@@ -27,6 +28,7 @@ export type Phase2MonthlyPoint = {
   label: string;
   orders: number;
   gmv: number;
+  lateDeliveryRate: number;
 };
 
 export type Phase2PaymentTypeOption = {
