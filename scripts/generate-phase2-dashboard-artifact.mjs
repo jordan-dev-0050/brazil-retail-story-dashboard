@@ -573,7 +573,7 @@ await readCsvRows(orderReviewsCsvPath, (row) => {
 const artifact = {
   metadata: {
     source: 'olist',
-    version: '0.3.0',
+    version: '0.4.0',
     generatedAt: new Date().toISOString(),
     currency: 'BRL',
     timeAxis: 'order_purchase_timestamp',
@@ -581,6 +581,33 @@ const artifact = {
     orderPopulation: 'delivered_orders_only',
     coverageStart: COVERAGE_START,
     coverageEnd: COVERAGE_END,
+    metricDefinitions: {
+      totalOrders: {
+        label: 'Total Orders',
+        unit: 'orders',
+        caption: 'Delivered orders',
+        summary: 'Distinct delivered orders purchased within the selected date range.',
+        aggregation: 'count_distinct(order_id)',
+      },
+      totalGmv: {
+        label: 'Total GMV',
+        unit: 'currency_brl',
+        caption: 'Sum of order_items.price',
+        summary: 'Sum of item prices for delivered orders; freight is excluded.',
+        aggregation: 'sum(order_items.price)',
+      },
+      lateDeliveryRate: {
+        label: 'Late Delivery Rate',
+        unit: 'percentage',
+        caption: 'Delivered after estimated date',
+        summary:
+          'Share of delivered orders where order_delivered_customer_date is after order_estimated_delivery_date.',
+        aggregation: 'delayed_delivered_orders / delivered_orders * 100',
+        numerator: 'delayed_delivered_orders',
+        denominator: 'delivered_orders_only',
+        onTimeRule: 'order_delivered_customer_date <= order_estimated_delivery_date',
+      },
+    },
   },
   dateRanges: DATE_RANGES,
   kpisByRange: {},

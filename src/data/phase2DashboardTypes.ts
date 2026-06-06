@@ -1,4 +1,5 @@
 export type DateRangeId = 'all' | '2017' | '2018_ytd';
+export type Phase2MetricId = 'totalOrders' | 'totalGmv' | 'lateDeliveryRate';
 
 export type FilterId = 'dateRange' | 'customerState' | 'productCategory' | 'paymentType';
 export type PaymentTypeId =
@@ -29,6 +30,17 @@ export type Phase2MonthlyPoint = {
   orders: number;
   gmv: number;
   lateDeliveryRate: number;
+};
+
+export type Phase2MetricDefinition = {
+  label: string;
+  unit: 'orders' | 'currency_brl' | 'percentage';
+  caption: string;
+  summary: string;
+  aggregation: string;
+  numerator?: string;
+  denominator?: string;
+  onTimeRule?: string;
 };
 
 export type Phase2PaymentTypeOption = {
@@ -161,6 +173,7 @@ export type Phase2DashboardArtifact = {
     orderPopulation: 'delivered_orders_only';
     coverageStart: string;
     coverageEnd: string;
+    metricDefinitions: Record<Phase2MetricId, Phase2MetricDefinition>;
   };
   dateRanges: Phase2DateRange[];
   kpisByRange: Record<DateRangeId, Phase2Kpis>;

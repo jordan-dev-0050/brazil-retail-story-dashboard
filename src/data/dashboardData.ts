@@ -1,6 +1,7 @@
 import {
   buildFilterOptions as buildPhase2FilterOptions,
   buildKpiCards as buildPhase2KpiCards,
+  buildMetricCaption,
   formatCurrency,
   formatCurrencyCompact,
   formatOrderCount,
@@ -12,6 +13,7 @@ import {
   getPaymentPanelSlice,
   getPaymentTypeOptions,
   getReviewPanel,
+  getMetricDefinition,
   getTimeTrendSummary,
   phase2DashboardArtifact,
 } from './phase2DashboardData';
@@ -104,16 +106,16 @@ export function buildKpiCards(
   return [
     {
       ...ordersCard,
-      caption: `Delivered orders, ${range.label}`,
+      caption: buildMetricCaption('totalOrders', range.label),
     },
     {
       ...gmvCard,
-      caption: `Sum of order_items.price, ${range.label}`,
+      caption: buildMetricCaption('totalGmv', range.label),
     },
     mockKpiCards[2],
     {
       ...lateDeliveryRateCard,
-      caption: `Delivered after estimated date, ${range.label}`,
+      caption: buildMetricCaption('lateDeliveryRate', range.label),
     },
     mockKpiCards[4],
   ];
@@ -163,7 +165,7 @@ export function getTimeTrendHighlights(
     {
       label: 'Late Delivery Rate',
       value: `${summary.lateDeliveryRate.toFixed(1)}%`,
-      detail: `Range-level delivered-order delay rate for ${summary.rangeLabel}`,
+      detail: `${getMetricDefinition('lateDeliveryRate').summary} (${summary.rangeLabel})`,
     },
   ];
 }

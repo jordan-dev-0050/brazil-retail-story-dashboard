@@ -213,13 +213,38 @@ function assertClose(actual, expected, epsilon = 0.02) {
 }
 
 assert.equal(artifact.metadata.source, 'olist');
-assert.equal(artifact.metadata.version, '0.3.0');
+assert.equal(artifact.metadata.version, '0.4.0');
 assert.equal(artifact.metadata.currency, 'BRL');
 assert.equal(artifact.metadata.timeAxis, 'order_purchase_timestamp');
 assert.equal(artifact.metadata.grain, 'month');
 assert.equal(artifact.metadata.orderPopulation, 'delivered_orders_only');
 assert.equal(artifact.metadata.coverageStart, '2017-01-01');
 assert.equal(artifact.metadata.coverageEnd, '2018-08-31');
+assert.deepEqual(artifact.metadata.metricDefinitions.totalOrders, {
+  label: 'Total Orders',
+  unit: 'orders',
+  caption: 'Delivered orders',
+  summary: 'Distinct delivered orders purchased within the selected date range.',
+  aggregation: 'count_distinct(order_id)',
+});
+assert.deepEqual(artifact.metadata.metricDefinitions.totalGmv, {
+  label: 'Total GMV',
+  unit: 'currency_brl',
+  caption: 'Sum of order_items.price',
+  summary: 'Sum of item prices for delivered orders; freight is excluded.',
+  aggregation: 'sum(order_items.price)',
+});
+assert.deepEqual(artifact.metadata.metricDefinitions.lateDeliveryRate, {
+  label: 'Late Delivery Rate',
+  unit: 'percentage',
+  caption: 'Delivered after estimated date',
+  summary:
+    'Share of delivered orders where order_delivered_customer_date is after order_estimated_delivery_date.',
+  aggregation: 'delayed_delivered_orders / delivered_orders * 100',
+  numerator: 'delayed_delivered_orders',
+  denominator: 'delivered_orders_only',
+  onTimeRule: 'order_delivered_customer_date <= order_estimated_delivery_date',
+});
 
 assert.deepEqual(
   artifact.dateRanges.map((range) => range.id),

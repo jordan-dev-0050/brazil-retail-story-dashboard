@@ -2,6 +2,8 @@ import artifactJson from './phase2DashboardArtifact.json';
 import type {
   DateRangeId,
   FilterId,
+  Phase2MetricDefinition,
+  Phase2MetricId,
   Phase3CategoryPanel,
   Phase2DashboardArtifact,
   Phase2DateRange,
@@ -69,6 +71,14 @@ const dateRangeById = Object.fromEntries(
   phase2DashboardArtifact.dateRanges.map((range) => [range.id, range]),
 ) as Record<DateRangeId, Phase2DateRange>;
 
+export function getMetricDefinition(metricId: Phase2MetricId): Phase2MetricDefinition {
+  return phase2DashboardArtifact.metadata.metricDefinitions[metricId];
+}
+
+export function buildMetricCaption(metricId: Phase2MetricId, rangeLabel: string): string {
+  return `${getMetricDefinition(metricId).caption}, ${rangeLabel}`;
+}
+
 export function buildFilterOptions(rangeId: DateRangeId): Record<FilterId, FilterConfig> {
   return {
     dateRange: {
@@ -120,21 +130,21 @@ export function buildKpiCards(rangeId: DateRangeId): KpiCardViewModel[] {
       value: compactNumberFormatter.format(kpis.totalOrders),
       icon: 'orders',
       chipClassName: 'bg-blue-50 text-accent-blue',
-      caption: `Delivered orders, ${range.label}`,
+      caption: buildMetricCaption('totalOrders', range.label),
     },
     {
       title: 'Total GMV',
       value: compactCurrencyFormatter.format(kpis.totalGmv),
       icon: 'gmv',
       chipClassName: 'bg-emerald-50 text-accent-teal',
-      caption: `Sum of order_items.price, ${range.label}`,
+      caption: buildMetricCaption('totalGmv', range.label),
     },
     {
       title: 'Late Delivery Rate',
       value: `${kpis.lateDeliveryRate.toFixed(1)}%`,
       icon: 'delay',
       chipClassName: 'bg-orange-50 text-orange-500',
-      caption: `Delivered after estimated date, ${range.label}`,
+      caption: buildMetricCaption('lateDeliveryRate', range.label),
     },
   ];
 }

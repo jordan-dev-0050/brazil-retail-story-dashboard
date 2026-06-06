@@ -7,6 +7,8 @@ export type {
   Phase2DateRange as DashboardDateRange,
   Phase2FreightDistributionPanel as DashboardFreightDistributionPanel,
   Phase2Kpis as DashboardKpis,
+  Phase2MetricDefinition as DashboardMetricDefinition,
+  Phase2MetricId as DashboardMetricId,
   Phase2MonthlyPoint as DashboardMonthlyPoint,
   Phase2OnTimeVsDelayedPanel as DashboardOnTimeVsDelayedPanel,
   Phase2PaymentMixPanel as DashboardPaymentMixPanel,
