@@ -3,8 +3,8 @@ author: Codex
 date: 2026-06-06
 title: Brazil Olist Dashboard 最小必要補強規劃
 uuid: 6e6d4b4c8d4a4d38b6c6f07cc2d6d90a
-version: 0.1
-status: draft
+version: 0.2
+status: synced
 ---
 
 # 規劃文件 P04 - Brazil Olist Dashboard 最小必要補強
@@ -51,10 +51,10 @@ status: draft
 
 | Phase | 標題 | 預期產出類型 | 主要輸出 | 狀態 |
 |------|------|------------|--------|------|
-| P1 | KPI / Time Trend real-backed 定義收斂 | FXX | 明確列出哪些 KPI 仍為 mock、哪些可直接以現有 artifact 推導、哪些需要 artifact schema 小幅補欄位 | [ ] 未開始 |
-| P2 | artifact / types / facade 最小補強設計 | FXX | 以既有 generator、artifact schema、facade selectors 為主，補足 KPI 與 `Late Delivery Rate` 所需 real-backed 欄位與取用方式 | [ ] 未開始 |
-| P3 | UI 接線與 hybrid boundary 校正 | FXX | 在不改元件名稱、不改版面的前提下，把 KPI cards 與 `Time Trend` 的 `Late Delivery Rate` 切換為 real-backed | [ ] 未開始 |
-| P4 | 驗證、誠實揭露與面試說法整理 | FXX | 補齊驗證基準、保留 remaining mock/restriction 清單、整理面試可誠實描述的邊界 | [ ] 未開始 |
+| P1 | KPI / Time Trend real-backed 定義收斂 | FXX | 明確列出哪些 KPI 仍為 mock、哪些可直接以現有 artifact 推導、哪些需要 artifact schema 小幅補欄位 | [x] 已完成 |
+| P2 | artifact / types / facade 最小補強設計 | FXX | 以既有 generator、artifact schema、facade selectors 為主，補足 KPI 與 `Late Delivery Rate` 所需 real-backed 欄位與取用方式 | [x] 已完成 |
+| P3 | UI 接線與 hybrid boundary 校正 | FXX | 在不改元件名稱、不改版面的前提下，把 KPI cards 與 `Time Trend` 的 `Late Delivery Rate` 切換為 real-backed | [x] 已完成 |
+| P4 | 驗證、誠實揭露與面試說法整理 | FXX | 補齊驗證基準、保留 remaining mock/restriction 清單、整理面試可誠實描述的邊界 | [x] 已完成 |
 
 ---
 
@@ -66,11 +66,11 @@ status: draft
 
 **Checklist**
 
-- [ ] 盤點目前 `KPI cards` 中哪些指標仍為 mock-backed，並逐一標示現況來源。
-- [ ] 明確定義本次要 real-back 的 KPI 指標集合，避免把非必要 KPI 一起拉進 scope。
-- [ ] 明確定義 `Time Trend` 中 `Late Delivery Rate` 的計算口徑。
-- [ ] 對齊口徑是否維持既有 `Date Range` 驅動與月粒度呈現。
-- [ ] 確認上述指標可在既有 Olist raw data 與現有 artifact generator 流程中推導，不引入 API / backend。
+- [x] 盤點目前 `KPI cards` 中哪些指標仍為 mock-backed，並逐一標示現況來源。
+- [x] 明確定義本次要 real-back 的 KPI 指標集合，避免把非必要 KPI 一起拉進 scope。
+- [x] 明確定義 `Time Trend` 中 `Late Delivery Rate` 的計算口徑。
+- [x] 對齊口徑是否維持既有 `Date Range` 驅動與月粒度呈現。
+- [x] 確認上述指標可在既有 Olist raw data 與現有 artifact generator 流程中推導，不引入 API / backend。
 
 **對應實作文件**
 
@@ -78,7 +78,7 @@ status: draft
 
 **狀態**
 
-`[ ] 未開始`
+`[x] 已完成`
 
 ---
 
@@ -90,11 +90,11 @@ status: draft
 
 **Checklist**
 
-- [ ] 確認現有 artifact 是否已具備 KPI 與 `Late Delivery Rate` 所需原始欄位。
-- [ ] 若不足，僅在既有 artifact schema 內做最小必要擴充，不新增平行資料來源。
-- [ ] 更新對應 `types`，讓 KPI 與 trend 使用的 real-backed 欄位具備明確型別。
-- [ ] 更新 facade selectors / formatters，讓 UI 仍透過既有 app-facing API 取值。
-- [ ] 確認資料命名與既有 domain language 一致，不引入模糊的新術語。
+- [x] 確認現有 artifact 是否已具備 KPI 與 `Late Delivery Rate` 所需原始欄位。
+- [x] 若不足，僅在既有 artifact schema 內做最小必要擴充，不新增平行資料來源。
+- [x] 更新對應 `types`，讓 KPI 與 trend 使用的 real-backed 欄位具備明確型別。
+- [x] 更新 facade selectors / formatters，讓 UI 仍透過既有 app-facing API 取值。
+- [x] 確認資料命名與既有 domain language 一致，不引入模糊的新術語。
 
 **對應實作文件**
 
@@ -102,7 +102,7 @@ status: draft
 
 **狀態**
 
-`[ ] 未開始`
+`[x] 已完成`
 
 ---
 
@@ -114,12 +114,12 @@ status: draft
 
 **Checklist**
 
-- [ ] `KPI cards` 改為從 real-backed facade 取值，不改卡片名稱與版面結構。
-- [ ] `Time Trend` 中 `Late Delivery Rate` 改為 real-backed 序列。
-- [ ] 保持現有 `DashboardPage` 與相關 components 的 UI 組織方式不變。
-- [ ] 不啟用 `Customer State` / `Product Category` filters。
-- [ ] 不順手擴改其他 panels、filters 或互動流程。
-- [ ] 若仍保留 hybrid 行為，需在程式與文件上可清楚指出 boundary。
+- [x] `KPI cards` 改為從 real-backed facade 取值，不改卡片名稱與版面結構。
+- [x] `Time Trend` 中 `Late Delivery Rate` 改為 real-backed 序列。
+- [x] 保持現有 `DashboardPage` 與相關 components 的 UI 組織方式不變。
+- [x] 不啟用 `Customer State` / `Product Category` filters。
+- [x] 不順手擴改其他 panels、filters 或互動流程。
+- [x] 若仍保留 hybrid 行為，需在程式與文件上可清楚指出 boundary。
 
 **對應實作文件**
 
@@ -127,7 +127,7 @@ status: draft
 
 **狀態**
 
-`[ ] 未開始`
+`[x] 已完成`
 
 ---
 
@@ -139,11 +139,11 @@ status: draft
 
 **Checklist**
 
-- [ ] 驗證 KPI cards 顯示值與 artifact / source calculation 一致。
-- [ ] 驗證 `Time Trend` 中 `Late Delivery Rate` 序列與定義口徑一致。
-- [ ] 整理本次完成後仍保留的 disabled filters / hybrid areas。
-- [ ] 補一份面試可直接使用的誠實說法，說明本次補強範圍與刻意未做項目。
-- [ ] 確認文件中沒有把目前仍未完成之處描述成 fully complete。
+- [x] 驗證 KPI cards 顯示值與 artifact / source calculation 一致。
+- [x] 驗證 `Time Trend` 中 `Late Delivery Rate` 序列與定義口徑一致。
+- [x] 整理本次完成後仍保留的 disabled filters / hybrid areas。
+- [x] 補一份面試可直接使用的誠實說法，說明本次補強範圍與刻意未做項目。
+- [x] 確認文件中沒有把目前仍未完成之處描述成 fully complete。
 
 **對應實作文件**
 
@@ -151,7 +151,7 @@ status: draft
 
 **狀態**
 
-`[ ] 未開始`
+`[x] 已完成`
 
 ## 5. 驗收標準
 
@@ -198,4 +198,3 @@ status: draft
 > 這是一個以真實 Olist CSV 為基礎、透過 artifact generator 與 facade 餵給前端的 hybrid dashboard。
 > 我這一輪優先把 KPI cards 與 Time Trend 的 Late Delivery Rate 補成 real-backed，提升作品集 demo 的可信度；
 > 但 Customer State / Product Category filters、部署、後端與更完整的 productization 不在這一輪 scope 內。
-

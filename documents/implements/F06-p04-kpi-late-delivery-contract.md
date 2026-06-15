@@ -3,7 +3,8 @@ author: Codex
 date: 2026-06-06
 title: P04 KPI / Late Delivery artifact contract
 uuid: 4d0a8c2e40cc4fc8a7f1f8b7c2b54b56
-version: 0.1
+version: 0.2
+status: synced
 ---
 
 # 實作契約 - P04 KPI / Late Delivery artifact contract
@@ -63,3 +64,9 @@ version: 0.1
 - `npm run test:phase2-artifact`
 - `npm run build`
 
+## 7. 實作同步註記
+
+- `scripts/generate-phase2-dashboard-artifact.mjs` 已補入 `metadata.metricDefinitions`、`kpisByRange` 與 `monthlySeriesByRange` 的 `lateDeliveryRate` contract。
+- `src/data/phase2DashboardTypes.ts` 與 `src/data/phase2DashboardData.ts` 已對齊 KPI / monthly series / metric definition typed facade。
+- `src/data/dashboardData.ts` 與 `src/components/TimeTrendPanel.tsx` 已切換 KPI cards 與 monthly `Late Delivery Rate` 為 artifact-backed。
+- `DashboardPage` 仍維持既有 hybrid boundary，`Customer State` / `Product Category` filters 仍為 disabled，符合 P04 scope。
