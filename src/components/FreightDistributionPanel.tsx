@@ -2,7 +2,6 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 import { formatCurrency, formatOrderCount } from '../data/dashboardData';
 import type { DashboardPaymentPanelSlice } from '../data/dashboardTypes';
 import { ChartCard } from './ChartCard';
-import { TruckIcon } from './Icons';
 
 type FreightDistributionPanelProps = {
   slice: DashboardPaymentPanelSlice;
@@ -35,17 +34,10 @@ export function FreightDistributionPanel({
       footer={
         <div className="grid gap-3 md:grid-cols-3">
           <div className="rounded-[20px] border border-blue-100 bg-blue-50/70 px-4 py-3 text-accent-blue">
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-accent-blue shadow-soft">
-                <TruckIcon className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-sm text-slate">Matched Orders</p>
-                <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">
-                  {formatOrderCount(slice.freightDistribution.totalOrders)}
-                </p>
-              </div>
-            </div>
+            <p className="text-sm text-slate">Matched Orders</p>
+            <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">
+              {formatOrderCount(slice.freightDistribution.totalOrders)}
+            </p>
           </div>
           <div className="rounded-[20px] border border-slate-200 bg-slate-50/70 px-4 py-3">
             <p className="text-sm text-slate">Avg Freight Cost</p>
