@@ -73,10 +73,11 @@ export function DashboardPage() {
         <section className="rounded-[24px] border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm text-slate shadow-soft">
           <p>
             <span className="font-semibold text-ink">Hybrid boundary:</span> KPI cards are now
-            fully real-backed, and monthly Time Trend reads from the dashboard artifact. Payment
-            Type still updates only Freight Distribution, Payment Mix, and On-time vs Delayed,
-            while Brazil Map, Category Share, and Delay vs Review remain artifact-backed by date
-            range only.
+            fully real-backed, monthly Time Trend reads from the dashboard artifact, and daily /
+            weekly Time Trend stays interactive through projections anchored to that monthly
+            baseline. Payment Type still updates only Freight Distribution, Payment Mix, and
+            On-time vs Delayed, while Brazil Map, Category Share, and Delay vs Review remain
+            artifact-backed by date range only.
           </p>
         </section>
 

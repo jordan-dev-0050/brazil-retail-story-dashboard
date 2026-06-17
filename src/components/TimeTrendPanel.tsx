@@ -11,6 +11,7 @@ import {
   formatOrderCount,
   getTimeTrendHighlights,
   getTimeTrendSeries,
+  getTimeTrendSubtitle,
   type TimeGranularity,
 } from '../data/dashboardData';
 import type { DateRangeId } from '../data/dashboardTypes';
@@ -38,15 +39,12 @@ export function TimeTrendPanel({
 }: TimeTrendPanelProps) {
   const data = getTimeTrendSeries(granularity, rangeId);
   const highlights = getTimeTrendHighlights(granularity, rangeId);
+  const subtitle = getTimeTrendSubtitle(granularity, rangeId);
 
   return (
     <ChartCard
       title="Time Trend"
-      subtitle={
-        granularity === 'monthly'
-          ? 'Orders / GMV / Late Delivery Rate use real monthly artifact data'
-          : 'Orders / GMV / Late Delivery Over Time'
-      }
+      subtitle={subtitle}
       actions={<ToggleTabs options={timeTabs} value={granularity} onChange={onGranularityChange} />}
       footer={
         <div className="grid gap-3 md:grid-cols-3">

@@ -17,7 +17,6 @@ import {
   phase2DashboardArtifact,
 } from './phase2DashboardData';
 import {
-  timeTrendHighlights as mockTimeTrendHighlights,
   timeTrendSeries as mockTimeTrendSeries,
   type TimeGranularity,
 } from './dashboardMock';
@@ -63,6 +62,12 @@ type TimeTrendHighlight = {
   detail: string;
 };
 
+type TimeTrendModel = {
+  series: TimeTrendPoint[];
+  highlights: TimeTrendHighlight[];
+  subtitle: string;
+};
+
 export const dashboardArtifact = phase2DashboardArtifact;
 
 const dateRangeOptions = dashboardArtifact.dateRanges.map((range) => ({
@@ -97,53 +102,144 @@ export function buildKpiCards(
   return buildPhase2KpiCards(rangeId);
 }
 
-export function getTimeTrendSeries(
-  granularity: TimeGranularity,
-  rangeId: Parameters<typeof getMonthlySeries>[0],
-): TimeTrendPoint[] {
-  if (granularity !== 'monthly') {
-    return mockTimeTrendSeries[granularity];
+function getTimeProjectionDivisor(granularity: Exclude<TimeGranularity, 'monthly'>): number {
+  return granularity === 'daily' ? 30 : 4.3;
+}
+
+function roundNumber(value: number): number {
+  return Number(value.toFixed(1));
+}
+
+function average(values: number[]): number {
+  if (values.length === 0) {
+    return 0;
   }
 
-  return getMonthlySeries(rangeId).map((point) => ({
+  return values.reduce((total, value) => total + value, 0) / values.length;
+}
+
+function getProjectedTimeTrendSeries(
+  granularity: Exclude<TimeGranularity, 'monthly'>,
+  rangeId: Parameters<typeof getTimeTrendSummary>[0],
+): TimeTrendPoint[] {
+  const template = mockTimeTrendSeries[granularity];
+  const summary = getTimeTrendSummary(rangeId);
+  const divisor = getTimeProjectionDivisor(granularity);
+  const targetAverageOrders = summary.averageOrders / divisor;
+  const targetAverageGmv = summary.averageGmv / divisor;
+  const templateAverageOrders = average(template.map((point) => point.orders)) || 1;
+  const templateAverageGmv = average(template.map((point) => point.gmv)) || 1;
+  const templateAverageDelayRate = average(template.map((point) => point.delayRate));
+
+  return template.map((point) => ({
     label: point.label,
-    orders: point.orders,
-    gmv: point.gmv,
-    delayRate: point.lateDeliveryRate,
+    orders: Math.max(1, Math.round((point.orders / templateAverageOrders) * targetAverageOrders)),
+    gmv: Math.max(1, Math.round((point.gmv / templateAverageGmv) * targetAverageGmv)),
+    delayRate: roundNumber(
+      Math.max(0, summary.lateDeliveryRate + (point.delayRate - templateAverageDelayRate)),
+    ),
   }));
+}
+
+function buildMonthlyTimeTrendModel(
+  rangeId: Parameters<typeof getTimeTrendSummary>[0],
+): TimeTrendModel {
+  const summary = getTimeTrendSummary(rangeId);
+
+  return {
+    series: getMonthlySeries(rangeId).map((point) => ({
+      label: point.label,
+      orders: point.orders,
+      gmv: point.gmv,
+      delayRate: point.lateDeliveryRate,
+    })),
+    highlights: [
+      {
+        label: 'Avg Orders / Month',
+        value: formatOrderCountCompact(summary.averageOrders),
+        detail: `${summary.monthsCovered} real months covered`,
+      },
+      {
+        label: 'Avg GMV / Month',
+        value: formatCurrencyCompact(summary.averageGmv),
+        detail: `Real monthly total ${formatCurrency(summary.averageGmv * summary.monthsCovered)}`,
+      },
+      {
+        label: 'Late Delivery Rate',
+        value: `${summary.lateDeliveryRate.toFixed(1)}%`,
+        detail: `${getMetricDefinition('lateDeliveryRate').summary} (${summary.rangeLabel})`,
+      },
+    ],
+    subtitle: 'Orders / GMV / Late Delivery Rate use real monthly artifact data',
+  };
+}
+
+function buildProjectedTimeTrendModel(
+  granularity: Exclude<TimeGranularity, 'monthly'>,
+  rangeId: Parameters<typeof getTimeTrendSummary>[0],
+): TimeTrendModel {
+  const projectedSeries = getProjectedTimeTrendSeries(granularity, rangeId);
+  const summary = getTimeTrendSummary(rangeId);
+  const granularityLabel = granularity === 'daily' ? 'Day' : 'Week';
+  const divisor = getTimeProjectionDivisor(granularity);
+  const pointLabel = granularity === 'daily' ? 'days' : 'weeks';
+  const ordersAverage = average(projectedSeries.map((point) => point.orders));
+  const gmvAverage = average(projectedSeries.map((point) => point.gmv));
+  const delayRateAverage = average(projectedSeries.map((point) => point.delayRate));
+
+  return {
+    series: projectedSeries,
+    highlights: [
+      {
+        label: `Avg Orders / ${granularityLabel}`,
+        value: formatOrderCountCompact(ordersAverage),
+        detail: `Projected from real monthly baseline (${summary.rangeLabel})`,
+      },
+      {
+        label: `Avg GMV / ${granularityLabel}`,
+        value: formatCurrencyCompact(gmvAverage),
+        detail: `Scaled from ${summary.monthsCovered} artifact months at ~${divisor.toFixed(1)} ${pointLabel} per month`,
+      },
+      {
+        label: 'Late Delivery Rate',
+        value: `${delayRateAverage.toFixed(1)}%`,
+        detail: 'Projection keeps the selected range late-delivery baseline',
+      },
+    ],
+    subtitle: `Daily and weekly views remain interactive projections, anchored to the real monthly artifact for ${summary.rangeLabel}`,
+  };
+}
+
+export function getTimeTrendModel(
+  granularity: TimeGranularity,
+  rangeId: Parameters<typeof getTimeTrendSummary>[0],
+): TimeTrendModel {
+  if (granularity === 'monthly') {
+    return buildMonthlyTimeTrendModel(rangeId);
+  }
+
+  return buildProjectedTimeTrendModel(granularity, rangeId);
+}
+
+export function getTimeTrendSeries(
+  granularity: TimeGranularity,
+  rangeId: Parameters<typeof getTimeTrendSummary>[0],
+): TimeTrendPoint[] {
+  return getTimeTrendModel(granularity, rangeId).series;
 }
 
 export function getTimeTrendHighlights(
   granularity: TimeGranularity,
   rangeId: Parameters<typeof getTimeTrendSummary>[0],
 ): TimeTrendHighlight[] {
-  if (granularity !== 'monthly') {
-    return mockTimeTrendHighlights.map((item) => ({
-      label: item.label,
-      value: item.value,
-      detail: item.delta,
-    }));
-  }
+  return getTimeTrendModel(granularity, rangeId).highlights;
+}
 
-  const summary = getTimeTrendSummary(rangeId);
-
-  return [
-    {
-      label: 'Orders',
-      value: formatOrderCountCompact(summary.averageOrders),
-      detail: `${summary.monthsCovered} months covered`,
-    },
-    {
-      label: 'GMV (R$)',
-      value: formatCurrencyCompact(summary.averageGmv),
-      detail: `Total ${formatCurrency(summary.averageGmv * summary.monthsCovered)}`,
-    },
-    {
-      label: 'Late Delivery Rate',
-      value: `${summary.lateDeliveryRate.toFixed(1)}%`,
-      detail: `${getMetricDefinition('lateDeliveryRate').summary} (${summary.rangeLabel})`,
-    },
-  ];
+export function getTimeTrendSubtitle(
+  granularity: TimeGranularity,
+  rangeId: Parameters<typeof getTimeTrendSummary>[0],
+): string {
+  return getTimeTrendModel(granularity, rangeId).subtitle;
 }
 
 export function getDashboardPaymentTypeOptions(
