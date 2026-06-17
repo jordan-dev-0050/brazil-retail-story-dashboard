@@ -54,9 +54,11 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 | Phase | 狀態 | 階段名稱 | 目標摘要 | 預計對應文檔類型 | 預計對應文檔 |
 |------|------|---------|---------|----------------|-------------|
 | P1 | [x] 已完成 | 現況盤點與 scope freeze | 明確列出目前 KPI / Time Trend / disabled filters 的 hybrid 邊界與本次收斂順序 | FXX | `documents/implements/F07-p05-boundary-inventory-contract.md` |
-| P2 | [ ] 未開始 | KPI cards fully real-backed 收斂 | 先處理首頁 summary layer，移除最顯眼的 mock-backed 指標依賴 | FXX | `documents/implements/F08-p05-kpi-cards-real-backed-contract.md` |
+| P2 | [x] 已完成 | KPI cards fully real-backed 收斂 | KPI row 已完全切到 artifact-backed facade，首頁不再混入 mock KPI；本輪同步補齊文件與型別語意清理 | FXX | `documents/implements/F08-p05-kpi-cards-real-backed-contract.md` |
 | P3 | [ ] 未開始 | Time Trend mock behavior 最小收斂 | 收斂 granularity / highlight / subtitle 的 mock 性質，但不擴成完整多 grain productization | FXX + RXX | `documents/implements/F09-p05-time-trend-convergence-contract.md` / `documents/implements/R01-p05-dashboard-facade-boundary-cleanup.md` |
 | P4 | [ ] 未開始 | Boundary disclosure 與驗收基線 | 讓 UI 說明、驗收方式、portfolio disclosure 與實際資料邊界一致 | FXX | `documents/implements/F10-p05-portfolio-disclosure-verification.md` |
+
+> Sync note (2026-06-17): P1、P2 已完成。`src/data/dashboardData.ts` 已完全改為透過 `buildPhase2KpiCards()` 輸出 KPI，`src/data/phase2DashboardData.ts` 已以 artifact/review panel 計算 `Avg Review Score`，`DashboardPage.tsx` 已揭露目前 hybrid boundary，且 KPI card 的 `delta / comparison / tone` 舊 mock 語意已自 app-facing 型別與元件移除。
 
 ---
 
@@ -108,13 +110,21 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 
 **Checklist**
 
-- [ ] 確認每張 KPI card 是否值得納入本次 real-backed 收斂。
-- [ ] 評估 `Avg Delivery Days` 是否能以最小 artifact extension 落地，或是否應暫時移出 / 降級為非本次目標。
-- [ ] 評估 `Avg Review Score` 是否能以最小 artifact extension 落地，或是否應暫時移出 / 降級為非本次目標。
-- [ ] 收斂 KPI caption、comparison、tone 等文案是否仍會暗示不存在的 mock period comparison。
-- [ ] 定義完成後的 KPI layer 對 portfolio 的可敘述版本。
+- [x] 確認每張 KPI card 是否值得納入本次 real-backed 收斂。
+- [x] 確認 `Avg Delivery Days` 不以 mock card 留在首頁，並降級為後續 artifact extension 議題。
+- [x] 確認 `Avg Review Score` 以既有 `reviewPanelsByRange` 聚合為 real-backed KPI。
+- [x] 移除 app-facing KPI `delta / comparison / tone` 型別與渲染分支，避免殘留 mock period comparison 語意。
+- [x] 定義完成後的 KPI layer 對 portfolio 的可敘述版本。
 
 **預計對應的 FXX / RXX 類型**
+
+**目前同步狀態（2026-06-17）**
+
+- [x] `dashboardData.ts` 已改為直接委派 `buildPhase2KpiCards(rangeId)`
+- [x] `Total Orders` / `Total GMV` / `Late Delivery Rate` 已由 artifact KPI facade 輸出
+- [x] `Avg Review Score` 已改為由 `reviewPanelsByRange` 聚合計算
+- [x] `Avg Delivery Days` 已自首頁 KPI row 移除，保留為後續 artifact extension 議題
+- [x] UI disclosure、文件同步與 KPI 舊比較語意清理已完成
 
 `FXX` - KPI cards real-backed contract
 
@@ -239,3 +249,12 @@ P05 完成後，建議依序往下拆：
 2. 以 `F07` 結論為依據，起草 `F08-p05-kpi-cards-real-backed-contract.md`
 3. 視 `F08` 結果，再決定 `F09` 是否走「真資料多 granularity」或「縮減互動、降低 mock 風險」路線
 4. 若 facade source-mixing 在 `dashboardData.ts` 已明顯造成理解成本，再補 `R01-p05-dashboard-facade-boundary-cleanup.md`
+## 8. Latest Sync Note (2026-06-17)
+
+- P1 已完成。
+- P2 已完成，且核心 KPI facade 已落地到程式與文件。
+- `buildKpiCards()` 已改為走 `buildPhase2KpiCards()`。
+- `Avg Review Score` 已由 artifact-backed review panel 聚合計算。
+- `Avg Delivery Days` 未納入本輪 artifact extension，但也已不再以 mock KPI 留在首頁。
+- KPI card 的 `delta / comparison / tone` 舊 mock 比較語意已自 app-facing 型別與元件移除。
+- P3 / P4 尚未開始；`Time Trend` 仍維持 monthly real-backed、daily/weekly mock-backed 的 hybrid 狀態。

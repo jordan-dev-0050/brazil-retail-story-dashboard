@@ -30,7 +30,7 @@ type FilterConfig = {
 type KpiCardViewModel = {
   title: string;
   value: string;
-  icon: 'orders' | 'gmv' | 'delay';
+  icon: 'orders' | 'gmv' | 'delay' | 'review';
   chipClassName: string;
   caption: string;
 };
@@ -123,6 +123,15 @@ export function getDateRangeById(rangeId: DateRangeId): Phase2DateRange {
 export function buildKpiCards(rangeId: DateRangeId): KpiCardViewModel[] {
   const range = getDateRangeById(rangeId);
   const kpis = phase2DashboardArtifact.kpisByRange[rangeId];
+  const reviewPanel = getReviewPanel(rangeId);
+  const reviewedOrderCount = reviewPanel.points.reduce((total, point) => total + point.orderCount, 0);
+  const averageReviewScore =
+    reviewedOrderCount === 0
+      ? 0
+      : reviewPanel.points.reduce(
+          (total, point) => total + point.reviewScoreAvg * point.orderCount,
+          0,
+        ) / reviewedOrderCount;
 
   return [
     {
@@ -145,6 +154,13 @@ export function buildKpiCards(rangeId: DateRangeId): KpiCardViewModel[] {
       icon: 'delay',
       chipClassName: 'bg-orange-50 text-orange-500',
       caption: buildMetricCaption('lateDeliveryRate', range.label),
+    },
+    {
+      title: 'Avg Review Score',
+      value: `${averageReviewScore.toFixed(1)} / 5`,
+      icon: 'review',
+      chipClassName: 'bg-amber-50 text-amber-500',
+      caption: `Reviewed delivered orders, ${range.label}`,
     },
   ];
 }

@@ -1,7 +1,6 @@
 import {
   buildFilterOptions as buildPhase2FilterOptions,
   buildKpiCards as buildPhase2KpiCards,
-  buildMetricCaption,
   formatCurrency,
   formatCurrencyCompact,
   formatOrderCount,
@@ -18,7 +17,6 @@ import {
   phase2DashboardArtifact,
 } from './phase2DashboardData';
 import {
-  kpiCards as mockKpiCards,
   timeTrendHighlights as mockTimeTrendHighlights,
   timeTrendSeries as mockTimeTrendSeries,
   type TimeGranularity,
@@ -49,9 +47,6 @@ type KpiCardViewModel = {
   value: string;
   icon: 'orders' | 'gmv' | 'delivery' | 'delay' | 'review';
   chipClassName: string;
-  delta?: string;
-  comparison?: string;
-  tone?: 'positive' | 'negative' | 'neutral';
   caption?: string;
 };
 
@@ -99,26 +94,7 @@ export function getInitialFilterValues(): Record<FilterId, string> {
 export function buildKpiCards(
   rangeId: Parameters<typeof buildPhase2KpiCards>[0],
 ): KpiCardViewModel[] {
-  const realCards = buildPhase2KpiCards(rangeId);
-  const [ordersCard, gmvCard, lateDeliveryRateCard] = realCards;
-  const range = getDateRangeById(rangeId);
-
-  return [
-    {
-      ...ordersCard,
-      caption: buildMetricCaption('totalOrders', range.label),
-    },
-    {
-      ...gmvCard,
-      caption: buildMetricCaption('totalGmv', range.label),
-    },
-    mockKpiCards[2],
-    {
-      ...lateDeliveryRateCard,
-      caption: buildMetricCaption('lateDeliveryRate', range.label),
-    },
-    mockKpiCards[4],
-  ];
+  return buildPhase2KpiCards(rangeId);
 }
 
 export function getTimeTrendSeries(

@@ -1,16 +1,12 @@
 import { CalendarIcon, CartIcon, ClockIcon, CoinIcon, StarIcon } from './Icons';
 
 type IconName = 'orders' | 'gmv' | 'delivery' | 'delay' | 'review';
-type Tone = 'positive' | 'negative' | 'neutral';
 
 type KpiCardProps = {
   title: string;
   value: string;
   icon: IconName;
   chipClassName: string;
-  delta?: string;
-  comparison?: string;
-  tone?: Tone;
   caption?: string;
 };
 
@@ -27,19 +23,9 @@ export function KpiCard({
   value,
   icon,
   chipClassName,
-  delta,
-  comparison,
-  tone,
   caption,
 }: KpiCardProps) {
   const Icon = iconMap[icon];
-  const shouldRenderChange = Boolean(delta && comparison && tone);
-  const toneClassName =
-    tone === 'positive'
-      ? 'text-emerald-600'
-      : tone === 'negative'
-        ? 'text-rose-500'
-        : 'text-slate';
 
   return (
     <article className="rounded-[28px] border border-white/70 bg-white/95 p-5 shadow-panel backdrop-blur">
@@ -52,12 +38,7 @@ export function KpiCard({
           <p className="mt-2 text-[2rem] font-semibold tracking-[-0.03em] text-ink">{value}</p>
         </div>
       </div>
-      {shouldRenderChange ? (
-        <p className={`mt-4 text-sm font-medium ${toneClassName}`}>
-          {delta}
-          <span className="ml-1 font-normal text-slate">{comparison}</span>
-        </p>
-      ) : caption ? (
+      {caption ? (
         <p className="mt-4 text-sm text-slate">{caption}</p>
       ) : null}
     </article>

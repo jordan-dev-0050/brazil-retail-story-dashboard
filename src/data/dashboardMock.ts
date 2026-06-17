@@ -43,54 +43,6 @@ export const filterOptions: Record<
   },
 };
 
-export const kpiCards = [
-  {
-    title: 'Total Orders',
-    value: '99.4K',
-    delta: '18.6%',
-    comparison: 'vs Dec 1 - Dec 31, 2023',
-    tone: 'positive' as const,
-    icon: 'orders' as const,
-    chipClassName: 'bg-blue-50 text-accent-blue',
-  },
-  {
-    title: 'Total GMV',
-    value: 'R$15.8M',
-    delta: '22.3%',
-    comparison: 'vs Dec 1 - Dec 31, 2023',
-    tone: 'positive' as const,
-    icon: 'gmv' as const,
-    chipClassName: 'bg-emerald-50 text-accent-teal',
-  },
-  {
-    title: 'Avg Delivery Days',
-    value: '12.4',
-    delta: '-1.8',
-    comparison: 'vs Dec 1 - Dec 31, 2023',
-    tone: 'positive' as const,
-    icon: 'delivery' as const,
-    chipClassName: 'bg-indigo-50 text-indigo-600',
-  },
-  {
-    title: 'Late Delivery Rate',
-    value: '8.7%',
-    delta: '-2.6pp',
-    comparison: 'vs Dec 1 - Dec 31, 2023',
-    tone: 'positive' as const,
-    icon: 'delay' as const,
-    chipClassName: 'bg-orange-50 text-orange-500',
-  },
-  {
-    title: 'Avg Review Score',
-    value: '4.1 / 5',
-    delta: '0.2',
-    comparison: 'vs Dec 1 - Dec 31, 2023',
-    tone: 'positive' as const,
-    icon: 'review' as const,
-    chipClassName: 'bg-amber-50 text-amber-500',
-  },
-];
-
 export const mapLegendLabels: Record<MapMetric, string[]> = {
   orders: ['> 10K', '5K - 10K', '2K - 5K', '1K - 2K', '< 1K'],
   gmv: ['> R$2.0M', 'R$1.2M - R$2.0M', 'R$700K - R$1.2M', 'R$250K - R$700K', '< R$250K'],
