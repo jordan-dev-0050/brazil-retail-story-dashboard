@@ -13,7 +13,7 @@ status: synced
 
 目前專案已完成前幾階段的 real-data integration，並建立 `artifact / script / facade / types` 的資料流與 hybrid boundary。現況下，dashboard 已有部分面板與 filter 採 real-backed，但 `KPI cards` 仍存在 mock-backed 指標，`Time Trend` 中的 `Late Delivery Rate` 也尚未 fully real-backed。
 
-本次需求不是擴大產品範圍，也不是把 dashboard 重做成完整 BI 系統，而是針對面試作品集用途做最小必要補強。目標是提升作品在 demo、履歷敘述、面試 walkthrough 時的可信度，讓使用者可以誠實地說明：
+本次需求不是擴大產品範圍，也不是把 dashboard 重做成完整 BI 系統，而是針對作品集展示用途做最小必要補強。目標是提升作品在 demo、履歷敘述、專案 walkthrough 時的可信度，讓使用者可以誠實地說明：
 
 - 這份 dashboard 主要 UI 已接上真實 Olist artifact
 - KPI 與 Time Trend 的核心敘事指標不再停留在 mock
@@ -29,7 +29,7 @@ status: synced
 4. 沿用既有 `artifact / script / facade / types` 設計，不另起新資料流。
 5. 補齊對應規劃與後續實作切入點，讓下一步可銜接 `FXX / RXX / BXX`。
 
-本次 scope 的核心不是「做更多功能」，而是「把目前面試最容易被質疑的 mock-backed 核心指標補強成可解釋的 real-backed 指標」。
+本次 scope 的核心不是「做更多功能」，而是「把目前最容易被質疑的 mock-backed 核心指標補強成可解釋的 real-backed 指標」。
 
 ## 3. 不在範圍內
 
@@ -54,7 +54,7 @@ status: synced
 | P1 | KPI / Time Trend real-backed 定義收斂 | FXX | 明確列出哪些 KPI 仍為 mock、哪些可直接以現有 artifact 推導、哪些需要 artifact schema 小幅補欄位 | [x] 已完成 |
 | P2 | artifact / types / facade 最小補強設計 | FXX | 以既有 generator、artifact schema、facade selectors 為主，補足 KPI 與 `Late Delivery Rate` 所需 real-backed 欄位與取用方式 | [x] 已完成 |
 | P3 | UI 接線與 hybrid boundary 校正 | FXX | 在不改元件名稱、不改版面的前提下，把 KPI cards 與 `Time Trend` 的 `Late Delivery Rate` 切換為 real-backed | [x] 已完成 |
-| P4 | 驗證、誠實揭露與面試說法整理 | FXX | 補齊驗證基準、保留 remaining mock/restriction 清單、整理面試可誠實描述的邊界 | [x] 已完成 |
+| P4 | 驗證、誠實揭露與對外說法整理 | FXX | 補齊驗證基準、保留 remaining mock/restriction 清單、整理可誠實對外描述的邊界 | [x] 已完成 |
 
 ---
 
@@ -131,18 +131,18 @@ status: synced
 
 ---
 
-### Phase 4 - 驗證、誠實揭露與面試說法整理
+### Phase 4 - 驗證、誠實揭露與對外說法整理
 
 **目的**
 
-面試作品集的可信度不只來自 real-backed，也來自可以清楚交代哪些是真的、哪些尚未做、為什麼先停在這裡。此 phase 需要把驗證與誠實揭露一起完成。
+作品集敘事的可信度不只來自 real-backed，也來自可以清楚交代哪些是真的、哪些尚未做、為什麼先停在這裡。此 phase 需要把驗證與誠實揭露一起完成。
 
 **Checklist**
 
 - [x] 驗證 KPI cards 顯示值與 artifact / source calculation 一致。
 - [x] 驗證 `Time Trend` 中 `Late Delivery Rate` 序列與定義口徑一致。
 - [x] 整理本次完成後仍保留的 disabled filters / hybrid areas。
-- [x] 補一份面試可直接使用的誠實說法，說明本次補強範圍與刻意未做項目。
+- [x] 補一份可直接對外使用的誠實說法，說明本次補強範圍與刻意未做項目。
 - [x] 確認文件中沒有把目前仍未完成之處描述成 fully complete。
 
 **對應實作文件**
@@ -164,15 +164,15 @@ status: synced
 5. `Customer State` 與 `Product Category` filters 仍維持 disabled 或未啟用狀態，沒有被誤導成可用功能。
 6. 文件與實作能清楚指出本次完成的是「最小必要補強」，不是全面完成所有 real-data integration。
 
-## 6. 面試用途下的成功定義
+## 6. 作品集用途下的成功定義
 
-若本次工作完成，面試情境下應能成立以下說法：
+若本次工作完成，作品集展示情境下應能成立以下說法：
 
 - 可以打開 dashboard，示範 KPI 與 `Late Delivery Rate` 已由真實 Olist artifact 驅動。
 - 可以清楚說明本專案採取 phased delivery，優先把最影響可信度的核心指標補到 real-backed。
 - 可以指出哪些功能刻意沒有做，例如 `Customer State` / `Product Category` filter 尚未啟用，原因是資料語意與 scope 控制，而不是遺漏。
 - 可以說明 UI 基本維持原設計，這次重點是提升資料可信度與敘事一致性，而不是做一次華麗改版。
-- 可以誠實承認這仍是一個 hybrid dashboard，但核心面試敘事指標已不再依賴 mock。
+- 可以誠實承認這仍是一個 hybrid dashboard，但核心作品集敘事指標已不再依賴 mock。
 
 ## 7. 風險與誠實揭露原則
 
@@ -181,14 +181,14 @@ status: synced
 - 現有 artifact 可能缺少某些 KPI 或 `Late Delivery Rate` 所需欄位，導致必須小幅擴 schema。
 - 某些 KPI 若原本設計口徑模糊，強行改成 real-backed 可能暴露定義不一致問題。
 - 若 scope 控制失守，容易從「補 KPI」擴散成重做更多 panels、filters 或 chart 邏輯。
-- 若只追求畫面數值替換，卻沒有補齊文件與揭露，面試時仍會被追問破口。
+- 若只追求畫面數值替換，卻沒有補齊文件與揭露，對外說明時仍會暴露敘事破口。
 
 ### 誠實揭露原則
 
 - 不把 hybrid dashboard 說成 fully real-time 或 fully productionized dashboard。
 - 不把 disabled filters 說成「已支援，只是先隱藏」，除非資料流真的完成。
 - 不把尚未 real-backed 的指標包裝成真實資料結果。
-- 不為了面試敘事而隱藏本次刻意未納入的項目，應明說是 scope tradeoff。
+- 不為了作品集敘事而隱藏本次刻意未納入的項目，應明說是 scope tradeoff。
 - 文件、命名與驗收描述都應與實際完成範圍一致。
 
 ### 本次完成後可接受的誠實狀態
