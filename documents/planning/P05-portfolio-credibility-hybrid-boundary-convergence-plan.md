@@ -1,13 +1,13 @@
 ---
 author: Codex
 date: 2026-06-15
-title: P05 - Portfolio Credibility Hybrid Boundary Convergence Plan
+title: P05 - Portfolio Productization-Oriented Hybrid Boundary Convergence Plan
 uuid: 3f8a6d9bf97c4f4d8f37c8845a4b1c2e
 version: 0.1
 status: synced
 ---
 
-# 規劃文件 P05 - Portfolio Credibility Hybrid Boundary Convergence Plan
+# 規劃文件 P05 - 作品完善導向的 Hybrid Boundary Convergence Plan
 
 ## 1. 背景與動機 (Background & Motivation)
 
@@ -17,22 +17,24 @@ status: synced
 2. `Time Trend` 雖已支援 monthly real-backed series，但 `daily / weekly` granularity 與其 highlights 仍來自 mock data，互動行為與資料語意並未完全一致。
 3. `Customer State` / `Product Category` filter 雖已有 artifact-backed options，但目前刻意維持 disabled；本次不打算將其 productize 為 active filters。
 
-本次 P05 的目的不是把 dashboard 擴成完整 BI 系統，也不是把所有 hybrid area 一次清空，而是聚焦在面試作品集最需要誠實交代、最容易被質疑的資料邊界，做最小必要補強，讓 demo、履歷敘述、walkthrough 都能更一致地說明：
+P05 的新定位不是替「下一場面試要怎麼說」做防守，而是把專案往更成熟、更能吸引機會的作品方向推進。它仍然重視誠實交代資料邊界，但誠實揭露在這裡是配角；主角是收斂最影響產品感與真實感的 hybrid area，讓 dashboard 更像一個持續 productize 的分析作品。
 
-- 主要 summary 與核心趨勢敘事已接上真實 Olist artifact。
-- 剩餘 hybrid boundary 是有意識保留，而不是不清楚資料來源的殘留狀態。
+因此，P05 要支撐的核心敘事是：
+
+- 主要 summary 與核心趨勢敘事逐步接上真實 Olist artifact。
+- 剩餘 hybrid boundary 是階段性保留，並將被納入後續作品完善路線，而不是永久性的自我設限。
 
 ## 2. 整體目標 (Overall Goal)
 
-P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建立一份可落地的 phase-based 收斂計畫，優先處理會直接削弱作品可信度的 mock / hybrid 邊界，並明確定義：
+P05 要在不失控擴大產品範圍的前提下，為目前的 hybrid dashboard 建立一份可落地的 phase-based 收斂計畫，優先處理會直接削弱作品完成度、產品感與資料可信度的 mock / hybrid 邊界，並明確定義：
 
 - 這次要收斂哪些 summary / trend 指標。
-- 哪些互動仍維持 intentionally disabled 或 intentionally hybrid。
+- 哪些互動暫時維持 disabled 或 hybrid，但會以產品化候選的角度被記錄。
 - KPI cards 與 Time Trend 若都要做，應如何排序與拆解。
-- 後續可往下拆成哪些 `FXX / RXX` 文檔，而不讓 scope creep 混入新產品能力。
+- 後續可往下拆成哪些 `FXX / RXX` 文檔，並自然銜接 P06+ 的作品完善階段。
 
 > P05 的優先答案：最應優先收斂的是 `KPI cards`，其次才是 `Time Trend` 的 mock behavior。  
-> 原因是 KPI cards 位於 dashboard 第一視覺層，也是面試時最常被拿來口頭總結的指標；若 summary layer 仍混有 mock，整體 real-backed 敘事會先失去可信度。  
+> 原因是 KPI cards 位於 dashboard 第一視覺層，也是作品第一眼最能建立「這像不像真實分析產品」印象的指標；若 summary layer 仍混有 mock，整體 real-backed 敘事與產品感都會先失去支撐。  
 > 若兩者都做，建議順序是：`KPI cards fully real-backed` -> `Time Trend granularity / highlight convergence` -> `boundary disclosure / verification`。
 
 ## 3. 範圍與影響 (Scope & Impact)
@@ -44,7 +46,7 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 | `src/data/dashboardMock.ts` | boundary inventory 對照來源 | 用來盤點哪些 KPI / granularity / highlights 仍依賴 mock |
 | `src/components/DashboardPage.tsx` | UI boundary disclosure 影響點 | 目前已有 hybrid boundary 文案，後續需與實際資料邊界保持一致 |
 | `src/components/TimeTrendPanel.tsx` | trend behavior 收斂對象 | monthly 已 real-backed，daily / weekly tabs 與 subtitle/highlights 仍具 mock 性質 |
-| `src/components/FilterBar.tsx` | 明確維持現狀 | `Customer State` / `Product Category` 仍維持 disabled，不納入本次啟用 |
+| `src/components/FilterBar.tsx` | 明確維持現狀 | `Customer State` / `Product Category` 仍維持 disabled，不納入本次啟用，但保留作為後續 productization 候選 |
 | artifact generation / verification scripts | 可能需要最小延伸 | 僅在支撐 KPI / Time Trend 收斂所必須時才擴充，不延伸到新維度 productization |
 
 ## 4. 分階段計畫 (Phase Plan)
@@ -56,7 +58,7 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 | P1 | [x] 已完成 | 現況盤點與 scope freeze | 明確列出目前 KPI / Time Trend / disabled filters 的 hybrid 邊界與本次收斂順序 | FXX | `documents/implements/F07-p05-boundary-inventory-contract.md` |
 | P2 | [x] 已完成 | KPI cards fully real-backed 收斂 | KPI row 已完全切到 artifact-backed facade，首頁不再混入 mock KPI；本輪同步補齊文件與型別語意清理 | FXX | `documents/implements/F08-p05-kpi-cards-real-backed-contract.md` |
 | P3 | [ ] 未開始 | Time Trend mock behavior 最小收斂 | 收斂 granularity / highlight / subtitle 的 mock 性質，但不擴成完整多 grain productization | FXX + RXX | `documents/implements/F09-p05-time-trend-convergence-contract.md` / `documents/implements/R01-p05-dashboard-facade-boundary-cleanup.md` |
-| P4 | [ ] 未開始 | Boundary disclosure 與驗收基線 | 讓 UI 說明、驗收方式、portfolio disclosure 與實際資料邊界一致 | FXX | `documents/implements/F10-p05-portfolio-disclosure-verification.md` |
+| P4 | [ ] 未開始 | Boundary disclosure 與演進基線 | 讓 UI 說明、驗收方式、current-state notes 與實際資料邊界一致，並成為後續作品演進基線 | FXX | `documents/implements/F10-p05-portfolio-disclosure-verification.md` |
 
 > Sync note (2026-06-17): P1、P2 已完成。`src/data/dashboardData.ts` 已完全改為透過 `buildPhase2KpiCards()` 輸出 KPI，`src/data/phase2DashboardData.ts` 已以 artifact/review panel 計算 `Avg Review Score`，`DashboardPage.tsx` 已揭露目前 hybrid boundary，且 KPI card 的 `delta / comparison / tone` 舊 mock 語意已自 app-facing 型別與元件移除。
 
@@ -66,14 +68,14 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 
 **目標**
 
-在開始任何 FXX 實作前，先把目前 dashboard 中真正影響作品可信度的 mock / hybrid 邊界盤點清楚，並凍結本次只處理的範圍，避免後續把 disabled filters、geography semantics、更多 panel productization 一併捲入。
+在開始任何 FXX 實作前，先把目前 dashboard 中真正影響作品完成度與產品感的 mock / hybrid 邊界盤點清楚，並凍結本次只處理的範圍，避免後續把 disabled filters、geography semantics、更多 panel productization 一併捲入。
 
 **範圍**
 
 - 盤點 `KPI cards` 各張卡片的資料來源現況。
 - 盤點 `Time Trend` 在 `monthly / weekly / daily` 三種 granularity 下的 series、highlights、subtitle、interaction 行為來源。
 - 確認 `Customer State` / `Product Category` 雖然 options 已 artifact-backed，但本次仍維持 disabled。
-- 明確定義「portfolio credibility 最小補強」的驗收標準，而非「全 dashboard fully real-backed」。
+- 明確定義「作品完善優先的最小補強」驗收標準，而非「全 dashboard fully real-backed」。
 
 **Checklist**
 
@@ -99,7 +101,7 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 
 **目標**
 
-優先把 dashboard 第一視覺層的 summary 指標從「部分 real-backed、部分 mock-backed」收斂為一致的 real-backed 敘事，讓使用者在 demo 時不需要先為 KPI 的資料來源做額外保留。
+優先把 dashboard 第一視覺層的 summary 指標從「部分 real-backed、部分 mock-backed」收斂為一致的 real-backed 敘事，讓作品在第一眼與第一段 walkthrough 就能建立更強的真實感，而不需要先用大量保留語氣替首頁 KPI 辯護。
 
 **範圍**
 
@@ -131,8 +133,8 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 **驗收重點**
 
 - 首屏 KPI 不再混用 mock-backed 與 real-backed 指標。
-- 使用者可以誠實說明 KPI summary 來自 artifact，而不是「部分真、部分展示用假資料」。
-- 若有保留項，也能清楚說明是刻意不納入，而不是遺漏。
+- 使用者可以清楚說明 KPI summary 來自 artifact，而不是「部分真、部分展示用假資料」。
+- 若有保留項，也能清楚說明是刻意延後到下一階段，而不是遺漏。
 
 ---
 
@@ -140,7 +142,7 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 
 **目標**
 
-在 KPI summary layer 已收斂後，再處理 `Time Trend` 中仍帶 mock 性質的 granularity / highlights / subtitle / interaction，讓核心趨勢敘事與 summary layer 互相一致。
+在 KPI summary layer 已收斂後，再處理 `Time Trend` 中仍帶 mock 性質的 granularity / highlights / subtitle / interaction，讓核心趨勢敘事與 summary layer 互相一致，並提升 dashboard 的整體產品感與互動完成度。
 
 **範圍**
 
@@ -174,14 +176,14 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 
 **目標**
 
-在 KPI 與 Time Trend 收斂後，補齊最後一層對外敘事與驗收方式，確保 UI 文案、README / portfolio 說法、以及驗收檢查都與真實邊界一致。
+在 KPI 與 Time Trend 收斂後，補齊最後一層現況說明與驗收方式，確保 UI 文案、README / portfolio 說法、以及驗收檢查都與真實邊界一致，同時讓這份文件自然成為下一階段作品演進的起點。
 
 **範圍**
 
 - 更新 dashboard 內的 hybrid boundary 說明文案。
 - 定義本次驗收所需的 manual verification / artifact verification / build checks。
 - 明確記錄「現在已 real-backed 的核心敘事」與「仍 intentionally disabled / intentionally hybrid 的區域」。
-- 提供後續面試 walkthrough 可重複使用的 disclosure 語句。
+- 提供後續作品介紹與面試 walkthrough 都可重複使用的 current-state 語句。
 
 **Checklist**
 
@@ -198,8 +200,8 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 **驗收重點**
 
 - UI 說明、文件說明、實際資料來源三者一致。
-- 作品集敘事能誠實而有說服力地描述 current state。
-- 後續若再做 P06+，也能明確知道是擴範圍，而不是補 P05 漏項。
+- 作品敘事能誠實而有說服力地描述 current state。
+- 後續若再做 P06+，也能明確知道那是作品升級，而不是回頭補 P05 漏項。
 
 ## 5. Out of Scope
 
@@ -223,9 +225,9 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 
 理由：
 
-1. KPI 是 dashboard 第一視覺層，也是最容易在面試中被直接引用的 summary。
+1. KPI 是 dashboard 第一視覺層，也是最容易在作品初看與面試中被直接引用的 summary。
 2. 目前 `dashboardData.ts` 中 KPI 同時混用 real cards 與 `mockKpiCards`，這比 Time Trend granularity 更容易讓整體敘事失真。
-3. 一旦 summary layer 還混有 mock，後續即使 Time Trend 再真，也難以支撐「核心指標已 real-backed」的說法。
+3. 一旦 summary layer 還混有 mock，後續即使 Time Trend 再真，也難以支撐「這是一個正在成熟的真實分析作品」的印象。
 
 ### 如果 KPI 與 Time Trend 都做，順序應如何安排？
 
@@ -243,12 +245,13 @@ P05 要在不擴大產品範圍的前提下，為目前的 hybrid dashboard 建�
 
 ## 7. 建議下一步
 
-P05 完成後，建議依序往下拆：
+P05 完成後，建議依序往下拆，並把焦點正式轉往作品完善：
 
 1. 使用 `ddd-doc` 起草 `F07-p05-boundary-inventory-contract.md`
 2. 以 `F07` 結論為依據，起草 `F08-p05-kpi-cards-real-backed-contract.md`
 3. 視 `F08` 結果，再決定 `F09` 是否走「真資料多 granularity」或「縮減互動、降低 mock 風險」路線
 4. 若 facade source-mixing 在 `dashboardData.ts` 已明顯造成理解成本，再補 `R01-p05-dashboard-facade-boundary-cleanup.md`
+5. 以 P05 收斂結果為基線，另立 P06 處理 filters、trend interaction、README/storytelling 等作品吸引力提升項目
 ## 8. Latest Sync Note (2026-06-17)
 
 - P1 已完成。

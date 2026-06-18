@@ -1,25 +1,27 @@
 ---
 author: Codex
 date: 2026-06-06
-title: Brazil Olist Dashboard 最小必要補強規劃
+title: Brazil Olist Dashboard 作品完善優先的最小必要補強規劃
 uuid: 6e6d4b4c8d4a4d38b6c6f07cc2d6d90a
 version: 0.2
 status: synced
 ---
 
-# 規劃文件 P04 - Brazil Olist Dashboard 最小必要補強
+# 規劃文件 P04 - Brazil Olist Dashboard 作品完善優先的最小必要補強
 
-## 1. 背景與目的
+## 1. 背景與定位
 
 目前專案已完成前幾階段的 real-data integration，並建立 `artifact / script / facade / types` 的資料流與 hybrid boundary。現況下，dashboard 已有部分面板與 filter 採 real-backed，但 `KPI cards` 仍存在 mock-backed 指標，`Time Trend` 中的 `Late Delivery Rate` 也尚未 fully real-backed。
 
-本次需求不是擴大產品範圍，也不是把 dashboard 重做成完整 BI 系統，而是針對作品集展示用途做最小必要補強。目標是提升作品在 demo、履歷敘述、專案 walkthrough 時的可信度，讓使用者可以誠實地說明：
+P04 的定位不再是單純為面試準備一套「怎麼解釋現在還沒做完」的說法，而是替作品後續持續完善建立一個乾淨的起點。這一輪的任務是把最容易削弱作品真實感與完成度的核心指標補強成 real-backed，讓 dashboard 更像一個正在收斂中的分析產品，而不是一個只能靠敘事撐起來的展示頁。
 
-- 這份 dashboard 主要 UI 已接上真實 Olist artifact
-- KPI 與 Time Trend 的核心敘事指標不再停留在 mock
-- 專案仍維持既有結構與 phase-based 演進方式，沒有為了補資料而破壞原本設計
+因此，P04 的主軸是：
 
-## 2. 範圍
+- 先補強最影響作品觀感的核心資料層缺口
+- 在不擴大產品範圍的前提下，提升 dashboard 的真實感與一致性
+- 保留誠實揭露，但將其降級為附屬材料，而不是後續方向的主導原則
+
+## 2. 本次範圍
 
 本次納入範圍限定如下：
 
@@ -29,9 +31,9 @@ status: synced
 4. 沿用既有 `artifact / script / facade / types` 設計，不另起新資料流。
 5. 補齊對應規劃與後續實作切入點，讓下一步可銜接 `FXX / RXX / BXX`。
 
-本次 scope 的核心不是「做更多功能」，而是「把目前最容易被質疑的 mock-backed 核心指標補強成可解釋的 real-backed 指標」。
+本次 scope 的核心不是「做更多功能」，而是「把目前最影響作品完成度與資料可信度的核心指標補強成 real-backed」，為後續更完整的 productization 留出乾淨的延伸面。
 
-## 3. 不在範圍內
+## 3. 目前不在範圍內
 
 以下明確不納入本次規劃：
 
@@ -43,7 +45,9 @@ status: synced
 - 大幅 UI 重構
 - 重新命名既有 panel / component / facade
 - 擴充新的 dashboard 版面、頁面或互動流程
-- 為了追求 fully real-backed 而把目前仍合理存在的 hybrid 結構全部拆掉
+- 為了追求 fully real-backed 而把目前仍合理存在的 hybrid 結構一次性全部拆掉
+
+以上項目不納入，不代表它們不重要；只代表它們不屬於這一輪「最小必要補強」的優先順序。若後續以作品吸引力與產品感為主軸推進，這些項目仍可能在下一階段被正式納入。
 
 ## 4. Phase / Checklist
 
@@ -54,7 +58,7 @@ status: synced
 | P1 | KPI / Time Trend real-backed 定義收斂 | FXX | 明確列出哪些 KPI 仍為 mock、哪些可直接以現有 artifact 推導、哪些需要 artifact schema 小幅補欄位 | [x] 已完成 |
 | P2 | artifact / types / facade 最小補強設計 | FXX | 以既有 generator、artifact schema、facade selectors 為主，補足 KPI 與 `Late Delivery Rate` 所需 real-backed 欄位與取用方式 | [x] 已完成 |
 | P3 | UI 接線與 hybrid boundary 校正 | FXX | 在不改元件名稱、不改版面的前提下，把 KPI cards 與 `Time Trend` 的 `Late Delivery Rate` 切換為 real-backed | [x] 已完成 |
-| P4 | 驗證、誠實揭露與對外說法整理 | FXX | 補齊驗證基準、保留 remaining mock/restriction 清單、整理可誠實對外描述的邊界 | [x] 已完成 |
+| P4 | 驗證、現況說明與後續演進銜接 | FXX | 補齊驗證基準、保留 remaining mock/restriction 清單，並把現況說明整理成支援後續作品演進的基線 | [x] 已完成 |
 
 ---
 
@@ -131,23 +135,23 @@ status: synced
 
 ---
 
-### Phase 4 - 驗證、誠實揭露與對外說法整理
+### Phase 4 - 驗證、現況說明與後續演進銜接
 
 **目的**
 
-作品集敘事的可信度不只來自 real-backed，也來自可以清楚交代哪些是真的、哪些尚未做、為什麼先停在這裡。此 phase 需要把驗證與誠實揭露一起完成。
+作品的可信度不只來自 real-backed，也來自可以清楚交代哪些已完成、哪些暫未處理、以及下一步準備往哪裡推進。此 phase 的重點不是替專案畫下句點，而是建立一份可持續沿用的現況基線，讓後續優化可以自然接續，而不是每次都重新解釋為什麼還停在 hybrid。
 
 **Checklist**
 
 - [x] 驗證 KPI cards 顯示值與 artifact / source calculation 一致。
 - [x] 驗證 `Time Trend` 中 `Late Delivery Rate` 序列與定義口徑一致。
 - [x] 整理本次完成後仍保留的 disabled filters / hybrid areas。
-- [x] 補一份可直接對外使用的誠實說法，說明本次補強範圍與刻意未做項目。
+- [x] 補一份可對外使用的現況說法，說明本次補強範圍、當前限制與下一階段延伸方向。
 - [x] 確認文件中沒有把目前仍未完成之處描述成 fully complete。
 
 **對應實作文件**
 
-`FXX` - verification and portfolio disclosure notes
+`FXX` - verification and current-state notes
 
 **狀態**
 
@@ -164,17 +168,17 @@ status: synced
 5. `Customer State` 與 `Product Category` filters 仍維持 disabled 或未啟用狀態，沒有被誤導成可用功能。
 6. 文件與實作能清楚指出本次完成的是「最小必要補強」，不是全面完成所有 real-data integration。
 
-## 6. 作品集用途下的成功定義
+## 6. 作品完善優先下的成功定義
 
-若本次工作完成，作品集展示情境下應能成立以下說法：
+若本次工作完成，專案在作品集展示與後續演進上應能成立以下說法：
 
 - 可以打開 dashboard，示範 KPI 與 `Late Delivery Rate` 已由真實 Olist artifact 驅動。
-- 可以清楚說明本專案採取 phased delivery，優先把最影響可信度的核心指標補到 real-backed。
-- 可以指出哪些功能刻意沒有做，例如 `Customer State` / `Product Category` filter 尚未啟用，原因是資料語意與 scope 控制，而不是遺漏。
-- 可以說明 UI 基本維持原設計，這次重點是提升資料可信度與敘事一致性，而不是做一次華麗改版。
-- 可以誠實承認這仍是一個 hybrid dashboard，但核心作品集敘事指標已不再依賴 mock。
+- 可以讓觀者一眼感受到首頁 summary layer 已具備更高真實感，而不是明顯混著展示用假資料。
+- 可以清楚說明本專案採取 phased delivery，這一輪優先收斂最影響作品完成度的核心指標。
+- 可以指出哪些功能暫未啟用，例如 `Customer State` / `Product Category` filter，並把它們定位成下一階段 productization 候選，而不是永久放棄。
+- 可以保留誠實揭露，但整體語氣已從「解釋限制」轉為「展示正在成熟中的作品」。
 
-## 7. 風險與誠實揭露原則
+## 7. 風險與現況說明原則
 
 ### 主要風險
 
@@ -183,18 +187,18 @@ status: synced
 - 若 scope 控制失守，容易從「補 KPI」擴散成重做更多 panels、filters 或 chart 邏輯。
 - 若只追求畫面數值替換，卻沒有補齊文件與揭露，對外說明時仍會暴露敘事破口。
 
-### 誠實揭露原則
+### 現況說明原則
 
 - 不把 hybrid dashboard 說成 fully real-time 或 fully productionized dashboard。
 - 不把 disabled filters 說成「已支援，只是先隱藏」，除非資料流真的完成。
 - 不把尚未 real-backed 的指標包裝成真實資料結果。
-- 不為了作品集敘事而隱藏本次刻意未納入的項目，應明說是 scope tradeoff。
-- 文件、命名與驗收描述都應與實際完成範圍一致。
+- 不為了讓作品看起來更完整，就模糊這一輪刻意未納入的項目；應明說這是階段性 scope tradeoff。
+- 文件、命名與驗收描述都應與實際完成範圍一致，同時保留對下一階段演進的延伸空間。
 
-### 本次完成後可接受的誠實狀態
+### 本次完成後可接受的專案描述
 
 本次需求完成後，可接受的專案描述應接近：
 
 > 這是一個以真實 Olist CSV 為基礎、透過 artifact generator 與 facade 餵給前端的 hybrid dashboard。
-> 我這一輪優先把 KPI cards 與 Time Trend 的 Late Delivery Rate 補成 real-backed，提升作品集 demo 的可信度；
-> 但 Customer State / Product Category filters、部署、後端與更完整的 productization 不在這一輪 scope 內。
+> 我這一輪優先把 KPI cards 與 Time Trend 的 Late Delivery Rate 補成 real-backed，先收斂最影響作品完成度的核心敘事層；
+> 其餘像 Customer State / Product Category filters、更完整的 trend productization、部署與後端，則保留給後續作品完善階段處理。
