@@ -4,10 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --config vite.config.ts",
     "generate:phase2-artifact": "node scripts/generate-phase2-dashboard-artifact.mjs",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
+    "build": "node scripts/ensure-phase2-dashboard-artifact.mjs && tsc -b && vite build --config vite.config.ts",
+    "preview": "vite preview --config vite.config.ts",
     "test:phase2-artifact": "node scripts/verify-phase2-dashboard-artifact.mjs"
   },
   "dependencies": {

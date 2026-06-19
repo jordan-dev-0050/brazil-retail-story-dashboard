@@ -1,6 +1,7 @@
 backup/
 backup.zip
 data/processed/
+data/public/dashboard-artifacts/*.json
 
 .DS_Store
 Thumbs.db

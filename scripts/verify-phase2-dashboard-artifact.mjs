@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import artifact from '../src/data/phase2DashboardArtifact.json' with { type: 'json' };
+import artifact from '../data/public/dashboard-artifacts/phase2DashboardArtifact.json' with { type: 'json' };
 
 const expectedRanges = ['all', '2017', '2018_ytd'];
 const expectedMonthCounts = {

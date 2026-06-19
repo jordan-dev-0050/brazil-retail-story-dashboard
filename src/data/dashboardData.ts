@@ -3,6 +3,7 @@ import {
   ALL_STATES_VALUE,
   buildFilterOptions as buildPhase2FilterOptions,
   buildKpiCards as buildPhase2KpiCards,
+  ensurePhase2DashboardArtifactLoaded,
   formatCurrency,
   formatCurrencyCompact,
   formatOrderCount,
@@ -15,8 +16,8 @@ import {
   getPaymentTypeOptions,
   getReviewPanel,
   getMetricDefinition,
+  getPhase2DashboardArtifact,
   getTimeTrendSummary,
-  phase2DashboardArtifact,
 } from './phase2DashboardData';
 import {
   timeTrendSeries as mockTimeTrendSeries,
@@ -74,17 +75,20 @@ type TimeTrendModel = {
   mode: TimeTrendMode;
 };
 
-export const dashboardArtifact = phase2DashboardArtifact;
-
-const dateRangeOptions = dashboardArtifact.dateRanges.map((range) => ({
-  label: range.label,
-  value: range.id,
-}));
-
-const defaultRangeId = (dateRangeOptions[0]?.value ?? 'all') as DateRangeId;
-
 export { formatCurrency, formatCurrencyCompact, formatOrderCount, formatOrderCountCompact };
 export { ALL_CATEGORIES_VALUE, ALL_STATES_VALUE };
+
+export async function ensureDashboardDataReady(): Promise<void> {
+  await ensurePhase2DashboardArtifactLoaded();
+}
+
+export function getDashboardArtifact() {
+  return getPhase2DashboardArtifact();
+}
+
+function getDefaultRangeId(): DateRangeId {
+  return (getDashboardArtifact().dateRanges[0]?.id ?? 'all') as DateRangeId;
+}
 
 export function getDashboardFilterOptions(
   rangeId: Parameters<typeof getPaymentTypeOptions>[0],
@@ -96,13 +100,13 @@ export function getDashboardFilterOptions(
 
 export function getInitialFilterValues(): Record<FilterId, string> {
   const initialFilterOptions = getDashboardFilterOptions(
-    defaultRangeId,
+    getDefaultRangeId(),
     ALL_STATES_VALUE,
     ALL_CATEGORIES_VALUE,
   );
 
   return {
-    dateRange: initialFilterOptions.dateRange.options[0]?.value ?? defaultRangeId,
+    dateRange: initialFilterOptions.dateRange.options[0]?.value ?? getDefaultRangeId(),
     customerState: initialFilterOptions.customerState.options[0]?.value ?? 'all-states',
     productCategory: initialFilterOptions.productCategory.options[0]?.value ?? 'all-categories',
     paymentType: initialFilterOptions.paymentType.options[0]?.value ?? 'all',

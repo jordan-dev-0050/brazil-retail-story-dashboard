@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ALL_CATEGORIES_VALUE,
   ALL_STATES_VALUE,
   buildKpiCards,
+  ensureDashboardDataReady,
   getDashboardCategoryPanel,
   getDashboardFilterOptions,
   getDashboardGeographyPanel,
@@ -90,9 +91,57 @@ function normalizeFilters(
 }
 
 export function DashboardPage() {
-  const [filters, setFilters] = useState<Record<FilterId, string>>(() => getInitialFilterValues());
+  const [isReady, setIsReady] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [filters, setFilters] = useState<Record<FilterId, string>>({
+    dateRange: 'all',
+    customerState: ALL_STATES_VALUE,
+    productCategory: ALL_CATEGORIES_VALUE,
+    paymentType: 'all',
+  });
   const [mapMetric, setMapMetric] = useState<MapMetric>('orders');
   const [timeGranularity, setTimeGranularity] = useState<TimeGranularity>('monthly');
+
+  useEffect(() => {
+    let cancelled = false;
+
+    ensureDashboardDataReady()
+      .then(() => {
+        if (!cancelled) {
+          setFilters(getInitialFilterValues());
+          setIsReady(true);
+        }
+      })
+      .catch((error: unknown) => {
+        if (!cancelled) {
+          setLoadError(error instanceof Error ? error.message : 'Unknown dashboard data loading error.');
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (loadError) {
+    return (
+      <main className="min-h-screen px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <div className="mx-auto max-w-[1440px] rounded-3xl border border-red-200 bg-red-50 px-6 py-8 text-sm text-red-700">
+          Failed to load the local dashboard artifact. {loadError}
+        </div>
+      </main>
+    );
+  }
+
+  if (!isReady) {
+    return (
+      <main className="min-h-screen px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <div className="mx-auto max-w-[1440px] rounded-3xl border border-slate-200 bg-white/80 px-6 py-8 text-sm text-slate-600 shadow-sm">
+          Loading local dashboard artifact...
+        </div>
+      </main>
+    );
+  }
 
   const selectedRangeId = filters.dateRange as DateRangeId;
   const filterConfigs = getDashboardFilterOptions(

@@ -1,4 +1,3 @@
-import artifactJson from './phase2DashboardArtifact.json';
 import type {
   DateRangeId,
   FilterId,
@@ -18,6 +17,7 @@ import type {
   Phase3GeographyPanel,
   Phase3ReviewPanel,
 } from './phase2DashboardTypes';
+import { loadPhase2DashboardArtifact } from './phase2DashboardArtifactLoader';
 
 type FilterOption = {
   label: string;
@@ -59,6 +59,9 @@ type CohortAggregate = {
   reviewPanel: Phase3ReviewPanel;
 };
 
+let phase2DashboardArtifact: Phase2DashboardArtifact | null = null;
+let phase2DashboardArtifactPromise: Promise<Phase2DashboardArtifact> | null = null;
+let dateRangeById = {} as Record<DateRangeId, Phase2DateRange>;
 const compactNumberFormatter = new Intl.NumberFormat('en-US', {
   notation: 'compact',
   maximumFractionDigits: 1,
@@ -90,16 +93,42 @@ const PAYMENT_TYPE_LABELS: Record<string, string> = {
 };
 const MIN_DELAY_BUCKET = -14;
 const MAX_DELAY_BUCKET = 60;
-
-export const phase2DashboardArtifact = artifactJson as Phase2DashboardArtifact;
 export const ALL_STATES_VALUE = 'all-states';
 export const ALL_CATEGORIES_VALUE = 'all-categories';
-
-const dateRangeById = Object.fromEntries(
-  phase2DashboardArtifact.dateRanges.map((range) => [range.id, range]),
-) as Record<DateRangeId, Phase2DateRange>;
 const rangeFactsCache = new Map<DateRangeId, Phase2OrderFact[]>();
 const cohortAggregateCache = new Map<string, CohortAggregate>();
+
+function setPhase2DashboardArtifact(artifact: Phase2DashboardArtifact) {
+  phase2DashboardArtifact = artifact;
+  dateRangeById = Object.fromEntries(
+    artifact.dateRanges.map((range) => [range.id, range]),
+  ) as Record<DateRangeId, Phase2DateRange>;
+  rangeFactsCache.clear();
+  cohortAggregateCache.clear();
+}
+
+export async function ensurePhase2DashboardArtifactLoaded(): Promise<Phase2DashboardArtifact> {
+  if (phase2DashboardArtifact) {
+    return phase2DashboardArtifact;
+  }
+
+  phase2DashboardArtifactPromise ??= loadPhase2DashboardArtifact().then((artifact) => {
+    setPhase2DashboardArtifact(artifact);
+    return artifact;
+  });
+
+  return phase2DashboardArtifactPromise;
+}
+
+export function getPhase2DashboardArtifact(): Phase2DashboardArtifact {
+  if (!phase2DashboardArtifact) {
+    throw new Error(
+      'Phase 2 dashboard artifact is not loaded yet. Call ensurePhase2DashboardArtifactLoaded() first.',
+    );
+  }
+
+  return phase2DashboardArtifact;
+}
 
 function roundCurrency(value: number): number {
   return Number(value.toFixed(2));
@@ -406,7 +435,7 @@ function getDateRangeFacts(rangeId: DateRangeId): Phase2OrderFact[] {
   }
 
   const range = getDateRangeById(rangeId);
-  const facts = phase2DashboardArtifact.orderFacts.filter((order) =>
+  const facts = getPhase2DashboardArtifact().orderFacts.filter((order) =>
     isWithinRange(order.purchaseDate, range.start, range.end),
   );
   rangeFactsCache.set(rangeId, facts);
@@ -675,7 +704,7 @@ function toFilterOptions(options: Phase2DimensionOption[] | Phase2PaymentTypeOpt
 }
 
 export function getMetricDefinition(metricId: Phase2MetricId): Phase2MetricDefinition {
-  return phase2DashboardArtifact.metadata.metricDefinitions[metricId];
+  return getPhase2DashboardArtifact().metadata.metricDefinitions[metricId];
 }
 
 export function buildMetricCaption(metricId: Phase2MetricId, rangeLabel: string): string {
@@ -694,7 +723,7 @@ export function buildFilterOptions(
   return {
     dateRange: {
       label: 'Date Range',
-      options: phase2DashboardArtifact.dateRanges.map((range) => ({
+      options: getPhase2DashboardArtifact().dateRanges.map((range) => ({
         label: range.label,
         value: range.id,
       })),
@@ -723,8 +752,6 @@ export function buildFilterOptions(
     },
   };
 }
-
-export const filterOptions = buildFilterOptions('all');
 
 export function getDateRangeById(rangeId: DateRangeId): Phase2DateRange {
   return dateRangeById[rangeId];
@@ -797,7 +824,7 @@ export function getPaymentPanelsByRange(
 }
 
 export function getGeographyPanel(rangeId: DateRangeId): Phase3GeographyPanel {
-  return phase2DashboardArtifact.geographyPanelsByRange[rangeId];
+  return getPhase2DashboardArtifact().geographyPanelsByRange[rangeId];
 }
 
 export function getCategoryPanel(

@@ -2,7 +2,7 @@ import { createReadStream } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createInterface } from 'node:readline';
-import { fileURLToPath } from 'node:url';
+import { phase2ArtifactPath, projectRoot } from './phase2-dashboard-artifact-paths.mjs';
 
 const COVERAGE_START = '2017-01-01';
 const COVERAGE_END = '2018-08-31';
@@ -36,7 +36,6 @@ const DATE_RANGES = [
   },
 ];
 
-const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ordersCsvPath = path.join(projectRoot, 'data', 'olist_orders_dataset.csv');
 const customersCsvPath = path.join(projectRoot, 'data', 'olist_customers_dataset.csv');
 const orderItemsCsvPath = path.join(projectRoot, 'data', 'olist_order_items_dataset.csv');
@@ -48,7 +47,7 @@ const categoryTranslationCsvPath = path.join(
 );
 const orderPaymentsCsvPath = path.join(projectRoot, 'data', 'olist_order_payments_dataset.csv');
 const orderReviewsCsvPath = path.join(projectRoot, 'data', 'olist_order_reviews_dataset.csv');
-const outputPath = path.join(projectRoot, 'src', 'data', 'phase2DashboardArtifact.json');
+const outputPath = phase2ArtifactPath;
 
 const PAYMENT_TYPE_ORDER = ['credit_card', 'boleto', 'voucher', 'debit_card', 'not_defined'];
 const PAYMENT_TYPE_LABELS = {
