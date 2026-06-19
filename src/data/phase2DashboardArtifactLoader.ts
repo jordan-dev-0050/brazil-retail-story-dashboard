@@ -1,6 +1,6 @@
 import type { Phase2DashboardArtifact } from './phase2DashboardTypes';
 
-export const PHASE2_DASHBOARD_ARTIFACT_URL = '/dashboard-artifacts/phase2DashboardArtifact.json';
+export const PHASE2_DASHBOARD_ARTIFACT_URL = `${import.meta.env.BASE_URL}dashboard-artifacts/phase2DashboardArtifact.json`;
 
 export async function loadPhase2DashboardArtifact(): Promise<Phase2DashboardArtifact> {
   const response = await fetch(PHASE2_DASHBOARD_ARTIFACT_URL, {

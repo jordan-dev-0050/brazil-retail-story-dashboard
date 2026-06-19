@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --config vite.config.ts",
     "generate:phase2-artifact": "node scripts/generate-phase2-dashboard-artifact.mjs",
-    "build": "node scripts/ensure-phase2-dashboard-artifact.mjs && tsc -b && vite build --config vite.config.ts",
+    "build": "node scripts/generate-phase2-dashboard-artifact.mjs && tsc -b && vite build --config vite.config.ts",
     "preview": "vite preview --config vite.config.ts",
     "test:phase2-artifact": "node scripts/verify-phase2-dashboard-artifact.mjs"
   },
