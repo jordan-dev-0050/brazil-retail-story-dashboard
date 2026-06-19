@@ -200,6 +200,24 @@ const expectedReviewChecks = {
     },
   },
 };
+const expectedStateCohortChecks = {
+  all_sp: {
+    rangeId: 'all',
+    state: 'SP',
+    totalOrders: 40406,
+    totalGmv: 5055587.13,
+    lateDeliveryRate: 4.51,
+    reviewedOrderCount: 40171,
+  },
+  ytd_mg: {
+    rangeId: '2018_ytd',
+    state: 'MG',
+    totalOrders: 6079,
+    totalGmv: 840172.2,
+    lateDeliveryRate: 6.19,
+    reviewedOrderCount: 6042,
+  },
+};
 const expectedCategoryCohortChecks = {
   all_bed_bath_table: {
     rangeId: 'all',
@@ -270,6 +288,18 @@ function getCategoryCohortFacts(rangeId, state, category) {
       (state === 'all-states' || order.customerState === state) &&
       (category === 'all-categories' ||
         order.categories.some((entry) => entry.categoryKey === category)),
+  );
+}
+
+function getStateCohortFacts(rangeId, state) {
+  const range = getRange(rangeId);
+  assert.ok(range, `Missing date range ${rangeId}`);
+
+  return artifact.orderFacts.filter(
+    (order) =>
+      order.purchaseDate >= range.start &&
+      order.purchaseDate <= range.end &&
+      (state === 'all-states' || order.customerState === state),
   );
 }
 
@@ -555,4 +585,21 @@ for (const expected of Object.values(expectedCategoryCohortChecks)) {
   }
 }
 
-console.log('Phase 2/3 dashboard artifact checks passed.');
+for (const expected of Object.values(expectedStateCohortChecks)) {
+  const facts = getStateCohortFacts(expected.rangeId, expected.state);
+  const totalOrders = facts.length;
+  const totalGmv = Number(sum(facts, (order) => order.gmv).toFixed(2));
+  const delayedOrderCount = facts.filter((order) => !order.isOnTime).length;
+  const lateDeliveryRate =
+    totalOrders === 0 ? 0 : Number(((delayedOrderCount / totalOrders) * 100).toFixed(2));
+  const reviewedOrderCount = facts.filter(
+    (order) => order.review && order.delayDays !== null,
+  ).length;
+
+  assert.equal(totalOrders, expected.totalOrders);
+  assert.equal(totalGmv, expected.totalGmv);
+  assert.equal(lateDeliveryRate, expected.lateDeliveryRate);
+  assert.equal(reviewedOrderCount, expected.reviewedOrderCount);
+}
+
+console.log('P06 dashboard artifact baseline checks passed.');

@@ -5,8 +5,6 @@ import { TrophyIcon } from './Icons';
 
 type CategorySharePanelProps = {
   panel: Phase3CategoryPanel;
-  rangeLabel: string;
-  customerStateLabel: string;
   focusedCategory: string | null;
   focusedCategoryKey: string | null;
 };
@@ -19,8 +17,6 @@ function formatShare(value: number) {
 
 export function CategorySharePanel({
   panel,
-  rangeLabel,
-  customerStateLabel,
   focusedCategory,
   focusedCategoryKey,
 }: CategorySharePanelProps) {
@@ -30,8 +26,8 @@ export function CategorySharePanel({
     ? panel.categories.find((category) => category.categoryKey === focusedCategoryKey) ?? null
     : null;
   const subtitle = focusedCategory
-    ? `Focused-category mode for ${focusedCategory} within ${customerStateLabel} / ${rangeLabel}. The full ranking stays visible so the active category filter is disclosed instead of silently collapsing the panel.`
-    : `Share of order items for ${rangeLabel} within ${customerStateLabel}.`;
+    ? 'Focused on selected category.'
+    : 'Shows full category ranking.';
 
   return (
     <ChartCard

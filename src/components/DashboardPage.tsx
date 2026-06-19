@@ -169,10 +169,12 @@ export function DashboardPage() {
       <div className="mx-auto flex max-w-[1440px] flex-col gap-6">
         <FilterBar configs={filterConfigs} values={filters} onChange={updateFilter} />
 
-        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {kpiCards.map((card) => (
-            <KpiCard key={card.title} {...card} />
-          ))}
+        <section className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {kpiCards.map((card) => (
+              <KpiCard key={card.title} {...card} />
+            ))}
+          </div>
         </section>
 
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)]">
@@ -180,12 +182,7 @@ export function DashboardPage() {
             metric={mapMetric}
             onMetricChange={setMapMetric}
             panel={geographyPanel}
-            rangeLabel={selectedRangeLabel}
             focusedState={selectedCustomerState}
-            focusedStateLabel={selectedCustomerStateLabel}
-            activeProductCategoryLabel={
-              isProductCategoryFocused ? selectedProductCategoryLabel : null
-            }
           />
           <TimeTrendPanel
             granularity={timeGranularity}
@@ -226,8 +223,6 @@ export function DashboardPage() {
         <section className="grid gap-6 xl:grid-cols-2">
           <CategorySharePanel
             panel={categoryPanel}
-            rangeLabel={selectedRangeLabel}
-            customerStateLabel={selectedCustomerStateLabel}
             focusedCategory={isProductCategoryFocused ? selectedProductCategoryLabel : null}
             focusedCategoryKey={isProductCategoryFocused ? selectedProductCategory : null}
           />

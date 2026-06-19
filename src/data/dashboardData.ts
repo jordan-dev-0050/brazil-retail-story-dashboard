@@ -44,41 +44,6 @@ export type DashboardFilterConfig = {
 
 export type DashboardFilterOptions = Record<FilterId, DashboardFilterConfig>;
 
-export type DashboardFilterContractStatus =
-  | 'global-cohort-active'
-  | 'staged-global-cohort'
-  | 'secondary-slice-only'
-  | 'focused-mode'
-  | 'not-yet-applied';
-
-export type DashboardFilterContractFilter = {
-  filterId: FilterId;
-  label: string;
-  status: DashboardFilterContractStatus;
-  summary: string;
-};
-
-export type DashboardFilterContractPanel = {
-  id:
-    | 'kpi-cards'
-    | 'time-trend'
-    | 'payment-panels'
-    | 'delay-review'
-    | 'brazil-map'
-    | 'category-share';
-  label: string;
-  status: DashboardFilterContractStatus;
-  summary: string;
-};
-
-export type DashboardFilterContract = {
-  headline: string;
-  description: string;
-  status: DashboardFilterContractStatus;
-  filters: DashboardFilterContractFilter[];
-  panels: DashboardFilterContractPanel[];
-};
-
 type KpiCardViewModel = {
   title: string;
   value: string;
@@ -127,82 +92,6 @@ export function getDashboardFilterOptions(
   productCategory: string = ALL_CATEGORIES_VALUE,
 ): DashboardFilterOptions {
   return buildPhase2FilterOptions(rangeId, customerState, productCategory);
-}
-
-export function getDashboardFilterContract(): DashboardFilterContract {
-  return {
-    headline: 'P06 P3 category-cohort contract',
-    description:
-      'Customer State and Product Category now form the active global cohort for KPI, Trend, Payment, and Review. Payment Type remains a secondary slice inside that cohort, Category Share uses focused-category semantics instead of collapsing to a single-category chart, and Brazil Map still keeps Product Category out of its range-scoped state view.',
-    status: 'global-cohort-active',
-    filters: [
-      {
-        filterId: 'customerState',
-        label: 'Customer State',
-        status: 'global-cohort-active',
-        summary:
-          'Single-value order-level cohort. It is active now across KPI, Trend, Payment, Review, and Category Share, with focused-mode handling on Brazil Map.',
-      },
-      {
-        filterId: 'productCategory',
-        label: 'Product Category',
-        status: 'global-cohort-active',
-        summary:
-          'Membership-based order cohort. KPI, Trend, Payment, and Review consume it directly now, while Category Share switches into focused-category mode.',
-      },
-      {
-        filterId: 'paymentType',
-        label: 'Payment Type',
-        status: 'secondary-slice-only',
-        summary:
-          'Remains outside the global cohort. It only slices Freight, Payment Mix, and On-time vs Delayed within the selected date range.',
-      },
-    ],
-    panels: [
-      {
-        id: 'kpi-cards',
-        label: 'KPI Cards',
-        status: 'global-cohort-active',
-        summary:
-          'Reads the same Customer State cohort as the rest of the supported summary layer.',
-      },
-      {
-        id: 'time-trend',
-        label: 'Time Trend',
-        status: 'global-cohort-active',
-        summary:
-          'Monthly real-backed data and projected daily or weekly views now recalculate from the selected Customer State cohort.',
-      },
-      {
-        id: 'payment-panels',
-        label: 'Payment Panels',
-        status: 'global-cohort-active',
-        summary:
-          'Customer State and Product Category define the matched order population first, then Payment Type continues to slice within that cohort.',
-      },
-      {
-        id: 'delay-review',
-        label: 'Delay vs Review',
-        status: 'global-cohort-active',
-        summary:
-          'Review coverage now follows the selected Customer State cohort instead of staying date-range only.',
-      },
-      {
-        id: 'brazil-map',
-        label: 'Brazil Map',
-        status: 'focused-mode',
-        summary:
-          'Requires special handling. Customer State uses focused-state mode, while Product Category is explicitly not applied on the range-scoped map.',
-      },
-      {
-        id: 'category-share',
-        label: 'Category Share',
-        status: 'focused-mode',
-        summary:
-          'Keeps the full state cohort visible and highlights the selected Product Category instead of silently collapsing the ranking to one row.',
-      },
-    ],
-  };
 }
 
 export function getInitialFilterValues(): Record<FilterId, string> {

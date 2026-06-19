@@ -698,29 +698,28 @@ export function buildFilterOptions(
         label: range.label,
         value: range.id,
       })),
-      helperText: 'Primary global cohort boundary for every artifact-backed panel.',
+      helperText: 'Applies to all panels.',
     },
     customerState: {
       label: 'Customer State',
       options: toFilterOptions(stateScopedOptions.customerStateOptions),
       helperText:
         productCategory === ALL_CATEGORIES_VALUE
-          ? 'Active global cohort for KPI, Time Trend, Payment, Review, and Category Share. Brazil Map switches to focused-state mode.'
-          : 'Active global cohort. These state options are recalculated inside the selected Product Category membership cohort.',
+          ? 'Applies to KPIs, Trend, Payment, Review, and Category Share.'
+          : 'Applies within the selected product category.',
     },
     productCategory: {
       label: 'Product Category',
       options: toFilterOptions(categoryScopedOptions.productCategoryOptions),
       helperText:
         customerState === ALL_STATES_VALUE
-          ? 'Active membership-based global cohort. KPI, Trend, Payment, and Review panels consume it directly, while Category Share switches to focused-category mode.'
-          : 'Active membership-based cohort inside the selected Customer State. Category Share keeps the full state cohort visible and highlights the chosen category.',
+          ? 'Applies to KPIs, Trend, Payment, Review, and Category Share.'
+          : 'Applies within the selected customer state.',
     },
     paymentType: {
       label: 'Payment Type',
       options: toFilterOptions(activeCohort.paymentPanels.paymentTypeOptions),
-      helperText:
-        'Secondary slice for payment panels only. These options are recalculated inside the active Date Range / Customer State / Product Category cohort.',
+      helperText: 'Applies to payment panels only.',
     },
   };
 }

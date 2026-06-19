@@ -12,10 +12,7 @@ type BrazilMapPanelProps = {
   metric: MapMetric;
   onMetricChange: (value: MapMetric) => void;
   panel: Phase3GeographyPanel;
-  rangeLabel: string;
   focusedState: string;
-  focusedStateLabel: string;
-  activeProductCategoryLabel: string | null;
 };
 
 const mapTabs = [
@@ -83,10 +80,7 @@ export function BrazilMapPanel({
   metric,
   onMetricChange,
   panel,
-  rangeLabel,
   focusedState,
-  focusedStateLabel,
-  activeProductCategoryLabel,
 }: BrazilMapPanelProps) {
   const stateMetricByCode = new Map(panel.stateMetrics.map((item) => [item.state, item]));
   const focusedStateMetric =
@@ -134,13 +128,7 @@ export function BrazilMapPanel({
   return (
     <ChartCard
       title="Brazil Map"
-      subtitle={
-        focusedStateMetric
-          ? `Focused-state mode for ${focusedStateLabel} within ${rangeLabel}. The full map stays visible while the selected cohort is summarized below.`
-          : activeProductCategoryLabel
-            ? `Real artifact metrics for ${rangeLabel}. Product Category (${activeProductCategoryLabel}) is active globally, but Brazil Map stays range-scoped and does not apply that cohort here.`
-            : `Real artifact metrics for ${rangeLabel}. Customer State uses focused-mode handling here, while Product Category is not yet applied.`
-      }
+      subtitle="Product Category not applied."
       actions={<ToggleTabs options={mapTabs} value={metric} onChange={onMetricChange} />}
       contentClassName="space-y-4"
       footer={

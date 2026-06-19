@@ -62,3 +62,10 @@
 ## 文件
 
 - 規劃文件：`docs/Brazil_Retail_Story_Dashboard_Plan.md`
+## Current Dashboard Coverage
+
+- `Date Range`, `Customer State`, and `Product Category` now define the active global cohort for KPI Cards, Time Trend, payment-aware panels, and Delay vs Review.
+- `Payment Type` remains a secondary slice. It only changes `On-time vs Delayed`, `Freight Distribution`, and `Payment Mix` inside the selected global cohort.
+- `Category Share` uses focused-mode disclosure when `Product Category` is selected. The full ranking stays visible and the chosen category is highlighted.
+- `Brazil Map` keeps range-scoped state metrics. `Customer State` uses focused-state handling there, while `Product Category` is intentionally not applied on the map.
+- Daily and weekly Time Trend views are still explicit projections derived from the real monthly artifact.

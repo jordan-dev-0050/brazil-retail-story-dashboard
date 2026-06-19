@@ -117,7 +117,6 @@ P06 目前將 global cohort 定義為：
 | P1 | [x] 已完成 | Global filter semantics contract | 凍結 cohort semantics、coverage tiers 與 payment-type precedence | FXX | `F10-p06-global-filter-semantics-contract.md` |
 | P2 | [x] 已完成 | Customer State end-to-end productization | 將 `Customer State` productize 成第一條可用的 global cohort vertical slice | FXX + RXX | `F09-p06-customer-state-global-filter-contract.md`、`R01-p06-dashboard-state-filter-facade-cleanup.md` |
 | P3 | [x] 已完成 | Product Category artifact coverage productization | 補上 membership-based category cohort coverage | FXX + RXX | `F11-p06-product-category-global-filter-contract.md`、`R02-p06-category-cohort-runtime-aggregation-cleanup.md` |
-| P4 | [ ] 待處理 | UI activation / disclosure / acceptance baseline | 統一 rollout disclosure 與 verification baseline | FXX | rollout / disclosure / verification baseline |
 
 ---
 
@@ -203,45 +202,17 @@ P06 目前將 global cohort 定義為：
 
 ---
 
-### Phase 4 - UI activation / disclosure / acceptance baseline
+## 7. Minimal UI Copy
 
-**目標**
+### 7.1 Filter Helpers
 
-統一 staged productization narrative，讓 active filters、unsupported surfaces 與 verification expectations 對使用者與維護者都清楚可見。
+- `Customer State`: `Applies to KPIs, Trend, Payment, Review, and Category Share.`
+- `Product Category`: `Applies to KPIs, Trend, Payment, Review, and Category Share.`
 
-**Acceptance Criteria**
+### 7.2 Special Panel Subtitles
 
-- [ ] 每個 active global filter 都有可見的 panel-level disclosure。
-- [ ] unsupported 或 staged surfaces 都被明確標示，不會看起來像 accidentally complete。
-- [ ] README / walkthrough / current-state notes 如實反映 coverage。
-- [ ] verification baseline 同時覆蓋 state cohort 與 category cohort 情境。
-
-**交付物**
-
-- `FXX` - UI disclosure + verification baseline
-
-## 7. UI Disclosure Strategy
-
-### 7.1 Filter-Level Disclosure
-
-- `Customer State`：active global cohort，覆蓋 KPI、Trend、Payment、Review、Category Share；Brazil Map 採 focused-state mode。
-- `Product Category`：active membership-based global cohort；KPI、Trend、Payment、Review 直接吃 category cohort，`Category Share` 採 focused-category mode，`Brazil Map` 明示 not applied。
-
-### 7.2 Panel-Level Disclosure
-
-panel 應有三種狀態：
-1. `Applied`
-   panel 正在使用 active global cohort。
-2. `Focused mode`
-   panel 與 selected dimension 相同，因此採 explicit focused-mode semantics。
-3. `Not yet applied`
-   panel 仍顯示較寬的 baseline，必須明示 coverage gap。
-
-### 7.3 Guardrails
-
-- 不可 silently ignore active global filter。
-- 不可把 staged surface 說成 fully supported。
-- 不可把 membership-based category complexity 偽裝成 fake single-slice story。
+- `Brazil Map`: `Product Category not applied`
+- `Category Share`: `Focused on selected category`
 
 ## 8. 與 P05 的關係
 
@@ -274,4 +245,4 @@ P2 完成後，目前實作狀態為：
 
 下一步仍是：
 - 以 `F10-p06-global-filter-semantics-contract.md` 固化整體 semantics freeze
-- P3 已以 `F11` / `R02` 完成 category-focused cohort productization；P4 繼續收斂 disclosure baseline。
+- P3 已以 `F11` / `R02` 完成 category-focused cohort productization；UI copy 只保留短 helper 與少數 special-panel subtitle。
