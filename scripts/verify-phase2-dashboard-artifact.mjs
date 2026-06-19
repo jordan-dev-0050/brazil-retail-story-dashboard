@@ -212,8 +212,16 @@ function assertClose(actual, expected, epsilon = 0.02) {
   );
 }
 
+function sumMonthlyOrders(series) {
+  return sum(series, (point) => point.orders);
+}
+
+function sumMonthlyGmv(series) {
+  return Number(sum(series, (point) => point.gmv).toFixed(2));
+}
+
 assert.equal(artifact.metadata.source, 'olist');
-assert.equal(artifact.metadata.version, '0.4.0');
+assert.equal(artifact.metadata.version, '0.5.0');
 assert.equal(artifact.metadata.currency, 'BRL');
 assert.equal(artifact.metadata.timeAxis, 'order_purchase_timestamp');
 assert.equal(artifact.metadata.grain, 'month');
@@ -252,16 +260,16 @@ assert.deepEqual(
 );
 
 for (const rangeId of expectedRanges) {
-  const kpis = artifact.kpisByRange[rangeId];
-  const series = artifact.monthlySeriesByRange[rangeId];
-  const paymentPanels = artifact.paymentPanelsByRange[rangeId];
+  const kpis = artifact.kpisByRange[rangeId].all;
+  const series = artifact.monthlySeriesByRange[rangeId].all;
+  const paymentPanels = artifact.paymentPanelsByRange[rangeId].all;
   const stateOptions = artifact.customerStateOptionsByRange[rangeId];
   const categoryOptions = artifact.productCategoryOptionsByRange[rangeId];
   const geographyPanel = artifact.geographyPanelsByRange[rangeId];
-  const categoryPanel = artifact.categoryPanelsByRange[rangeId];
-  const reviewPanel = artifact.reviewPanelsByRange[rangeId];
-  const summedOrders = sum(series, (point) => point.orders);
-  const summedGmv = Number(sum(series, (point) => point.gmv).toFixed(2));
+  const categoryPanel = artifact.categoryPanelsByRange[rangeId].all;
+  const reviewPanel = artifact.reviewPanelsByRange[rangeId].all;
+  const summedOrders = sumMonthlyOrders(series);
+  const summedGmv = sumMonthlyGmv(series);
   const weightedLateDeliveryRate =
     summedOrders === 0
       ? 0
@@ -281,6 +289,11 @@ for (const rangeId of expectedRanges) {
   assert.ok(paymentPanels);
   assert.equal(paymentPanels.paymentTypeOptions[0].value, 'all');
   assert.equal(paymentPanels.paymentTypeOptions[0].orderCount, kpis.totalOrders);
+  assert.ok(artifact.kpisByRange[rangeId].byState.SP);
+  assert.ok(artifact.monthlySeriesByRange[rangeId].byState.SP);
+  assert.ok(artifact.paymentPanelsByRange[rangeId].byState.SP);
+  assert.ok(artifact.categoryPanelsByRange[rangeId].byState.SP);
+  assert.ok(artifact.reviewPanelsByRange[rangeId].byState.SP);
 
   for (const option of paymentPanels.paymentTypeOptions) {
     const slice = paymentPanels.slicesByPaymentType[option.value];
@@ -343,9 +356,26 @@ for (const rangeId of expectedRanges) {
   );
   assert.equal(reviewPanel.trendLine.length, 2);
   assert.ok(reviewPanel.trendLine.every((point) => point.reviewScoreAvg >= 1 && point.reviewScoreAvg <= 5));
+
+  const spStateMetric = geographyPanel.stateMetrics.find((entry) => entry.state === 'SP');
+  const spKpis = artifact.kpisByRange[rangeId].byState.SP;
+  const spSeries = artifact.monthlySeriesByRange[rangeId].byState.SP;
+  const spPaymentAll = artifact.paymentPanelsByRange[rangeId].byState.SP.slicesByPaymentType.all;
+  const spCategoryPanel = artifact.categoryPanelsByRange[rangeId].byState.SP;
+  const spReviewPanel = artifact.reviewPanelsByRange[rangeId].byState.SP;
+
+  assert.ok(spStateMetric);
+  assert.equal(spKpis.totalOrders, spStateMetric.orderCount);
+  assert.equal(spKpis.totalGmv, spStateMetric.totalGmv);
+  assertClose(spKpis.lateDeliveryRate, spStateMetric.lateDeliveryRate, 0.03);
+  assert.equal(sumMonthlyOrders(spSeries), spKpis.totalOrders);
+  assert.equal(sumMonthlyGmv(spSeries), spKpis.totalGmv);
+  assert.equal(spPaymentAll.orderCount, spKpis.totalOrders);
+  assert.equal(spCategoryPanel.totals.totalOrders, spKpis.totalOrders);
+  assert.equal(spReviewPanel.population.totalOrders, spKpis.totalOrders);
 }
 
-const allRangeOptions = artifact.paymentPanelsByRange.all.paymentTypeOptions.map((option) => option.value);
+const allRangeOptions = artifact.paymentPanelsByRange.all.all.paymentTypeOptions.map((option) => option.value);
 assert.ok(allRangeOptions.includes('credit_card'));
 assert.ok(allRangeOptions.includes('boleto'));
 assert.ok(allRangeOptions.includes('voucher'));
@@ -354,7 +384,7 @@ assert.ok(!allRangeOptions.includes('pix'));
 
 for (const [rangeId, rangeChecks] of Object.entries(expectedSliceChecks)) {
   for (const [paymentType, expectedSlice] of Object.entries(rangeChecks)) {
-    const slice = artifact.paymentPanelsByRange[rangeId].slicesByPaymentType[paymentType];
+    const slice = artifact.paymentPanelsByRange[rangeId].all.slicesByPaymentType[paymentType];
     const paymentMixValues = Object.fromEntries(
       slice.paymentMix.entries.map((entry) => [entry.paymentType, entry.paymentValue]),
     );
@@ -381,12 +411,12 @@ for (const [rangeId, expected] of Object.entries(expectedGeographyChecks)) {
 }
 
 for (const [rangeId, expected] of Object.entries(expectedCategoryChecks)) {
-  const categoryPanel = artifact.categoryPanelsByRange[rangeId];
+  const categoryPanel = artifact.categoryPanelsByRange[rangeId].all;
   assert.deepEqual(categoryPanel.topCategory, expected.topCategory);
 }
 
 for (const [rangeId, expected] of Object.entries(expectedReviewChecks)) {
-  const reviewPanel = artifact.reviewPanelsByRange[rangeId];
+  const reviewPanel = artifact.reviewPanelsByRange[rangeId].all;
 
   if (expected.population) {
     assert.deepEqual(reviewPanel.population, expected.population);
@@ -415,17 +445,17 @@ for (const [rangeId, expected] of Object.entries(expectedReviewChecks)) {
 }
 
 assert.ok(
-  artifact.paymentPanelsByRange.all.slicesByPaymentType.all.paymentRowCount >
-    artifact.paymentPanelsByRange.all.slicesByPaymentType.all.orderCount,
+  artifact.paymentPanelsByRange.all.all.slicesByPaymentType.all.paymentRowCount >
+    artifact.paymentPanelsByRange.all.all.slicesByPaymentType.all.orderCount,
 );
 assert.deepEqual(
-  [...artifact.paymentPanelsByRange['2017'].slicesByPaymentType.voucher.paymentMix.entries]
+  [...artifact.paymentPanelsByRange['2017'].all.slicesByPaymentType.voucher.paymentMix.entries]
     .map((entry) => entry.paymentType)
     .sort(),
   ['credit_card', 'voucher'],
 );
 assert.deepEqual(
-  artifact.paymentPanelsByRange['2018_ytd'].slicesByPaymentType.boleto.paymentMix.entries.map(
+  artifact.paymentPanelsByRange['2018_ytd'].all.slicesByPaymentType.boleto.paymentMix.entries.map(
     (entry) => entry.paymentType,
   ),
   ['boleto'],

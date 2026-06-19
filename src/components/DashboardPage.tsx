@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
   buildKpiCards,
   getDashboardCategoryPanel,
+  getDashboardFilterContract,
   getDashboardFilterOptions,
   getDashboardGeographyPanel,
   getDashboardPaymentPanelSlice,
@@ -16,6 +17,7 @@ import { CategorySharePanel } from './CategorySharePanel';
 import { DelayReviewPanel } from './DelayReviewPanel';
 import { FilterBar } from './FilterBar';
 import { FreightDistributionPanel } from './FreightDistributionPanel';
+import { GlobalFilterContractCard } from './GlobalFilterContractCard';
 import { KpiCard } from './KpiCard';
 import { OnTimeDelayPanel } from './OnTimeDelayPanel';
 import { PaymentMixPanel } from './PaymentMixPanel';
@@ -27,30 +29,74 @@ export function DashboardPage() {
   const [timeGranularity, setTimeGranularity] = useState<TimeGranularity>('monthly');
 
   const selectedRangeId = filters.dateRange as DateRangeId;
-  const filterConfigs = getDashboardFilterOptions(selectedRangeId);
+  const filterConfigs = getDashboardFilterOptions(selectedRangeId, filters.customerState);
+  const selectedCustomerState =
+    filterConfigs.customerState.options.find((option) => option.value === filters.customerState)?.value ??
+    filterConfigs.customerState.options[0]?.value ??
+    'all-states';
+  const selectedCustomerStateLabel =
+    filterConfigs.customerState.options.find((option) => option.value === selectedCustomerState)?.label ??
+    'All States';
   const selectedPaymentType = (
     filterConfigs.paymentType.options.find((option) => option.value === filters.paymentType)?.value ??
     filterConfigs.paymentType.options[0]?.value ??
     'all'
   ) as PaymentTypeId;
-  const kpiCards = buildKpiCards(selectedRangeId);
-  const paymentPanelSlice = getDashboardPaymentPanelSlice(selectedRangeId, selectedPaymentType);
+  const kpiCards = buildKpiCards(selectedRangeId, selectedCustomerState);
+  const paymentPanelSlice = getDashboardPaymentPanelSlice(
+    selectedRangeId,
+    selectedPaymentType,
+    selectedCustomerState,
+  );
   const geographyPanel = getDashboardGeographyPanel(selectedRangeId);
-  const categoryPanel = getDashboardCategoryPanel(selectedRangeId);
-  const reviewPanel = getDashboardReviewPanel(selectedRangeId);
+  const categoryPanel = getDashboardCategoryPanel(selectedRangeId, selectedCustomerState);
+  const reviewPanel = getDashboardReviewPanel(selectedRangeId, selectedCustomerState);
+  const filterContract = getDashboardFilterContract();
   const selectedRangeLabel =
     filterConfigs.dateRange.options.find((option) => option.value === selectedRangeId)?.label ??
     selectedRangeId;
-  const paymentTypeLabel = getDashboardPaymentTypeLabel(selectedRangeId, selectedPaymentType);
+  const paymentTypeLabel = getDashboardPaymentTypeLabel(
+    selectedRangeId,
+    selectedPaymentType,
+    selectedCustomerState,
+  );
 
   const updateFilter = (id: FilterId, value: string) => {
     setFilters((current) => {
+      if (id === 'customerState') {
+        const nextCustomerState = value;
+        const nextPaymentOptions = getDashboardFilterOptions(
+          current.dateRange as DateRangeId,
+          nextCustomerState,
+        ).paymentType.options;
+        const paymentTypeValue = nextPaymentOptions.some(
+          (option) => option.value === current.paymentType,
+        )
+          ? current.paymentType
+          : (nextPaymentOptions[0]?.value ?? 'all');
+
+        return {
+          ...current,
+          customerState: nextCustomerState,
+          paymentType: paymentTypeValue,
+        };
+      }
+
       if (id !== 'dateRange') {
         return { ...current, [id]: value };
       }
 
       const nextRangeId = value as DateRangeId;
-      const nextPaymentOptions = getDashboardFilterOptions(nextRangeId).paymentType.options;
+      const nextFilterOptions = getDashboardFilterOptions(nextRangeId, current.customerState);
+      const customerStateValue = nextFilterOptions.customerState.options.some(
+        (option) => option.value === current.customerState,
+      )
+        ? current.customerState
+        : (nextFilterOptions.customerState.options[0]?.value ?? 'all-states');
+      const nextPaymentOptions = getDashboardFilterOptions(
+        nextRangeId,
+        customerStateValue,
+      ).paymentType.options;
       const paymentTypeValue = nextPaymentOptions.some(
         (option) => option.value === current.paymentType,
       )
@@ -60,6 +106,7 @@ export function DashboardPage() {
       return {
         ...current,
         dateRange: nextRangeId,
+        customerState: customerStateValue,
         paymentType: paymentTypeValue,
       };
     });
@@ -72,14 +119,15 @@ export function DashboardPage() {
 
         <section className="rounded-[24px] border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm text-slate shadow-soft">
           <p>
-            <span className="font-semibold text-ink">Hybrid boundary:</span> KPI cards are now
-            fully real-backed, monthly Time Trend reads from the dashboard artifact, and daily /
-            weekly Time Trend stays interactive through projections anchored to that monthly
-            baseline. Payment Type still updates only Freight Distribution, Payment Mix, and
-            On-time vs Delayed, while Brazil Map, Category Share, and Delay vs Review remain
-            artifact-backed by date range only.
+            <span className="font-semibold text-ink">P06 P2 boundary:</span> Customer State now
+            recalculates KPI cards, Time Trend, payment panels, Delay vs Review, and Category
+            Share from one shared cohort. Payment Type still slices only the payment panels inside
+            that cohort. Brazil Map stays range-backed and switches to focused-state handling, and
+            Product Category remains intentionally staged for a later phase.
           </p>
         </section>
+
+        <GlobalFilterContractCard contract={filterContract} />
 
         <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {kpiCards.map((card) => (
@@ -93,11 +141,15 @@ export function DashboardPage() {
             onMetricChange={setMapMetric}
             panel={geographyPanel}
             rangeLabel={selectedRangeLabel}
+            focusedState={selectedCustomerState}
+            focusedStateLabel={selectedCustomerStateLabel}
           />
           <TimeTrendPanel
             granularity={timeGranularity}
             onGranularityChange={setTimeGranularity}
             rangeId={selectedRangeId}
+            customerState={selectedCustomerState}
+            customerStateLabel={selectedCustomerStateLabel}
           />
         </section>
 
@@ -106,23 +158,34 @@ export function DashboardPage() {
             slice={paymentPanelSlice}
             rangeLabel={selectedRangeLabel}
             paymentTypeLabel={paymentTypeLabel}
+            customerStateLabel={selectedCustomerStateLabel}
           />
           <FreightDistributionPanel
             slice={paymentPanelSlice}
             rangeLabel={selectedRangeLabel}
             paymentTypeLabel={paymentTypeLabel}
+            customerStateLabel={selectedCustomerStateLabel}
           />
           <div className="md:col-span-2 2xl:col-span-1">
-            <DelayReviewPanel panel={reviewPanel} rangeLabel={selectedRangeLabel} />
+            <DelayReviewPanel
+              panel={reviewPanel}
+              rangeLabel={selectedRangeLabel}
+              customerStateLabel={selectedCustomerStateLabel}
+            />
           </div>
         </section>
 
         <section className="grid gap-6 xl:grid-cols-2">
-          <CategorySharePanel panel={categoryPanel} rangeLabel={selectedRangeLabel} />
+          <CategorySharePanel
+            panel={categoryPanel}
+            rangeLabel={selectedRangeLabel}
+            customerStateLabel={selectedCustomerStateLabel}
+          />
           <PaymentMixPanel
             slice={paymentPanelSlice}
             rangeLabel={selectedRangeLabel}
             paymentTypeLabel={paymentTypeLabel}
+            customerStateLabel={selectedCustomerStateLabel}
           />
         </section>
       </div>

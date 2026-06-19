@@ -8,6 +8,7 @@ import {
   YAxis,
 } from 'recharts';
 import {
+  getTimeTrendMode,
   formatOrderCount,
   getTimeTrendHighlights,
   getTimeTrendSeries,
@@ -22,6 +23,8 @@ type TimeTrendPanelProps = {
   granularity: TimeGranularity;
   onGranularityChange: (value: TimeGranularity) => void;
   rangeId: DateRangeId;
+  customerState: string;
+  customerStateLabel: string;
 };
 
 const timeTabs = [
@@ -36,14 +39,31 @@ export function TimeTrendPanel({
   granularity,
   onGranularityChange,
   rangeId,
+  customerState,
+  customerStateLabel,
 }: TimeTrendPanelProps) {
-  const data = getTimeTrendSeries(granularity, rangeId);
-  const highlights = getTimeTrendHighlights(granularity, rangeId);
-  const subtitle = getTimeTrendSubtitle(granularity, rangeId);
+  const data = getTimeTrendSeries(granularity, rangeId, customerState);
+  const highlights = getTimeTrendHighlights(granularity, rangeId, customerState);
+  const subtitle = `${getTimeTrendSubtitle(granularity, rangeId, customerState)} Cohort: ${customerStateLabel}. Product Category remains staged for a later phase.`;
+  const mode = getTimeTrendMode(granularity, rangeId, customerState);
+  const modeLabel = mode === 'real-monthly' ? 'Real Monthly' : 'Projected View';
+  const modeClassName =
+    mode === 'real-monthly'
+      ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+      : 'border-amber-200 bg-amber-50 text-amber-700';
 
   return (
     <ChartCard
-      title="Time Trend"
+      title={
+        <div className="flex flex-wrap items-center gap-2">
+          <span>Time Trend</span>
+          <span
+            className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] ${modeClassName}`}
+          >
+            {modeLabel}
+          </span>
+        </div>
+      }
       subtitle={subtitle}
       actions={<ToggleTabs options={timeTabs} value={granularity} onChange={onGranularityChange} />}
       footer={

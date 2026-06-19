@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 type ChartCardProps = {
-  title: string;
+  title: ReactNode;
   subtitle?: string;
   actions?: ReactNode;
   footer?: ReactNode;

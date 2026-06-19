@@ -13,6 +13,8 @@ type BrazilMapPanelProps = {
   onMetricChange: (value: MapMetric) => void;
   panel: Phase3GeographyPanel;
   rangeLabel: string;
+  focusedState: string;
+  focusedStateLabel: string;
 };
 
 const mapTabs = [
@@ -76,8 +78,17 @@ function formatLegendLabel(metric: MapMetric, min: number, max: number) {
   return `${min.toFixed(1)}% - ${max.toFixed(1)}%`;
 }
 
-export function BrazilMapPanel({ metric, onMetricChange, panel, rangeLabel }: BrazilMapPanelProps) {
+export function BrazilMapPanel({
+  metric,
+  onMetricChange,
+  panel,
+  rangeLabel,
+  focusedState,
+  focusedStateLabel,
+}: BrazilMapPanelProps) {
   const stateMetricByCode = new Map(panel.stateMetrics.map((item) => [item.state, item]));
+  const focusedStateMetric =
+    focusedState === 'all-states' ? null : stateMetricByCode.get(focusedState) ?? null;
   const visibleMetrics = mapRegions
     .map((region) => stateMetricByCode.get(regionStateById[region.id as keyof typeof regionStateById]))
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
@@ -121,7 +132,11 @@ export function BrazilMapPanel({ metric, onMetricChange, panel, rangeLabel }: Br
   return (
     <ChartCard
       title="Brazil Map"
-      subtitle={`Real artifact metrics for ${rangeLabel}. Simplified silhouette, state values from Olist joins.`}
+      subtitle={
+        focusedStateMetric
+          ? `Focused-state mode for ${focusedStateLabel} within ${rangeLabel}. The full map stays visible while the selected cohort is summarized below.`
+          : `Real artifact metrics for ${rangeLabel}. Customer State uses focused-mode handling here, while Product Category is not yet applied.`
+      }
       actions={<ToggleTabs options={mapTabs} value={metric} onChange={onMetricChange} />}
       contentClassName="space-y-4"
       footer={
@@ -132,7 +147,15 @@ export function BrazilMapPanel({ metric, onMetricChange, panel, rangeLabel }: Br
               {formatOrderCount(panel.totalOrders)} delivered orders across {panel.totalStates} states.
             </p>
           </div>
-          {leader ? (
+          {focusedStateMetric ? (
+            <div className="text-left sm:text-right">
+              <p className="text-xs uppercase tracking-[0.08em] text-slate">Focused State</p>
+              <p className="mt-1 text-sm font-semibold text-accent-blue">
+                {focusedStateMetric.label} |{' '}
+                {formatMetricValue(metric, getMetricValue(metric, focusedStateMetric))}
+              </p>
+            </div>
+          ) : leader ? (
             <div className="text-left sm:text-right">
               <p className="text-xs uppercase tracking-[0.08em] text-slate">Top State</p>
               <p className="mt-1 text-sm font-semibold text-accent-blue">

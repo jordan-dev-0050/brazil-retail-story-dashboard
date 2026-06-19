@@ -7,6 +7,7 @@ type FreightDistributionPanelProps = {
   slice: DashboardPaymentPanelSlice;
   rangeLabel: string;
   paymentTypeLabel: string;
+  customerStateLabel: string;
 };
 
 function formatAxisCount(value: number): string {
@@ -21,6 +22,7 @@ export function FreightDistributionPanel({
   slice,
   rangeLabel,
   paymentTypeLabel,
+  customerStateLabel,
 }: FreightDistributionPanelProps) {
   const freightData = slice.freightDistribution.bands.map((entry) => ({
     band: entry.band,
@@ -30,7 +32,7 @@ export function FreightDistributionPanel({
   return (
     <ChartCard
       title="Freight Distribution"
-      subtitle={`Real-backed order-level freight for ${rangeLabel} / ${paymentTypeLabel}`}
+      subtitle={`Real-backed order-level freight for ${rangeLabel} / ${customerStateLabel} / ${paymentTypeLabel}. Product Category remains staged on top of this payment slice.`}
       footer={
         <div className="grid gap-3 md:grid-cols-3">
           <div className="rounded-[20px] border border-blue-100 bg-blue-50/70 px-4 py-3 text-accent-blue">

@@ -431,6 +431,255 @@ function buildPaymentSlice(rangeOrders, paymentType, paymentsByOrder) {
   };
 }
 
+function buildRangePanels(range, rangeOrders, paymentsByOrder, reviewsByOrder) {
+  const seriesByMonth = new Map(
+    buildMonthKeys(range.start, range.end).map((month) => [
+      month,
+      {
+        month,
+        label: formatMonthLabel(month),
+        orders: 0,
+        gmv: 0,
+        delayedOrders: 0,
+      },
+    ]),
+  );
+
+  let totalOrders = 0;
+  let totalGmv = 0;
+  let delayedOrders = 0;
+  let totalCategoryItems = 0;
+  const stateMetricsByState = new Map();
+  const categoryMetricsByKey = new Map();
+
+  for (const order of rangeOrders) {
+    totalOrders += 1;
+    totalGmv += order.gmv;
+
+    const monthEntry = seriesByMonth.get(order.month);
+
+    if (monthEntry) {
+      monthEntry.orders += 1;
+      monthEntry.gmv = roundCurrency(monthEntry.gmv + order.gmv);
+      monthEntry.delayedOrders += order.isOnTime ? 0 : 1;
+    }
+
+    delayedOrders += order.isOnTime ? 0 : 1;
+
+    const stateMetric = stateMetricsByState.get(order.customerState) ?? {
+      state: order.customerState,
+      label: order.customerState,
+      orderCount: 0,
+      totalGmv: 0,
+      delayedOrderCount: 0,
+    };
+
+    stateMetric.orderCount += 1;
+    stateMetric.totalGmv = roundCurrency(stateMetric.totalGmv + order.gmv);
+    stateMetric.delayedOrderCount += order.isOnTime ? 0 : 1;
+    stateMetricsByState.set(order.customerState, stateMetric);
+
+    for (const category of order.categories) {
+      const categoryMetric = categoryMetricsByKey.get(category.categoryKey) ?? {
+        categoryKey: category.categoryKey,
+        categoryLabel: category.categoryLabel,
+        orderCount: 0,
+        itemCount: 0,
+        totalGmv: 0,
+      };
+
+      categoryMetric.orderCount += 1;
+      categoryMetric.itemCount += category.itemCount;
+      categoryMetric.totalGmv = roundCurrency(categoryMetric.totalGmv + category.totalGmv);
+      totalCategoryItems += category.itemCount;
+      categoryMetricsByKey.set(category.categoryKey, categoryMetric);
+    }
+  }
+
+  const kpis = {
+    totalOrders,
+    totalGmv: roundCurrency(totalGmv),
+    lateDeliveryRate: totalOrders === 0 ? 0 : roundPercentage((delayedOrders / totalOrders) * 100),
+  };
+
+  const monthlySeries = Array.from(seriesByMonth.values()).map((monthEntry) => ({
+    month: monthEntry.month,
+    label: monthEntry.label,
+    orders: monthEntry.orders,
+    gmv: monthEntry.gmv,
+    lateDeliveryRate:
+      monthEntry.orders === 0
+        ? 0
+        : roundPercentage((monthEntry.delayedOrders / monthEntry.orders) * 100),
+  }));
+
+  const stateMetrics = Array.from(stateMetricsByState.values())
+    .map((stateMetric) => ({
+      state: stateMetric.state,
+      label: stateMetric.label,
+      orderCount: stateMetric.orderCount,
+      totalGmv: stateMetric.totalGmv,
+      lateDeliveryRate:
+        stateMetric.orderCount === 0
+          ? 0
+          : roundPercentage((stateMetric.delayedOrderCount / stateMetric.orderCount) * 100),
+    }))
+    .sort(compareByOrderCountThenLabel);
+
+  const customerStateOptions = buildDimensionOptions(
+    'All States',
+    ALL_STATES_VALUE,
+    stateMetrics.map((stateMetric) => ({
+      value: stateMetric.state,
+      label: stateMetric.label,
+      orderCount: stateMetric.orderCount,
+    })),
+    totalOrders,
+  );
+
+  const geographyPanel = {
+    totalOrders,
+    totalStates: stateMetrics.length,
+    stateMetrics,
+  };
+
+  const categories = Array.from(categoryMetricsByKey.values())
+    .sort(compareCategories)
+    .map((categoryMetric) => ({
+      categoryKey: categoryMetric.categoryKey,
+      categoryLabel: categoryMetric.categoryLabel,
+      orderCount: categoryMetric.orderCount,
+      itemCount: categoryMetric.itemCount,
+      totalGmv: categoryMetric.totalGmv,
+      shareOfItems:
+        totalCategoryItems === 0
+          ? 0
+          : roundPercentage((categoryMetric.itemCount / totalCategoryItems) * 100),
+    }));
+
+  const productCategoryOptions = buildDimensionOptions(
+    'All Categories',
+    ALL_CATEGORIES_VALUE,
+    categories.map((category) => ({
+      value: category.categoryKey,
+      label: category.categoryLabel,
+      orderCount: category.orderCount,
+    })),
+    totalOrders,
+  );
+
+  const categoryPanel = {
+    shareBasis: 'item_count',
+    totals: {
+      totalOrders,
+      totalItems: totalCategoryItems,
+      totalGmv: roundCurrency(totalGmv),
+    },
+    categories,
+    topCategory: categories[0] ?? null,
+  };
+
+  const paymentTypesInRange = new Set();
+
+  for (const order of rangeOrders) {
+    for (const paymentRow of paymentsByOrder.get(order.orderId) ?? []) {
+      paymentTypesInRange.add(paymentRow.paymentType);
+    }
+  }
+
+  const paymentTypeIds = buildPaymentTypeOrder(paymentTypesInRange);
+  const slicesByPaymentType = {};
+
+  for (const paymentType of paymentTypeIds) {
+    slicesByPaymentType[paymentType] = buildPaymentSlice(rangeOrders, paymentType, paymentsByOrder);
+  }
+
+  const paymentPanels = {
+    paymentTypeOptions: paymentTypeIds.map((paymentType) => ({
+      value: paymentType,
+      label: formatPaymentTypeLabel(paymentType),
+      orderCount: slicesByPaymentType[paymentType].orderCount,
+    })),
+    slicesByPaymentType,
+  };
+
+  const reviewPopulation = [];
+  const bucketByDelayDays = new Map();
+  let reviewRowCount = 0;
+
+  for (const order of rangeOrders) {
+    const reviewSummary = reviewsByOrder.get(order.orderId);
+
+    if (!reviewSummary || order.delayDays === null) {
+      continue;
+    }
+
+    const averageReviewScore = reviewSummary.reviewScoreSum / reviewSummary.reviewRowCount;
+    const bucketDelayDays = Math.max(MIN_DELAY_BUCKET, Math.min(MAX_DELAY_BUCKET, order.delayDays));
+    reviewRowCount += reviewSummary.reviewRowCount;
+    reviewPopulation.push({
+      x: bucketDelayDays,
+      y: averageReviewScore,
+    });
+
+    const currentBucket = bucketByDelayDays.get(bucketDelayDays) ?? {
+      delayDays: bucketDelayDays,
+      reviewScoreSum: 0,
+      orderCount: 0,
+    };
+
+    currentBucket.reviewScoreSum += averageReviewScore;
+    currentBucket.orderCount += 1;
+    bucketByDelayDays.set(bucketDelayDays, currentBucket);
+  }
+
+  const points = Array.from(bucketByDelayDays.values())
+    .sort((left, right) => left.delayDays - right.delayDays)
+    .map((bucket) => ({
+      delayDays: bucket.delayDays,
+      reviewScoreAvg: roundMetric(bucket.reviewScoreSum / bucket.orderCount),
+      orderCount: bucket.orderCount,
+    }));
+  const minDelay = points[0]?.delayDays ?? 0;
+  const maxDelay = points[points.length - 1]?.delayDays ?? 0;
+
+  const reviewPanel = {
+    population: {
+      totalOrders,
+      reviewedOrderCount: reviewPopulation.length,
+      missingReviewOrderCount: totalOrders - reviewPopulation.length,
+      reviewRowCount,
+    },
+    delayDaysDomain: {
+      min: minDelay,
+      max: maxDelay,
+    },
+    correlation: calculatePearsonCorrelation(reviewPopulation),
+    points,
+    trendLine: buildTrendLine(reviewPopulation, minDelay, maxDelay),
+  };
+
+  return {
+    kpis,
+    monthlySeries,
+    customerStateOptions,
+    productCategoryOptions,
+    geographyPanel,
+    categoryPanel,
+    paymentPanels,
+    reviewPanel,
+  };
+}
+
+function buildStateScopedRecord(sliceMap, picker) {
+  return {
+    all: picker(sliceMap.all),
+    byState: Object.fromEntries(
+      Object.entries(sliceMap.byState).map(([state, value]) => [state, picker(value)]),
+    ),
+  };
+}
+
 const customerStateByCustomerId = new Map();
 const translatedCategoryByRawCategory = new Map();
 const categoryByProductId = new Map();
@@ -573,7 +822,7 @@ await readCsvRows(orderReviewsCsvPath, (row) => {
 const artifact = {
   metadata: {
     source: 'olist',
-    version: '0.4.0',
+    version: '0.5.0',
     generatedAt: new Date().toISOString(),
     currency: 'BRL',
     timeAxis: 'order_purchase_timestamp',
@@ -621,233 +870,48 @@ const artifact = {
 };
 
 for (const range of DATE_RANGES) {
-  const seriesByMonth = new Map(
-    buildMonthKeys(range.start, range.end).map((month) => [
-      month,
-      {
-        month,
-        label: formatMonthLabel(month),
-        orders: 0,
-        gmv: 0,
-        delayedOrders: 0,
-      },
-    ]),
+  const rangeOrders = qualifyingOrders.filter((order) =>
+    isWithinRange(order.purchaseDate, range.start, range.end),
   );
-
-  let totalOrders = 0;
-  let totalGmv = 0;
-  let delayedOrders = 0;
-  let totalCategoryItems = 0;
-  const rangeOrders = [];
-  const stateMetricsByState = new Map();
-  const categoryMetricsByKey = new Map();
-
-  for (const order of qualifyingOrders) {
-    if (!isWithinRange(order.purchaseDate, range.start, range.end)) {
-      continue;
-    }
-
-    rangeOrders.push(order);
-    totalOrders += 1;
-    totalGmv += order.gmv;
-
-    const monthEntry = seriesByMonth.get(order.month);
-
-    if (monthEntry) {
-      monthEntry.orders += 1;
-      monthEntry.gmv = roundCurrency(monthEntry.gmv + order.gmv);
-      monthEntry.delayedOrders += order.isOnTime ? 0 : 1;
-    }
-
-    delayedOrders += order.isOnTime ? 0 : 1;
-
-    const stateMetric = stateMetricsByState.get(order.customerState) ?? {
-      state: order.customerState,
-      label: order.customerState,
-      orderCount: 0,
-      totalGmv: 0,
-      delayedOrderCount: 0,
-    };
-
-    stateMetric.orderCount += 1;
-    stateMetric.totalGmv = roundCurrency(stateMetric.totalGmv + order.gmv);
-    stateMetric.delayedOrderCount += order.isOnTime ? 0 : 1;
-    stateMetricsByState.set(order.customerState, stateMetric);
-
-    for (const category of order.categories) {
-      const categoryMetric = categoryMetricsByKey.get(category.categoryKey) ?? {
-        categoryKey: category.categoryKey,
-        categoryLabel: category.categoryLabel,
-        orderCount: 0,
-        itemCount: 0,
-        totalGmv: 0,
-      };
-
-      categoryMetric.orderCount += 1;
-      categoryMetric.itemCount += category.itemCount;
-      categoryMetric.totalGmv = roundCurrency(categoryMetric.totalGmv + category.totalGmv);
-      totalCategoryItems += category.itemCount;
-      categoryMetricsByKey.set(category.categoryKey, categoryMetric);
-    }
-  }
-
-  artifact.kpisByRange[range.id] = {
-    totalOrders,
-    totalGmv: roundCurrency(totalGmv),
-    lateDeliveryRate: totalOrders === 0 ? 0 : roundPercentage((delayedOrders / totalOrders) * 100),
-  };
-  artifact.monthlySeriesByRange[range.id] = Array.from(seriesByMonth.values()).map((monthEntry) => ({
-    month: monthEntry.month,
-    label: monthEntry.label,
-    orders: monthEntry.orders,
-    gmv: monthEntry.gmv,
-    lateDeliveryRate:
-      monthEntry.orders === 0
-        ? 0
-        : roundPercentage((monthEntry.delayedOrders / monthEntry.orders) * 100),
-  }));
-
-  const stateMetrics = Array.from(stateMetricsByState.values())
-    .map((stateMetric) => ({
-      state: stateMetric.state,
-      label: stateMetric.label,
-      orderCount: stateMetric.orderCount,
-      totalGmv: stateMetric.totalGmv,
-      lateDeliveryRate:
-        stateMetric.orderCount === 0
-          ? 0
-          : roundPercentage((stateMetric.delayedOrderCount / stateMetric.orderCount) * 100),
-    }))
-    .sort(compareByOrderCountThenLabel);
-
-  artifact.customerStateOptionsByRange[range.id] = buildDimensionOptions(
-    'All States',
-    ALL_STATES_VALUE,
-    stateMetrics.map((stateMetric) => ({
-      value: stateMetric.state,
-      label: stateMetric.label,
-      orderCount: stateMetric.orderCount,
-    })),
-    totalOrders,
-  );
-  artifact.geographyPanelsByRange[range.id] = {
-    totalOrders,
-    totalStates: stateMetrics.length,
-    stateMetrics,
-  };
-
-  const categories = Array.from(categoryMetricsByKey.values())
-    .sort(compareCategories)
-    .map((categoryMetric) => ({
-      categoryKey: categoryMetric.categoryKey,
-      categoryLabel: categoryMetric.categoryLabel,
-      orderCount: categoryMetric.orderCount,
-      itemCount: categoryMetric.itemCount,
-      totalGmv: categoryMetric.totalGmv,
-      shareOfItems:
-        totalCategoryItems === 0 ? 0 : roundPercentage((categoryMetric.itemCount / totalCategoryItems) * 100),
-    }));
-
-  artifact.productCategoryOptionsByRange[range.id] = buildDimensionOptions(
-    'All Categories',
-    ALL_CATEGORIES_VALUE,
-    categories.map((category) => ({
-      value: category.categoryKey,
-      label: category.categoryLabel,
-      orderCount: category.orderCount,
-    })),
-    totalOrders,
-  );
-  artifact.categoryPanelsByRange[range.id] = {
-    shareBasis: 'item_count',
-    totals: {
-      totalOrders,
-      totalItems: totalCategoryItems,
-      totalGmv: roundCurrency(totalGmv),
-    },
-    categories,
-    topCategory: categories[0] ?? null,
-  };
-
-  const paymentTypesInRange = new Set();
+  const allSlice = buildRangePanels(range, rangeOrders, paymentsByOrder, reviewsByOrder);
+  const byStateOrders = {};
 
   for (const order of rangeOrders) {
-    for (const paymentRow of paymentsByOrder.get(order.orderId) ?? []) {
-      paymentTypesInRange.add(paymentRow.paymentType);
-    }
+    byStateOrders[order.customerState] ??= [];
+    byStateOrders[order.customerState].push(order);
   }
+  const stateSlices = Object.fromEntries(
+    Object.entries(byStateOrders)
+      .filter(([, orders]) => Array.isArray(orders) && orders.length > 0)
+      .map(([state, orders]) => [
+        state,
+        buildRangePanels(range, orders, paymentsByOrder, reviewsByOrder),
+      ]),
+  );
 
-  const paymentTypeIds = buildPaymentTypeOrder(paymentTypesInRange);
-  const slicesByPaymentType = {};
-
-  for (const paymentType of paymentTypeIds) {
-    slicesByPaymentType[paymentType] = buildPaymentSlice(rangeOrders, paymentType, paymentsByOrder);
-  }
-
-  artifact.paymentPanelsByRange[range.id] = {
-    paymentTypeOptions: paymentTypeIds.map((paymentType) => ({
-      value: paymentType,
-      label: formatPaymentTypeLabel(paymentType),
-      orderCount: slicesByPaymentType[paymentType].orderCount,
-    })),
-    slicesByPaymentType,
-  };
-
-  const reviewPopulation = [];
-  const bucketByDelayDays = new Map();
-  let reviewRowCount = 0;
-
-  for (const order of rangeOrders) {
-    const reviewSummary = reviewsByOrder.get(order.orderId);
-
-    if (!reviewSummary || order.delayDays === null) {
-      continue;
-    }
-
-    const averageReviewScore = reviewSummary.reviewScoreSum / reviewSummary.reviewRowCount;
-    const bucketDelayDays = Math.max(MIN_DELAY_BUCKET, Math.min(MAX_DELAY_BUCKET, order.delayDays));
-    reviewRowCount += reviewSummary.reviewRowCount;
-    reviewPopulation.push({
-      x: bucketDelayDays,
-      y: averageReviewScore,
-    });
-
-    const currentBucket = bucketByDelayDays.get(bucketDelayDays) ?? {
-      delayDays: bucketDelayDays,
-      reviewScoreSum: 0,
-      orderCount: 0,
-    };
-
-    currentBucket.reviewScoreSum += averageReviewScore;
-    currentBucket.orderCount += 1;
-    bucketByDelayDays.set(bucketDelayDays, currentBucket);
-  }
-
-  const points = Array.from(bucketByDelayDays.values())
-    .sort((left, right) => left.delayDays - right.delayDays)
-    .map((bucket) => ({
-      delayDays: bucket.delayDays,
-      reviewScoreAvg: roundMetric(bucket.reviewScoreSum / bucket.orderCount),
-      orderCount: bucket.orderCount,
-    }));
-  const minDelay = points[0]?.delayDays ?? 0;
-  const maxDelay = points[points.length - 1]?.delayDays ?? 0;
-
-  artifact.reviewPanelsByRange[range.id] = {
-    population: {
-      totalOrders,
-      reviewedOrderCount: reviewPopulation.length,
-      missingReviewOrderCount: totalOrders - reviewPopulation.length,
-      reviewRowCount,
-    },
-    delayDaysDomain: {
-      min: minDelay,
-      max: maxDelay,
-    },
-    correlation: calculatePearsonCorrelation(reviewPopulation),
-    points,
-    trendLine: buildTrendLine(reviewPopulation, minDelay, maxDelay),
-  };
+  artifact.kpisByRange[range.id] = buildStateScopedRecord(
+    { all: allSlice, byState: stateSlices },
+    (slice) => slice.kpis,
+  );
+  artifact.monthlySeriesByRange[range.id] = buildStateScopedRecord(
+    { all: allSlice, byState: stateSlices },
+    (slice) => slice.monthlySeries,
+  );
+  artifact.customerStateOptionsByRange[range.id] = allSlice.customerStateOptions;
+  artifact.productCategoryOptionsByRange[range.id] = allSlice.productCategoryOptions;
+  artifact.geographyPanelsByRange[range.id] = allSlice.geographyPanel;
+  artifact.categoryPanelsByRange[range.id] = buildStateScopedRecord(
+    { all: allSlice, byState: stateSlices },
+    (slice) => slice.categoryPanel,
+  );
+  artifact.paymentPanelsByRange[range.id] = buildStateScopedRecord(
+    { all: allSlice, byState: stateSlices },
+    (slice) => slice.paymentPanels,
+  );
+  artifact.reviewPanelsByRange[range.id] = buildStateScopedRecord(
+    { all: allSlice, byState: stateSlices },
+    (slice) => slice.reviewPanel,
+  );
 }
 
 await mkdir(path.dirname(outputPath), { recursive: true });

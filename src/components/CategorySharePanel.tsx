@@ -6,6 +6,7 @@ import { TrophyIcon } from './Icons';
 type CategorySharePanelProps = {
   panel: Phase3CategoryPanel;
   rangeLabel: string;
+  customerStateLabel: string;
 };
 
 const barColors = ['#2F7AE7', '#3F86EA', '#4B91ED', '#5A9AF0', '#7AAEF3', '#A7C8F8'];
@@ -14,14 +15,18 @@ function formatShare(value: number) {
   return `${value.toFixed(2)}%`;
 }
 
-export function CategorySharePanel({ panel, rangeLabel }: CategorySharePanelProps) {
+export function CategorySharePanel({
+  panel,
+  rangeLabel,
+  customerStateLabel,
+}: CategorySharePanelProps) {
   const categories = panel.categories.slice(0, 6);
   const topCategory = panel.topCategory;
 
   return (
     <ChartCard
       title="Category Share / Top Categories"
-      subtitle={`Share of order items for ${rangeLabel}`}
+      subtitle={`Share of order items for ${rangeLabel} within ${customerStateLabel}. Product Category will use focused-mode handling here in a later phase.`}
       footer={
         <div className="flex items-center gap-3 rounded-[22px] border border-blue-100 bg-blue-50/60 px-4 py-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-accent-blue shadow-soft">

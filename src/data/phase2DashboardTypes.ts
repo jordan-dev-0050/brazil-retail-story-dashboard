@@ -55,6 +55,11 @@ export type Phase2DimensionOption = {
   orderCount: number;
 };
 
+export type Phase2StateScoped<T> = {
+  all: T;
+  byState: Record<string, T>;
+};
+
 export type Phase2FreightBand = {
   band: string;
   orderCount: number;
@@ -176,12 +181,12 @@ export type Phase2DashboardArtifact = {
     metricDefinitions: Record<Phase2MetricId, Phase2MetricDefinition>;
   };
   dateRanges: Phase2DateRange[];
-  kpisByRange: Record<DateRangeId, Phase2Kpis>;
-  monthlySeriesByRange: Record<DateRangeId, Phase2MonthlyPoint[]>;
+  kpisByRange: Record<DateRangeId, Phase2StateScoped<Phase2Kpis>>;
+  monthlySeriesByRange: Record<DateRangeId, Phase2StateScoped<Phase2MonthlyPoint[]>>;
   customerStateOptionsByRange: Record<DateRangeId, Phase2DimensionOption[]>;
   productCategoryOptionsByRange: Record<DateRangeId, Phase2DimensionOption[]>;
-  paymentPanelsByRange: Record<DateRangeId, Phase2PaymentRangePanels>;
+  paymentPanelsByRange: Record<DateRangeId, Phase2StateScoped<Phase2PaymentRangePanels>>;
   geographyPanelsByRange: Record<DateRangeId, Phase3GeographyPanel>;
-  categoryPanelsByRange: Record<DateRangeId, Phase3CategoryPanel>;
-  reviewPanelsByRange: Record<DateRangeId, Phase3ReviewPanel>;
+  categoryPanelsByRange: Record<DateRangeId, Phase2StateScoped<Phase3CategoryPanel>>;
+  reviewPanelsByRange: Record<DateRangeId, Phase2StateScoped<Phase3ReviewPanel>>;
 };

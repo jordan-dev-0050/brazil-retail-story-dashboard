@@ -7,6 +7,7 @@ type OnTimeDelayPanelProps = {
   slice: DashboardPaymentPanelSlice;
   rangeLabel: string;
   paymentTypeLabel: string;
+  customerStateLabel: string;
 };
 
 function formatRate(value: number): string {
@@ -17,6 +18,7 @@ export function OnTimeDelayPanel({
   slice,
   rangeLabel,
   paymentTypeLabel,
+  customerStateLabel,
 }: OnTimeDelayPanelProps) {
   const chartData = [
     {
@@ -36,7 +38,7 @@ export function OnTimeDelayPanel({
   return (
     <ChartCard
       title="On-time vs Delayed"
-      subtitle={`Real-backed delivery classification for ${rangeLabel} / ${paymentTypeLabel}`}
+      subtitle={`Real-backed delivery classification for ${rangeLabel} / ${customerStateLabel} / ${paymentTypeLabel}. Product Category remains staged on top of this payment slice.`}
       footer={
         <div className="rounded-[20px] border border-emerald-100 bg-emerald-50/50 px-4 py-3">
           <div className="flex items-end justify-between gap-4">

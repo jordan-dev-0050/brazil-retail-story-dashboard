@@ -4,6 +4,7 @@ import type {
   FilterId,
   Phase2MetricDefinition,
   Phase2MetricId,
+  Phase2StateScoped,
   Phase3CategoryPanel,
   Phase2DashboardArtifact,
   Phase2DateRange,
@@ -25,6 +26,7 @@ type FilterConfig = {
   label: string;
   options: FilterOption[];
   disabled?: boolean;
+  helperText?: string;
 };
 
 type KpiCardViewModel = {
@@ -66,10 +68,23 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 });
 
 export const phase2DashboardArtifact = artifactJson as Phase2DashboardArtifact;
+export const ALL_STATES_VALUE = 'all-states';
+export const ALL_CATEGORIES_VALUE = 'all-categories';
 
 const dateRangeById = Object.fromEntries(
   phase2DashboardArtifact.dateRanges.map((range) => [range.id, range]),
 ) as Record<DateRangeId, Phase2DateRange>;
+
+function getStateScopedValue<T>(
+  scopedValue: Phase2StateScoped<T>,
+  customerState: string = ALL_STATES_VALUE,
+): T {
+  if (customerState === ALL_STATES_VALUE) {
+    return scopedValue.all;
+  }
+
+  return scopedValue.byState[customerState] ?? scopedValue.all;
+}
 
 export function getMetricDefinition(metricId: Phase2MetricId): Phase2MetricDefinition {
   return phase2DashboardArtifact.metadata.metricDefinitions[metricId];
@@ -79,7 +94,10 @@ export function buildMetricCaption(metricId: Phase2MetricId, rangeLabel: string)
   return `${getMetricDefinition(metricId).caption}, ${rangeLabel}`;
 }
 
-export function buildFilterOptions(rangeId: DateRangeId): Record<FilterId, FilterConfig> {
+export function buildFilterOptions(
+  rangeId: DateRangeId,
+  customerState: string = ALL_STATES_VALUE,
+): Record<FilterId, FilterConfig> {
   return {
     dateRange: {
       label: 'Date Range',
@@ -94,7 +112,8 @@ export function buildFilterOptions(rangeId: DateRangeId): Record<FilterId, Filte
         label: option.label,
         value: option.value,
       })),
-      disabled: true,
+      helperText:
+        'Active global cohort for KPI, Time Trend, Payment, Review, and Category Share. Brazil Map switches to focused-state mode.',
     },
     productCategory: {
       label: 'Product Category',
@@ -103,13 +122,20 @@ export function buildFilterOptions(rangeId: DateRangeId): Record<FilterId, Filte
         value: option.value,
       })),
       disabled: true,
+      helperText:
+        'P06 P1 locks in membership-based category semantics, but activation waits for artifact coverage.',
     },
     paymentType: {
       label: 'Payment Type',
-      options: phase2DashboardArtifact.paymentPanelsByRange[rangeId].paymentTypeOptions.map((option) => ({
+      options: getStateScopedValue(
+        phase2DashboardArtifact.paymentPanelsByRange[rangeId],
+        customerState,
+      ).paymentTypeOptions.map((option) => ({
         label: option.label,
         value: option.value,
       })),
+      helperText:
+        'Secondary slice for payment panels only. When Customer State is active, these options are recalculated inside that cohort.',
     },
   };
 }
@@ -120,10 +146,13 @@ export function getDateRangeById(rangeId: DateRangeId): Phase2DateRange {
   return dateRangeById[rangeId];
 }
 
-export function buildKpiCards(rangeId: DateRangeId): KpiCardViewModel[] {
+export function buildKpiCards(
+  rangeId: DateRangeId,
+  customerState: string = ALL_STATES_VALUE,
+): KpiCardViewModel[] {
   const range = getDateRangeById(rangeId);
-  const kpis = phase2DashboardArtifact.kpisByRange[rangeId];
-  const reviewPanel = getReviewPanel(rangeId);
+  const kpis = getStateScopedValue(phase2DashboardArtifact.kpisByRange[rangeId], customerState);
+  const reviewPanel = getReviewPanel(rangeId, customerState);
   const reviewedOrderCount = reviewPanel.points.reduce((total, point) => total + point.orderCount, 0);
   const averageReviewScore =
     reviewedOrderCount === 0
@@ -165,28 +194,43 @@ export function buildKpiCards(rangeId: DateRangeId): KpiCardViewModel[] {
   ];
 }
 
-export function getMonthlySeries(rangeId: DateRangeId) {
-  return phase2DashboardArtifact.monthlySeriesByRange[rangeId];
+export function getMonthlySeries(
+  rangeId: DateRangeId,
+  customerState: string = ALL_STATES_VALUE,
+) {
+  return getStateScopedValue(phase2DashboardArtifact.monthlySeriesByRange[rangeId], customerState);
 }
 
-export function getPaymentPanelsByRange(rangeId: DateRangeId): Phase2PaymentRangePanels {
-  return phase2DashboardArtifact.paymentPanelsByRange[rangeId];
+export function getPaymentPanelsByRange(
+  rangeId: DateRangeId,
+  customerState: string = ALL_STATES_VALUE,
+): Phase2PaymentRangePanels {
+  return getStateScopedValue(phase2DashboardArtifact.paymentPanelsByRange[rangeId], customerState);
 }
 
 export function getGeographyPanel(rangeId: DateRangeId): Phase3GeographyPanel {
   return phase2DashboardArtifact.geographyPanelsByRange[rangeId];
 }
 
-export function getCategoryPanel(rangeId: DateRangeId): Phase3CategoryPanel {
-  return phase2DashboardArtifact.categoryPanelsByRange[rangeId];
+export function getCategoryPanel(
+  rangeId: DateRangeId,
+  customerState: string = ALL_STATES_VALUE,
+): Phase3CategoryPanel {
+  return getStateScopedValue(phase2DashboardArtifact.categoryPanelsByRange[rangeId], customerState);
 }
 
-export function getReviewPanel(rangeId: DateRangeId): Phase3ReviewPanel {
-  return phase2DashboardArtifact.reviewPanelsByRange[rangeId];
+export function getReviewPanel(
+  rangeId: DateRangeId,
+  customerState: string = ALL_STATES_VALUE,
+): Phase3ReviewPanel {
+  return getStateScopedValue(phase2DashboardArtifact.reviewPanelsByRange[rangeId], customerState);
 }
 
-export function getPaymentTypeOptions(rangeId: DateRangeId): Phase2PaymentTypeOption[] {
-  return getPaymentPanelsByRange(rangeId).paymentTypeOptions;
+export function getPaymentTypeOptions(
+  rangeId: DateRangeId,
+  customerState: string = ALL_STATES_VALUE,
+): Phase2PaymentTypeOption[] {
+  return getPaymentPanelsByRange(rangeId, customerState).paymentTypeOptions;
 }
 
 export function getCustomerStateOptions(rangeId: DateRangeId): Phase2DimensionOption[] {
@@ -200,16 +244,21 @@ export function getProductCategoryOptions(rangeId: DateRangeId): Phase2Dimension
 export function getPaymentPanelSlice(
   rangeId: DateRangeId,
   paymentType: PaymentTypeId,
+  customerState: string = ALL_STATES_VALUE,
 ): Phase2PaymentPanelSlice {
-  const fallbackSlice = getPaymentPanelsByRange(rangeId).slicesByPaymentType.all;
+  const paymentPanels = getPaymentPanelsByRange(rangeId, customerState);
+  const fallbackSlice = paymentPanels.slicesByPaymentType.all;
 
-  return getPaymentPanelsByRange(rangeId).slicesByPaymentType[paymentType] ?? fallbackSlice;
+  return paymentPanels.slicesByPaymentType[paymentType] ?? fallbackSlice;
 }
 
-export function getTimeTrendSummary(rangeId: DateRangeId): TimeTrendSummary {
+export function getTimeTrendSummary(
+  rangeId: DateRangeId,
+  customerState: string = ALL_STATES_VALUE,
+): TimeTrendSummary {
   const range = getDateRangeById(rangeId);
-  const kpis = phase2DashboardArtifact.kpisByRange[rangeId];
-  const series = getMonthlySeries(rangeId);
+  const kpis = getStateScopedValue(phase2DashboardArtifact.kpisByRange[rangeId], customerState);
+  const series = getMonthlySeries(rangeId, customerState);
   const monthsCovered = series.length || 1;
 
   return {

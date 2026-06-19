@@ -8,6 +8,7 @@ type PaymentMixPanelProps = {
   slice: DashboardPaymentPanelSlice;
   rangeLabel: string;
   paymentTypeLabel: string;
+  customerStateLabel: string;
 };
 
 const paymentTypeColors: Record<string, string> = {
@@ -26,6 +27,7 @@ export function PaymentMixPanel({
   slice,
   rangeLabel,
   paymentTypeLabel,
+  customerStateLabel,
 }: PaymentMixPanelProps) {
   const totalPaymentValue = slice.paymentMix.totalPaymentValue;
   const chartData = slice.paymentMix.entries.map((entry) => ({
@@ -38,7 +40,7 @@ export function PaymentMixPanel({
   return (
     <ChartCard
       title="Payment Mix"
-      subtitle={`Real-backed payment rows for ${rangeLabel} / ${paymentTypeLabel}`}
+      subtitle={`Real-backed payment rows for ${rangeLabel} / ${customerStateLabel} / ${paymentTypeLabel}. Product Category remains staged on top of this payment slice.`}
       footer={
         <div className="rounded-[22px] border border-blue-100 bg-blue-50/60 px-4 py-4">
           <div className="flex items-center gap-3">
