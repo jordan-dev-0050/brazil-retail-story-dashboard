@@ -3,7 +3,7 @@ author: Codex
 date: 2026-06-19
 title: P06 - Customer State / Product Category Global Filter Productization Plan
 uuid: 0f8d5b6a1d3a4f1b9c7e2a4d6b8c9e10
-version: 0.3
+version: 0.4
 status: in_progress
 ---
 
@@ -116,7 +116,7 @@ P06 目前將 global cohort 定義為：
 |---|---|---|---|---|---|
 | P1 | [x] 已完成 | Global filter semantics contract | 凍結 cohort semantics、coverage tiers 與 payment-type precedence | FXX | `F10-p06-global-filter-semantics-contract.md` |
 | P2 | [x] 已完成 | Customer State end-to-end productization | 將 `Customer State` productize 成第一條可用的 global cohort vertical slice | FXX + RXX | `F09-p06-customer-state-global-filter-contract.md`、`R01-p06-dashboard-state-filter-facade-cleanup.md` |
-| P3 | [ ] 待處理 | Product Category artifact coverage productization | 補上 membership-based category cohort coverage | FXX + RXX | category cohort contract + artifact extension |
+| P3 | [x] 已完成 | Product Category artifact coverage productization | 補上 membership-based category cohort coverage | FXX + RXX | `F11-p06-product-category-global-filter-contract.md`、`R02-p06-category-cohort-runtime-aggregation-cleanup.md` |
 | P4 | [ ] 待處理 | UI activation / disclosure / acceptance baseline | 統一 rollout disclosure 與 verification baseline | FXX | rollout / disclosure / verification baseline |
 
 ---
@@ -190,16 +190,16 @@ P06 目前將 global cohort 定義為：
 
 **Acceptance Criteria**
 
-- [ ] UI 清楚說明 membership-based category cohort semantics。
-- [ ] supported panels 共用一套一致的 category cohort。
-- [ ] Category Share 採 explicit focused-category mode 與 disclosure strategy。
-- [ ] KPI / Trend / payment / review totals 可與 selected category cohort 對齊。
-- [ ] coverage gap 會被明示，而不是 silently ignored。
+- [x] UI 清楚說明 membership-based category cohort semantics。
+- [x] supported panels 共用一套一致的 category cohort。
+- [x] Category Share 採 explicit focused-category mode 與 disclosure strategy。
+- [x] KPI / Trend / payment / review totals 可與 selected category cohort 對齊。
+- [x] coverage gap 會被明示，而不是 silently ignored。
 
 **交付物**
 
-- `FXX` - product-category cohort contract
-- `RXX` - artifact schema / selector extension cleanup
+- `F11` - product-category cohort contract
+- `R02` - artifact schema / selector runtime aggregation cleanup
 
 ---
 
@@ -225,7 +225,7 @@ P06 目前將 global cohort 定義為：
 ### 7.1 Filter-Level Disclosure
 
 - `Customer State`：active global cohort，覆蓋 KPI、Trend、Payment、Review、Category Share；Brazil Map 採 focused-state mode。
-- `Product Category`：staged rollout；category-cohort support 尚未出貨，因此部分 panels 仍顯示 all-category baseline。
+- `Product Category`：active membership-based global cohort；KPI、Trend、Payment、Review 直接吃 category cohort，`Category Share` 採 focused-category mode，`Brazil Map` 明示 not applied。
 
 ### 7.2 Panel-Level Disclosure
 
@@ -274,4 +274,4 @@ P2 完成後，目前實作狀態為：
 
 下一步仍是：
 - 以 `F10-p06-global-filter-semantics-contract.md` 固化整體 semantics freeze
-- 進入 P3 的 category-focused FXX / RXX 工作
+- P3 已以 `F11` / `R02` 完成 category-focused cohort productization；P4 繼續收斂 disclosure baseline。

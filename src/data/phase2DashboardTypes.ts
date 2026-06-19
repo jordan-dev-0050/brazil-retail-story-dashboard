@@ -55,6 +55,37 @@ export type Phase2DimensionOption = {
   orderCount: number;
 };
 
+export type Phase2OrderCategoryFact = {
+  categoryKey: string;
+  categoryLabel: string;
+  itemCount: number;
+  totalGmv: number;
+};
+
+export type Phase2OrderPaymentFact = {
+  paymentType: string;
+  paymentValue: number;
+};
+
+export type Phase2OrderReviewFact = {
+  reviewRowCount: number;
+  reviewScoreSum: number;
+};
+
+export type Phase2OrderFact = {
+  orderId: string;
+  purchaseDate: string;
+  month: string;
+  gmv: number;
+  freightValue: number;
+  isOnTime: boolean;
+  delayDays: number | null;
+  customerState: string;
+  categories: Phase2OrderCategoryFact[];
+  payments: Phase2OrderPaymentFact[];
+  review: Phase2OrderReviewFact | null;
+};
+
 export type Phase2StateScoped<T> = {
   all: T;
   byState: Record<string, T>;
@@ -180,6 +211,7 @@ export type Phase2DashboardArtifact = {
     coverageEnd: string;
     metricDefinitions: Record<Phase2MetricId, Phase2MetricDefinition>;
   };
+  orderFacts: Phase2OrderFact[];
   dateRanges: Phase2DateRange[];
   kpisByRange: Record<DateRangeId, Phase2StateScoped<Phase2Kpis>>;
   monthlySeriesByRange: Record<DateRangeId, Phase2StateScoped<Phase2MonthlyPoint[]>>;

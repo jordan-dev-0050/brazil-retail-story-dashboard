@@ -15,6 +15,7 @@ type DelayReviewPanelProps = {
   panel: Phase3ReviewPanel;
   rangeLabel: string;
   customerStateLabel: string;
+  productCategoryLabel: string;
 };
 
 type TooltipPayload = {
@@ -53,6 +54,7 @@ export function DelayReviewPanel({
   panel,
   rangeLabel,
   customerStateLabel,
+  productCategoryLabel,
 }: DelayReviewPanelProps) {
   const coverageRate =
     panel.population.totalOrders === 0
@@ -62,7 +64,7 @@ export function DelayReviewPanel({
   return (
     <ChartCard
       title="Delay vs Review Relationship"
-      subtitle={`Delivered orders with reviews in ${rangeLabel} within ${customerStateLabel}. Product Category cohort coverage is still staged for a later phase.`}
+      subtitle={`Delivered orders with reviews in ${rangeLabel} within ${customerStateLabel} / ${productCategoryLabel}.`}
       footer={
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-[22px] border border-slate-100 bg-slate-50/80 px-4 py-4 text-sm text-slate">
           <span>

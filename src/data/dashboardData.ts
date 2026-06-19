@@ -1,4 +1,5 @@
 import {
+  ALL_CATEGORIES_VALUE,
   ALL_STATES_VALUE,
   buildFilterOptions as buildPhase2FilterOptions,
   buildKpiCards as buildPhase2KpiCards,
@@ -118,19 +119,21 @@ const dateRangeOptions = dashboardArtifact.dateRanges.map((range) => ({
 const defaultRangeId = (dateRangeOptions[0]?.value ?? 'all') as DateRangeId;
 
 export { formatCurrency, formatCurrencyCompact, formatOrderCount, formatOrderCountCompact };
+export { ALL_CATEGORIES_VALUE, ALL_STATES_VALUE };
 
 export function getDashboardFilterOptions(
   rangeId: Parameters<typeof getPaymentTypeOptions>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): DashboardFilterOptions {
-  return buildPhase2FilterOptions(rangeId, customerState);
+  return buildPhase2FilterOptions(rangeId, customerState, productCategory);
 }
 
 export function getDashboardFilterContract(): DashboardFilterContract {
   return {
-    headline: 'P06 P2 customer-state contract',
+    headline: 'P06 P3 category-cohort contract',
     description:
-      'Customer State now acts as an active global cohort for KPI, Trend, Payment, Review, and Category Share. Payment Type stays a secondary slice inside that cohort, Product Category remains staged, and Brazil Map uses focused-state semantics instead of collapsing to a single-state heatmap.',
+      'Customer State and Product Category now form the active global cohort for KPI, Trend, Payment, and Review. Payment Type remains a secondary slice inside that cohort, Category Share uses focused-category semantics instead of collapsing to a single-category chart, and Brazil Map still keeps Product Category out of its range-scoped state view.',
     status: 'global-cohort-active',
     filters: [
       {
@@ -143,9 +146,9 @@ export function getDashboardFilterContract(): DashboardFilterContract {
       {
         filterId: 'productCategory',
         label: 'Product Category',
-        status: 'staged-global-cohort',
+        status: 'global-cohort-active',
         summary:
-          'Membership-based order cohort. KPI, Trend, Payment, and Review panels are planned to consume it after category slice coverage is added.',
+          'Membership-based order cohort. KPI, Trend, Payment, and Review consume it directly now, while Category Share switches into focused-category mode.',
       },
       {
         filterId: 'paymentType',
@@ -175,7 +178,7 @@ export function getDashboardFilterContract(): DashboardFilterContract {
         label: 'Payment Panels',
         status: 'global-cohort-active',
         summary:
-          'Customer State defines the matched order population first, then Payment Type continues to slice within that cohort.',
+          'Customer State and Product Category define the matched order population first, then Payment Type continues to slice within that cohort.',
       },
       {
         id: 'delay-review',
@@ -189,21 +192,25 @@ export function getDashboardFilterContract(): DashboardFilterContract {
         label: 'Brazil Map',
         status: 'focused-mode',
         summary:
-          'Requires special handling. Customer State will use a focused-state mode instead of silently filtering the same dimension.',
+          'Requires special handling. Customer State uses focused-state mode, while Product Category is explicitly not applied on the range-scoped map.',
       },
       {
         id: 'category-share',
         label: 'Category Share',
-        status: 'global-cohort-active',
+        status: 'focused-mode',
         summary:
-          'Customer State is applied as a supported cohort. Product Category still waits for its later focused-category rollout.',
+          'Keeps the full state cohort visible and highlights the selected Product Category instead of silently collapsing the ranking to one row.',
       },
     ],
   };
 }
 
 export function getInitialFilterValues(): Record<FilterId, string> {
-  const initialFilterOptions = getDashboardFilterOptions(defaultRangeId, ALL_STATES_VALUE);
+  const initialFilterOptions = getDashboardFilterOptions(
+    defaultRangeId,
+    ALL_STATES_VALUE,
+    ALL_CATEGORIES_VALUE,
+  );
 
   return {
     dateRange: initialFilterOptions.dateRange.options[0]?.value ?? defaultRangeId,
@@ -216,8 +223,9 @@ export function getInitialFilterValues(): Record<FilterId, string> {
 export function buildKpiCards(
   rangeId: Parameters<typeof buildPhase2KpiCards>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): KpiCardViewModel[] {
-  return buildPhase2KpiCards(rangeId, customerState);
+  return buildPhase2KpiCards(rangeId, customerState, productCategory);
 }
 
 function getTimeProjectionDivisor(granularity: Exclude<TimeGranularity, 'monthly'>): number {
@@ -323,10 +331,11 @@ function getProjectedTimeTrendSeries(
   granularity: Exclude<TimeGranularity, 'monthly'>,
   rangeId: Parameters<typeof getTimeTrendSummary>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): TimeTrendPoint[] {
   const template = mockTimeTrendSeries[granularity];
-  const summary = getTimeTrendSummary(rangeId, customerState);
-  const monthlySeries = getMonthlySeries(rangeId, customerState);
+  const summary = getTimeTrendSummary(rangeId, customerState, productCategory);
+  const monthlySeries = getMonthlySeries(rangeId, customerState, productCategory);
   const divisor = getTimeProjectionDivisor(granularity);
   const templateAverageOrders = average(template.map((point) => point.orders)) || 1;
   const templateAverageGmv = average(template.map((point) => point.gmv)) || 1;
@@ -357,11 +366,12 @@ function getProjectedTimeTrendSeries(
 function buildMonthlyTimeTrendModel(
   rangeId: Parameters<typeof getTimeTrendSummary>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): TimeTrendModel {
-  const summary = getTimeTrendSummary(rangeId, customerState);
+  const summary = getTimeTrendSummary(rangeId, customerState, productCategory);
 
   return {
-    series: getMonthlySeries(rangeId, customerState).map((point) => ({
+    series: getMonthlySeries(rangeId, customerState, productCategory).map((point) => ({
       label: point.label,
       orders: point.orders,
       gmv: point.gmv,
@@ -393,9 +403,15 @@ function buildProjectedTimeTrendModel(
   granularity: Exclude<TimeGranularity, 'monthly'>,
   rangeId: Parameters<typeof getTimeTrendSummary>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): TimeTrendModel {
-  const projectedSeries = getProjectedTimeTrendSeries(granularity, rangeId, customerState);
-  const summary = getTimeTrendSummary(rangeId, customerState);
+  const projectedSeries = getProjectedTimeTrendSeries(
+    granularity,
+    rangeId,
+    customerState,
+    productCategory,
+  );
+  const summary = getTimeTrendSummary(rangeId, customerState, productCategory);
   const granularityLabel = granularity === 'daily' ? 'Day' : 'Week';
   const divisor = getTimeProjectionDivisor(granularity);
   const pointLabel = granularity === 'daily' ? 'days' : 'weeks';
@@ -431,61 +447,69 @@ export function getTimeTrendModel(
   granularity: TimeGranularity,
   rangeId: Parameters<typeof getTimeTrendSummary>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): TimeTrendModel {
   if (granularity === 'monthly') {
-    return buildMonthlyTimeTrendModel(rangeId, customerState);
+    return buildMonthlyTimeTrendModel(rangeId, customerState, productCategory);
   }
 
-  return buildProjectedTimeTrendModel(granularity, rangeId, customerState);
+  return buildProjectedTimeTrendModel(granularity, rangeId, customerState, productCategory);
 }
 
 export function getTimeTrendSeries(
   granularity: TimeGranularity,
   rangeId: Parameters<typeof getTimeTrendSummary>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): TimeTrendPoint[] {
-  return getTimeTrendModel(granularity, rangeId, customerState).series;
+  return getTimeTrendModel(granularity, rangeId, customerState, productCategory).series;
 }
 
 export function getTimeTrendHighlights(
   granularity: TimeGranularity,
   rangeId: Parameters<typeof getTimeTrendSummary>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): TimeTrendHighlight[] {
-  return getTimeTrendModel(granularity, rangeId, customerState).highlights;
+  return getTimeTrendModel(granularity, rangeId, customerState, productCategory).highlights;
 }
 
 export function getTimeTrendSubtitle(
   granularity: TimeGranularity,
   rangeId: Parameters<typeof getTimeTrendSummary>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): string {
-  return getTimeTrendModel(granularity, rangeId, customerState).subtitle;
+  return getTimeTrendModel(granularity, rangeId, customerState, productCategory).subtitle;
 }
 
 export function getTimeTrendMode(
   granularity: TimeGranularity,
   rangeId: Parameters<typeof getTimeTrendSummary>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): TimeTrendMode {
-  return getTimeTrendModel(granularity, rangeId, customerState).mode;
+  return getTimeTrendModel(granularity, rangeId, customerState, productCategory).mode;
 }
 
 export function getDashboardPaymentTypeOptions(
   rangeId: Parameters<typeof getPaymentTypeOptions>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): DashboardPaymentTypeOption[] {
-  return getPaymentTypeOptions(rangeId, customerState);
+  return getPaymentTypeOptions(rangeId, customerState, productCategory);
 }
 
 export function getDashboardPaymentTypeLabel(
   rangeId: Parameters<typeof getPaymentTypeOptions>[0],
   paymentType: PaymentTypeId,
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): string {
   return (
-    getPaymentTypeOptions(rangeId, customerState).find((option) => option.value === paymentType)?.label ??
-    paymentType
+    getPaymentTypeOptions(rangeId, customerState, productCategory).find(
+      (option) => option.value === paymentType,
+    )?.label ?? paymentType
   );
 }
 
@@ -493,8 +517,9 @@ export function getDashboardPaymentPanelSlice(
   rangeId: Parameters<typeof getPaymentPanelSlice>[0],
   paymentType: PaymentTypeId,
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ): DashboardPaymentPanelSlice {
-  return getPaymentPanelSlice(rangeId, paymentType, customerState);
+  return getPaymentPanelSlice(rangeId, paymentType, customerState, productCategory);
 }
 
 export function getDashboardGeographyPanel(
@@ -513,8 +538,9 @@ export function getDashboardCategoryPanel(
 export function getDashboardReviewPanel(
   rangeId: Parameters<typeof getReviewPanel>[0],
   customerState: string = ALL_STATES_VALUE,
+  productCategory: string = ALL_CATEGORIES_VALUE,
 ) {
-  return getReviewPanel(rangeId, customerState);
+  return getReviewPanel(rangeId, customerState, productCategory);
 }
 
 export { getDateRangeById, getMonthlySeries, getTimeTrendSummary };

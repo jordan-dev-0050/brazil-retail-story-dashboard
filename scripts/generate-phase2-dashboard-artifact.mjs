@@ -819,10 +819,16 @@ await readCsvRows(orderReviewsCsvPath, (row) => {
   });
 });
 
+const orderFacts = qualifyingOrders.map((order) => ({
+  ...order,
+  payments: paymentsByOrder.get(order.orderId) ?? [],
+  review: reviewsByOrder.get(order.orderId) ?? null,
+}));
+
 const artifact = {
   metadata: {
     source: 'olist',
-    version: '0.5.0',
+    version: '0.6.0',
     generatedAt: new Date().toISOString(),
     currency: 'BRL',
     timeAxis: 'order_purchase_timestamp',
@@ -858,6 +864,7 @@ const artifact = {
       },
     },
   },
+  orderFacts,
   dateRanges: DATE_RANGES,
   kpisByRange: {},
   monthlySeriesByRange: {},

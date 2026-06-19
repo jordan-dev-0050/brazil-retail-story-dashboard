@@ -66,6 +66,9 @@ export function FilterBar({ configs, values, onChange }: FilterBarProps) {
                 </select>
                 <ChevronDownIcon className="pointer-events-none absolute right-0 top-1/2 h-5 w-5 -translate-y-1/2 text-slate" />
               </div>
+              {config.helperText ? (
+                <p className="mt-2 text-xs leading-5 text-slate">{config.helperText}</p>
+              ) : null}
             </div>
           </div>
         );

@@ -200,6 +200,41 @@ const expectedReviewChecks = {
     },
   },
 };
+const expectedCategoryCohortChecks = {
+  all_bed_bath_table: {
+    rangeId: 'all',
+    state: 'all-states',
+    category: 'bed_bath_table',
+    totalOrders: 9267,
+    totalGmv: 1041691.05,
+    lateDeliveryRate: 7.43,
+    reviewedOrderCount: 9172,
+  },
+  sp_bed_bath_table: {
+    rangeId: 'all',
+    state: 'SP',
+    category: 'bed_bath_table',
+    totalOrders: 4346,
+    totalGmv: 479736,
+    lateDeliveryRate: 4.07,
+    reviewedOrderCount: 4310,
+    creditCardSlice: {
+      orderCount: 3439,
+      paymentRowCount: 3647,
+      totalPaymentValue: 450888.73,
+      delayedOrderCount: 136,
+    },
+  },
+  ytd_health_beauty: {
+    rangeId: '2018_ytd',
+    state: 'all-states',
+    category: 'health_beauty',
+    totalOrders: 5305,
+    totalGmv: 760671.25,
+    lateDeliveryRate: 8.97,
+    reviewedOrderCount: 5277,
+  },
+};
 
 function sum(array, getter) {
   return array.reduce((total, item) => total + getter(item), 0);
@@ -220,8 +255,26 @@ function sumMonthlyGmv(series) {
   return Number(sum(series, (point) => point.gmv).toFixed(2));
 }
 
+function getRange(rangeId) {
+  return artifact.dateRanges.find((range) => range.id === rangeId);
+}
+
+function getCategoryCohortFacts(rangeId, state, category) {
+  const range = getRange(rangeId);
+  assert.ok(range, `Missing date range ${rangeId}`);
+
+  return artifact.orderFacts.filter(
+    (order) =>
+      order.purchaseDate >= range.start &&
+      order.purchaseDate <= range.end &&
+      (state === 'all-states' || order.customerState === state) &&
+      (category === 'all-categories' ||
+        order.categories.some((entry) => entry.categoryKey === category)),
+  );
+}
+
 assert.equal(artifact.metadata.source, 'olist');
-assert.equal(artifact.metadata.version, '0.5.0');
+assert.equal(artifact.metadata.version, '0.6.0');
 assert.equal(artifact.metadata.currency, 'BRL');
 assert.equal(artifact.metadata.timeAxis, 'order_purchase_timestamp');
 assert.equal(artifact.metadata.grain, 'month');
@@ -258,6 +311,7 @@ assert.deepEqual(
   artifact.dateRanges.map((range) => range.id),
   expectedRanges,
 );
+assert.equal(artifact.orderFacts.length, expectedKpis.all.totalOrders);
 
 for (const rangeId of expectedRanges) {
   const kpis = artifact.kpisByRange[rangeId].all;
@@ -460,5 +514,45 @@ assert.deepEqual(
   ),
   ['boleto'],
 );
+
+for (const expected of Object.values(expectedCategoryCohortChecks)) {
+  const facts = getCategoryCohortFacts(expected.rangeId, expected.state, expected.category);
+  const totalOrders = facts.length;
+  const totalGmv = Number(sum(facts, (order) => order.gmv).toFixed(2));
+  const delayedOrderCount = facts.filter((order) => !order.isOnTime).length;
+  const lateDeliveryRate =
+    totalOrders === 0 ? 0 : Number(((delayedOrderCount / totalOrders) * 100).toFixed(2));
+  const reviewedOrderCount = facts.filter(
+    (order) => order.review && order.delayDays !== null,
+  ).length;
+
+  assert.equal(totalOrders, expected.totalOrders);
+  assert.equal(totalGmv, expected.totalGmv);
+  assert.equal(lateDeliveryRate, expected.lateDeliveryRate);
+  assert.equal(reviewedOrderCount, expected.reviewedOrderCount);
+
+  if (expected.creditCardSlice) {
+    const creditCardFacts = facts.filter((order) =>
+      order.payments.some((payment) => payment.paymentType === 'credit_card'),
+    );
+    assert.equal(creditCardFacts.length, expected.creditCardSlice.orderCount);
+    assert.equal(
+      sum(creditCardFacts, (order) => order.payments.length),
+      expected.creditCardSlice.paymentRowCount,
+    );
+    assert.equal(
+      Number(
+        sum(creditCardFacts, (order) =>
+          sum(order.payments, (payment) => payment.paymentValue),
+        ).toFixed(2),
+      ),
+      expected.creditCardSlice.totalPaymentValue,
+    );
+    assert.equal(
+      creditCardFacts.filter((order) => !order.isOnTime).length,
+      expected.creditCardSlice.delayedOrderCount,
+    );
+  }
+}
 
 console.log('Phase 2/3 dashboard artifact checks passed.');

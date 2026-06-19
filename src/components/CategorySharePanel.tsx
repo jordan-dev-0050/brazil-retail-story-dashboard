@@ -7,6 +7,8 @@ type CategorySharePanelProps = {
   panel: Phase3CategoryPanel;
   rangeLabel: string;
   customerStateLabel: string;
+  focusedCategory: string | null;
+  focusedCategoryKey: string | null;
 };
 
 const barColors = ['#2F7AE7', '#3F86EA', '#4B91ED', '#5A9AF0', '#7AAEF3', '#A7C8F8'];
@@ -19,23 +21,35 @@ export function CategorySharePanel({
   panel,
   rangeLabel,
   customerStateLabel,
+  focusedCategory,
+  focusedCategoryKey,
 }: CategorySharePanelProps) {
   const categories = panel.categories.slice(0, 6);
   const topCategory = panel.topCategory;
+  const focusedCategoryRow = focusedCategoryKey
+    ? panel.categories.find((category) => category.categoryKey === focusedCategoryKey) ?? null
+    : null;
+  const subtitle = focusedCategory
+    ? `Focused-category mode for ${focusedCategory} within ${customerStateLabel} / ${rangeLabel}. The full ranking stays visible so the active category filter is disclosed instead of silently collapsing the panel.`
+    : `Share of order items for ${rangeLabel} within ${customerStateLabel}.`;
 
   return (
     <ChartCard
       title="Category Share / Top Categories"
-      subtitle={`Share of order items for ${rangeLabel} within ${customerStateLabel}. Product Category will use focused-mode handling here in a later phase.`}
+      subtitle={subtitle}
       footer={
         <div className="flex items-center gap-3 rounded-[22px] border border-blue-100 bg-blue-50/60 px-4 py-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-accent-blue shadow-soft">
             <TrophyIcon className="h-6 w-6" />
           </div>
           <p className="text-sm text-slate">
-            Top Category by Item Share:{' '}
+            {focusedCategoryRow ? 'Focused Category:' : 'Top Category by Item Share:'}{' '}
             <span className="font-semibold text-accent-blue">
-              {topCategory ? `${topCategory.categoryLabel} (${formatShare(topCategory.shareOfItems)})` : 'N/A'}
+              {focusedCategoryRow
+                ? `${focusedCategoryRow.categoryLabel} (${formatShare(focusedCategoryRow.shareOfItems)})`
+                : topCategory
+                  ? `${topCategory.categoryLabel} (${formatShare(topCategory.shareOfItems)})`
+                  : 'N/A'}
             </span>
           </p>
         </div>
@@ -55,6 +69,11 @@ export function CategorySharePanel({
             <div className="min-w-0">
               <div className="mb-2 flex items-center justify-between gap-3">
                 <p className="truncate text-sm font-medium text-ink">{category.categoryLabel}</p>
+                {focusedCategoryRow?.categoryKey === category.categoryKey ? (
+                  <span className="shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-accent-blue">
+                    Focused
+                  </span>
+                ) : null}
               </div>
               <div className="h-4 overflow-hidden rounded-full bg-slate-100">
                 <div

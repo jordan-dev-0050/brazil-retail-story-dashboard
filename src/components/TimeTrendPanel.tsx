@@ -8,6 +8,7 @@ import {
   YAxis,
 } from 'recharts';
 import {
+  ALL_CATEGORIES_VALUE,
   getTimeTrendMode,
   formatOrderCount,
   getTimeTrendHighlights,
@@ -25,6 +26,8 @@ type TimeTrendPanelProps = {
   rangeId: DateRangeId;
   customerState: string;
   customerStateLabel: string;
+  productCategory: string;
+  productCategoryLabel: string;
 };
 
 const timeTabs = [
@@ -41,11 +44,17 @@ export function TimeTrendPanel({
   rangeId,
   customerState,
   customerStateLabel,
+  productCategory,
+  productCategoryLabel,
 }: TimeTrendPanelProps) {
-  const data = getTimeTrendSeries(granularity, rangeId, customerState);
-  const highlights = getTimeTrendHighlights(granularity, rangeId, customerState);
-  const subtitle = `${getTimeTrendSubtitle(granularity, rangeId, customerState)} Cohort: ${customerStateLabel}. Product Category remains staged for a later phase.`;
-  const mode = getTimeTrendMode(granularity, rangeId, customerState);
+  const data = getTimeTrendSeries(granularity, rangeId, customerState, productCategory);
+  const highlights = getTimeTrendHighlights(granularity, rangeId, customerState, productCategory);
+  const categoryClause =
+    productCategory === ALL_CATEGORIES_VALUE
+      ? 'Product Category: All Categories.'
+      : `Product Category cohort: ${productCategoryLabel}. Category Share keeps focused-mode handling for this same-dimension filter.`;
+  const subtitle = `${getTimeTrendSubtitle(granularity, rangeId, customerState, productCategory)} Cohort: ${customerStateLabel}. ${categoryClause}`;
+  const mode = getTimeTrendMode(granularity, rangeId, customerState, productCategory);
   const modeLabel = mode === 'real-monthly' ? 'Real Monthly' : 'Projected View';
   const modeClassName =
     mode === 'real-monthly'
