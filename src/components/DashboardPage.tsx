@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   buildKpiCards,
   getDashboardCategoryPanel,
-  getDashboardFilterContract,
   getDashboardFilterOptions,
   getDashboardGeographyPanel,
   getDashboardPaymentPanelSlice,
@@ -17,7 +16,6 @@ import { CategorySharePanel } from './CategorySharePanel';
 import { DelayReviewPanel } from './DelayReviewPanel';
 import { FilterBar } from './FilterBar';
 import { FreightDistributionPanel } from './FreightDistributionPanel';
-import { GlobalFilterContractCard } from './GlobalFilterContractCard';
 import { KpiCard } from './KpiCard';
 import { OnTimeDelayPanel } from './OnTimeDelayPanel';
 import { PaymentMixPanel } from './PaymentMixPanel';
@@ -51,7 +49,6 @@ export function DashboardPage() {
   const geographyPanel = getDashboardGeographyPanel(selectedRangeId);
   const categoryPanel = getDashboardCategoryPanel(selectedRangeId, selectedCustomerState);
   const reviewPanel = getDashboardReviewPanel(selectedRangeId, selectedCustomerState);
-  const filterContract = getDashboardFilterContract();
   const selectedRangeLabel =
     filterConfigs.dateRange.options.find((option) => option.value === selectedRangeId)?.label ??
     selectedRangeId;
@@ -116,18 +113,6 @@ export function DashboardPage() {
     <main className="min-h-screen px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-6">
         <FilterBar configs={filterConfigs} values={filters} onChange={updateFilter} />
-
-        <section className="rounded-[24px] border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm text-slate shadow-soft">
-          <p>
-            <span className="font-semibold text-ink">P06 P2 boundary:</span> Customer State now
-            recalculates KPI cards, Time Trend, payment panels, Delay vs Review, and Category
-            Share from one shared cohort. Payment Type still slices only the payment panels inside
-            that cohort. Brazil Map stays range-backed and switches to focused-state handling, and
-            Product Category remains intentionally staged for a later phase.
-          </p>
-        </section>
-
-        <GlobalFilterContractCard contract={filterContract} />
 
         <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {kpiCards.map((card) => (
