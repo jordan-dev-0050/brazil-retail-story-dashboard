@@ -2,7 +2,7 @@
 
 這是一個互動式作品集儀表板，將 Olist 巴西電商資料集整理成適合招募方閱讀的零售分析故事，重點是可操作的篩選與分析，不是靜態截圖。
 
-線上展示：`ADD_YOUR_VERCEL_URL_HERE`
+線上展示：`https://brazil-retail-story-dashboard.vercel.app/`
 
 ## 分析亮點
 
