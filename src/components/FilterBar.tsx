@@ -22,7 +22,7 @@ export function FilterBar({ configs, values, onChange }: FilterBarProps) {
   };
 
   return (
-    <section className="grid gap-4 xl:grid-cols-[180px_repeat(4,minmax(0,1fr))]">
+    <section className="grid gap-4 xl:grid-cols-[180px_minmax(332px,1.32fr)_repeat(3,minmax(0,1fr))]">
       <div className="flex items-center px-2">
         <h1 className="text-[1.95rem] font-semibold tracking-[-0.035em] text-ink">
           Global Filters
@@ -38,6 +38,8 @@ export function FilterBar({ configs, values, onChange }: FilterBarProps) {
           <div
             key={id}
             className={`relative flex items-center gap-3 rounded-[24px] border border-white/80 bg-white/95 px-4 py-4 shadow-panel backdrop-blur ${
+              id === 'dateRange' ? 'xl:pr-6' : ''
+            } ${
               config.disabled ? 'opacity-70' : ''
             }`}
           >

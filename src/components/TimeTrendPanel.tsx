@@ -76,15 +76,17 @@ export function TimeTrendPanel({
       subtitle={subtitle}
       actions={<ToggleTabs options={timeTabs} value={granularity} onChange={onGranularityChange} />}
       footer={
-        <div className="grid gap-3 md:grid-cols-3">
-          {highlights.map((item) => (
+        <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.14fr)]">
+          {highlights.map((item, index) => (
             <div
               key={item.label}
-              className="rounded-[20px] border border-slate-200 bg-slate-50/70 px-4 py-3"
+              className={`min-w-0 rounded-[20px] border border-slate-200 bg-slate-50/70 px-4 py-3 ${
+                index === highlights.length - 1 ? 'md:px-5' : ''
+              }`}
             >
               <p className="text-xs uppercase tracking-[0.08em] text-slate">{item.label}</p>
               <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-ink">{item.value}</p>
-              <p className="mt-1 text-sm text-slate">{item.detail}</p>
+              <p className="mt-1 break-words text-sm text-slate">{item.detail}</p>
             </div>
           ))}
         </div>
